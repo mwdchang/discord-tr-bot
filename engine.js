@@ -121,10 +121,32 @@ Abilities: ${unit.abilities.join(', ')}
   }
 
 
+  replyBestAgainst(unit) {
+    // Too rare to be useful
+    const skipList = ['Devil', 'Fallen Dominion', 'Fallen Archangel', 'Fallen Angel', 'Shadow Monster'];
+    
+    const result = [];
+    for (const candidate of this.unitMap.values()) {
+      const defendScore = this.vsScore(unit, candidate);
+      const attackScore = this.vsScore(candidate, unit);
+
+      if (skipList.includes(candidate.name)) continue;
+
+      result.push({
+        name: candidate.name,
+        score: +((attackScore / defendScore).toFixed(2))
+      });
+    }
+    result.sort((a, b) => b.score - a.score);
+    const top5 = result.splice(0, 5);
+    // console.log(result);
+    console.log(`Top units against ${unit.name} are:`, top5.map(d => `${d.name} ${d.score}`).join(',  '));
+  }
+
+
   replyMatchUp(a, b) {
     const aScore = this.vsScore(a, b);
     const bScore = this.vsScore(b, a);
-    const absDiff = Math.abs(aScore - bScore);
 
     console.log(`${a.name} =`, +aScore.toFixed(2),' ', `${b.name} =`, +bScore.toFixed(2));
     if (aScore > bScore && aScore / bScore > 1.25) {
