@@ -37,8 +37,11 @@ Abilities: ${unit.abilities.join(', ')}
 
 
   bestAgainst(unit) {
+    const skipList = ['Devil', 'Fallen Dominion', 'Fallen Archangel', 'Fallen Angel', 'Shadow Monster'];
     const matches = [];
     for (const candidate of this.unitMap.values()) {
+      if (skipList.includes(candidate.name)) continue;
+
       const result = this.simulateX(candidate, unit, 10);
 
       let aloss = 0;
@@ -285,6 +288,20 @@ Abilities: ${unit.abilities.join(', ')}
         //////////////////////////////////////////////////////////////////////////////// 
         // counter
         //////////////////////////////////////////////////////////////////////////////// 
+        let counterAccuracy = 0.30;
+        if (attackRef.abilities.includes('swift')) {
+          counterAccuracy -= 0.10;
+        }
+        if (attackRef.abilities.includes('beauty')) {
+          counterAccuracy -= 0.05;
+        }
+        if (attackRef.abilities.includes('fear') && !defendRef.abilities.includes('fear')) {
+          counterAccuracy -= 0.15;
+        }
+        if (defendRef.abilities.includes('marksmanship')) {
+          counterAccuracy += 0.10;
+        }
+
         resist = 0;
         magicPsychic = false;
         for (const type of defendRef.primaries) {
@@ -293,7 +310,7 @@ Abilities: ${unit.abilities.join(', ')}
         }
         damageTypePCT = 100 - resist / defendRef.primaries.length;
         damage = 
-          accuracy * 
+          counterAccuracy * 
           (damageTypePCT / 100) * 
           (defendRef.efficiency / 100) * 
           defendRef.numUnits * 
@@ -352,6 +369,14 @@ Abilities: ${unit.abilities.join(', ')}
           attackRef.numUnits * 
           attackRef.secondaryPower *
           (magicPsychic === true ? 0.5 : randomBM());
+
+        let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
+        for (const weakness of weaknesses) {
+          const weakType = weakness.split(' ')[1];
+          if (attackRef.secondaries.includes(weakType)) {
+            damage *= 2;
+          }
+        }
 
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
