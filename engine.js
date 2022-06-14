@@ -36,6 +36,17 @@ Abilities: ${unit.abilities.join(', ')}
   };
 
 
+  simulateX(attacker, defender, n) {
+    const r = [];
+    for (let i = 0; i < n; i++) {
+      r.push(
+        this.simulate(attacker, defender)
+      );
+    }
+    return r;
+  }
+
+
   simulate(attacker, defender) {
     // Allocate approximate number of units at equal net power
     const TOTAL_NP = 2000000;
@@ -54,6 +65,7 @@ Abilities: ${unit.abilities.join(', ')}
       secondaryPower: attacker.a2_power,
       counterPower: attacker.counter,
       resistances: attacker.resistances,
+      unitLoss: 0,
       powerLoss: 0
     };
 
@@ -71,10 +83,11 @@ Abilities: ${unit.abilities.join(', ')}
       secondaryPower: defender.a2_power,
       counterPower: defender.counter,
       resistances: defender.resistances,
+      unitLoss: 0,
       powerLoss: 0
     };
 
-    console.log(`${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits})`);
+    // console.log(`${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits})`);
 
     // temp
     let attackRef = null;
@@ -173,11 +186,11 @@ Abilities: ${unit.abilities.join(', ')}
 
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
-        defendRef.powerLoss += unitLoss * defenderRef.power;
-        console.log('pri attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        defendRef.unitLoss += unitLoss;
+        // console.log('pri attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
         // efficiency
-        if (attackRef.abilities.includes('siege')) {
+        if (attackRef.abilities.includes('endurance')) {
           attackRef.efficiency -= 10;
         } else {
           attackRef.efficiency -= 15;
@@ -209,11 +222,11 @@ Abilities: ${unit.abilities.join(', ')}
 
           let unitLoss = Math.floor(damage / defendRef.hp);
           defendRef.numUnits -= unitLoss;
-          defendRef.powerLoss += unitLoss * defenderRef.power;
-          console.log('add attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+          defenderRef.unitLoss += unitLoss;
+          // console.log('add attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
           // efficiency
-          if (attackRef.abilities.includes('siege')) {
+          if (attackRef.abilities.includes('endurance')) {
             attackRef.efficiency -= 10;
           } else {
             attackRef.efficiency -= 15;
@@ -260,10 +273,11 @@ Abilities: ${unit.abilities.join(', ')}
 
         unitLoss = Math.floor(damage / attackRef.hp);
         attackRef.numUnits -= unitLoss;
-        attackRef.powerLoss += unitLoss * attackRef.power;
-        console.log('counter:', defendRef.name, `slew ${unitLoss}`, attackRef.name);
+        attackRef.unitLoss += unitLoss;
+        // console.log('counter:', defendRef.name, `slew ${unitLoss}`, attackRef.name);
+        //
         // efficiency
-        if (defendRef.abilities.includes('siege')) {
+        if (defendRef.abilities.includes('endurance')) {
           defendRef.efficiency -= 10;
         } else {
           defendRef.efficiency -= 15;
@@ -288,16 +302,33 @@ Abilities: ${unit.abilities.join(', ')}
 
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
-        defendRef.powerLoss += unitLoss * defenderRef.power;
+        defendRef.unitLoss += unitLoss;
 
-        console.log('sec attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        //console.log('sec attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
       }
     }
 
-    console.log('Attacker loss np', attackerRef.powerLoss);
-    console.log('Defender loss np', defenderRef.powerLoss);
-    console.log(randomBM());
-    return initOrder;
+    // Healing + regen
+    for (const ref of [attackerRef, defenderRef]) {
+      let regen = 0;
+      let healing = 0;
+      if (ref.abilities.includes('regeneration')) {
+        regen = Math.floor(ref.unitLoss * 0.2);
+      }
+      if (ref.abilities.includes('healing')) {
+        healing = Math.floor(ref.unitLoss * 0.3);
+      }
+
+      ref.unitLoss -= (regen + healing);
+      ref.numUnits += (regen + healing);
+    }
+
+    // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
+    // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
+    return {
+      attackerLoss: attackerRef.unitLoss * attackerRef.power,
+      defenderLoss: defenderRef.unitLoss * defenderRef.power
+    };
   }
 
 
