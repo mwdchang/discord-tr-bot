@@ -24,7 +24,7 @@ Support the following queries
 Runs head-to-head simulation match up between two units
 
 ```
-show match lich vs dwarven shaman
+@botname show match lich vs dwarven shaman
 ```
 
 yields
