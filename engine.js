@@ -37,7 +37,7 @@ Abilities: ${unit.abilities.join(', ')}
 
 
   bestAgainst(unit) {
-    const skipList = ['Devil', 'Fallen Dominion', 'Fallen Archangel', 'Fallen Angel', 'Shadow Monster'];
+    const skipList = ['Devil', 'Fallen Dominion', 'Fallen Archangel', 'Fallen Angel', 'Shadow Monster', 'Succubus'];
     const matches = [];
     for (const candidate of this.unitMap.values()) {
       if (skipList.includes(candidate.name)) continue;
@@ -68,9 +68,14 @@ Abilities: ${unit.abilities.join(', ')}
       return r.attackerLoss;
     });
 
+    const overall = _.orderBy(matches, r => {
+      return -(r.defenderLoss - r.attackerLoss);
+    });
+
     return {
-      bestDefenders: _.take(bestDefenders, 5),
-      bestAttackers: _.take(bestAttackers, 5)
+      bestDefenders: _.take(bestDefenders, 10),
+      bestAttackers: _.take(bestAttackers, 10),
+      overall: _.take(overall, 10)
     };
   }
 
@@ -234,10 +239,15 @@ Abilities: ${unit.abilities.join(', ')}
           damage /= 2;
         }
 
+        if (defendRef.abilities.includes('scales')) {
+          damage *= 0.75;
+        }
+
+
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
-        console.log('pri attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        console.log(`pri attack (${accuracy}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
         // efficiency
         if (attackRef.abilities.includes('endurance')) {
@@ -270,10 +280,15 @@ Abilities: ${unit.abilities.join(', ')}
             damage /= 2;
           }
 
+          if (defendRef.abilities.includes('scales')) {
+            damage *= 0.75;
+          }
+
+
           let unitLoss = Math.floor(damage / defendRef.hp);
           defendRef.numUnits -= unitLoss;
-          defenderRef.unitLoss += unitLoss;
-          console.log('add attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+          defendRef.unitLoss += unitLoss;
+          console.log(`add attack (${accuracy}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
           // efficiency
           if (attackRef.abilities.includes('endurance')) {
@@ -330,6 +345,10 @@ Abilities: ${unit.abilities.join(', ')}
           damage /= 2;
         }
 
+        if (attackRef.abilities.includes('scales')) {
+          damage *= 0.75;
+        }
+
         // ranged
         if (attackRef.primaries.includes('ranged')) {
           damage = 0;
@@ -378,28 +397,32 @@ Abilities: ${unit.abilities.join(', ')}
           }
         }
 
+        if (defendRef.abilities.includes('scales')) {
+          damage *= 0.75;
+        }
+
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
 
-        console.log('sec attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        console.log(`sec attack (${accuracy}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
       }
     }
 
     // Healing + regen
-    // for (const ref of [attackerRef, defenderRef]) {
-    //   let regen = 0;
-    //   let healing = 0;
-    //   if (ref.abilities.includes('regeneration')) {
-    //     regen = Math.floor(ref.unitLoss * 0.2);
-    //   }
-    //   if (ref.abilities.includes('healing')) {
-    //     healing = Math.floor(ref.unitLoss * 0.3);
-    //   }
+    for (const ref of [attackerRef, defenderRef]) {
+      let regen = 0;
+      let healing = 0;
+      if (ref.abilities.includes('regeneration')) {
+        regen = Math.floor(ref.unitLoss * 0.2);
+      }
+      if (ref.abilities.includes('healing')) {
+        healing = Math.floor(ref.unitLoss * 0.3);
+      }
 
-    //   ref.unitLoss -= (regen + healing);
-    //   ref.numUnits += (regen + healing);
-    // }
+      ref.unitLoss -= (regen + healing);
+      ref.numUnits += (regen + healing);
+    }
 
     // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
     // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
@@ -516,7 +539,7 @@ Abilities: ${unit.abilities.join(', ')}
 
   replyBestAgainst(unit) {
     // Too rare to be useful
-    const skipList = ['Devil', 'Fallen Dominion', 'Fallen Archangel', 'Fallen Angel', 'Shadow Monster'];
+    const skipList = ['Devil', 'Fallen Dominion', 'Fallen Archangel', 'Fallen Angel', 'Shadow Monster', 'Succubus'];
     
     const result = [];
     for (const candidate of this.unitMap.values()) {
