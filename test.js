@@ -56,9 +56,23 @@ console.log(engine.replyBestAgainst(
 */
 
 
-console.log(engine.simulate(
-  engine.findUnit('treant'),
+// console.log(engine.simulate(
+//   engine.findUnit('treant'),
+//   engine.findUnit('archangel')
+// ));
+
+
+console.log(engine.bestAgainst(
   engine.findUnit('archangel')
 ));
+
+// console.log(engine.simulate(
+//   engine.findUnit('red dragon'),
+//   engine.findUnit('archangel')
+// ));
+// console.log(engine.simulate(
+//   engine.findUnit('chimera'),
+//   engine.findUnit('archangel')
+// ));
 
 

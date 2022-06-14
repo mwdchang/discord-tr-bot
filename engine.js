@@ -36,6 +36,42 @@ Abilities: ${unit.abilities.join(', ')}
   };
 
 
+  bestAgainst(unit) {
+    const matches = [];
+    for (const candidate of this.unitMap.values()) {
+      const result = this.simulateX(candidate, unit, 10);
+
+      let aloss = 0;
+      let dloss = 0;
+      for (const battle of result) {
+        aloss += battle.attackerLoss;
+        dloss += battle.defenderLoss;
+      }
+      aloss /= 10;
+      dloss /= 10;
+      matches.push({
+        attacker: candidate.name,
+        defender: unit.name,
+        attackerLoss: aloss,
+        defenderLoss: dloss
+      });
+    }
+
+    const bestAttackers = _.orderBy(matches, r => {
+      return -r.defenderLoss;
+    });
+
+    const bestDefenders = _.orderBy(matches, r => {
+      return r.attackerLoss;
+    });
+
+    return {
+      bestDefenders: _.take(bestDefenders, 5),
+      bestAttackers: _.take(bestAttackers, 5)
+    };
+  }
+
+
   simulateX(attacker, defender, n) {
     const r = [];
     for (let i = 0; i < n; i++) {
@@ -45,7 +81,6 @@ Abilities: ${unit.abilities.join(', ')}
     }
     return r;
   }
-
 
   simulate(attacker, defender) {
     // Allocate approximate number of units at equal net power
@@ -73,7 +108,7 @@ Abilities: ${unit.abilities.join(', ')}
       name: defender.name,
       efficiency: 100,
       hp: defender.hp,
-      power: attacker.power,
+      power: defender.power,
       numUnits: Math.floor(TOTAL_NP / defender.power),
       abilities: defender.abilities,
 
@@ -87,7 +122,8 @@ Abilities: ${unit.abilities.join(', ')}
       powerLoss: 0
     };
 
-    // console.log(`${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits})`);
+    console.log('');
+    console.log(`### ${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits}) ###`);
 
     // temp
     let attackRef = null;
@@ -326,25 +362,29 @@ Abilities: ${unit.abilities.join(', ')}
     }
 
     // Healing + regen
-    for (const ref of [attackerRef, defenderRef]) {
-      let regen = 0;
-      let healing = 0;
-      if (ref.abilities.includes('regeneration')) {
-        regen = Math.floor(ref.unitLoss * 0.2);
-      }
-      if (ref.abilities.includes('healing')) {
-        healing = Math.floor(ref.unitLoss * 0.3);
-      }
+    // for (const ref of [attackerRef, defenderRef]) {
+    //   let regen = 0;
+    //   let healing = 0;
+    //   if (ref.abilities.includes('regeneration')) {
+    //     regen = Math.floor(ref.unitLoss * 0.2);
+    //   }
+    //   if (ref.abilities.includes('healing')) {
+    //     healing = Math.floor(ref.unitLoss * 0.3);
+    //   }
 
-      ref.unitLoss -= (regen + healing);
-      ref.numUnits += (regen + healing);
-    }
+    //   ref.unitLoss -= (regen + healing);
+    //   ref.numUnits += (regen + healing);
+    // }
 
     // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
     // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
     return {
+      attcker: attackerRef.name,
       attackerLoss: attackerRef.unitLoss * attackerRef.power,
-      defenderLoss: defenderRef.unitLoss * defenderRef.power
+      attackerUnitLoss: attackerRef.unitLoss,
+      defender: defenderRef.name,
+      defenderLoss: defenderRef.unitLoss * defenderRef.power,
+      defenderUnitLoss: defenderRef.unitLoss
     };
   }
 
