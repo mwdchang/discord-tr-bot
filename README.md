@@ -12,8 +12,13 @@ We also need to grab the access `TOKEN` that will allow the bot to sign-on.
 ## Run the Bot
 This depends on node-16/18 and `discord.js`. 
 - Put the TOKEN into the `.env` file
+
+```
+TOKEN=<access token>
+```
+
 - Install dependencies: `npm install`
-- Install the bot: `node index.js`
+- Install and run the bot: `node index.js`
 
 
 ## Interacting with the Bot
