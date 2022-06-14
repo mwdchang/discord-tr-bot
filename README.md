@@ -13,7 +13,22 @@ We also need to grab the access `TOKEN` that will allow the bot to sign-on.
 This depends on node-16/18 and `discord.js`. 
 - Put the TOKEN into the `.env` file
 - Install dependencies: `npm install`
-- Run the bot: `node index.js`
+- Install the bot: `node index.js`
 
 
 ## Interacting with the Bot
+Support the following queries
+
+
+### show match {unit1} vs {unit2}
+Runs head-to-head simulation match up between two units
+
+```
+show match lich vs dwarven shaman
+```
+
+yields
+
+```
+Dwarven Shaman wins on average Lich np-loss=190943 : Dwarven Shaman np-loss=137836 (smaller is better)
+```

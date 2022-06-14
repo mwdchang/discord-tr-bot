@@ -149,6 +149,9 @@ Abilities: ${unit.abilities.join(', ')}
         accuracy += 0.10;
       }
 
+      const defenderFlying = defendRef.abilities.includes('flying') ? true : false;
+      const attackerFlying = attackRef.abilities.includes('flying') ? true : false;
+
 
       // Primary attack
       // TODO:
@@ -157,10 +160,17 @@ Abilities: ${unit.abilities.join(', ')}
       if (hit.type === 'primary') {
         let resist = 0;
         let magicPsychic = false;
+        let ranged = false;
         for (const type of attackRef.primaries) {
           if (type === 'magic' || type === 'psychic') magicPsychic = true;
+          if (type === 'ranged') ranged = true; 
           resist += defendRef.resistances[type];
         }
+
+        if (defenderFlying) {
+          if (attackerFlying === false && ranged === false) continue;
+        }
+
         let damageTypePCT = 100 - resist / attackRef.primaries.length;
         let damage = 
           accuracy * 
@@ -169,6 +179,7 @@ Abilities: ${unit.abilities.join(', ')}
           attackRef.numUnits * 
           attackRef.primaryPower *
           (magicPsychic === true ? 0.5 : randomBM());
+
 
         // weakness
         let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
@@ -187,7 +198,7 @@ Abilities: ${unit.abilities.join(', ')}
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
-        // console.log('pri attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        console.log('pri attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
         // efficiency
         if (attackRef.abilities.includes('endurance')) {
@@ -223,7 +234,7 @@ Abilities: ${unit.abilities.join(', ')}
           let unitLoss = Math.floor(damage / defendRef.hp);
           defendRef.numUnits -= unitLoss;
           defenderRef.unitLoss += unitLoss;
-          // console.log('add attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+          console.log('add attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
           // efficiency
           if (attackRef.abilities.includes('endurance')) {
@@ -274,8 +285,8 @@ Abilities: ${unit.abilities.join(', ')}
         unitLoss = Math.floor(damage / attackRef.hp);
         attackRef.numUnits -= unitLoss;
         attackRef.unitLoss += unitLoss;
-        // console.log('counter:', defendRef.name, `slew ${unitLoss}`, attackRef.name);
-        //
+        console.log('counter:', defendRef.name, `slew ${unitLoss}`, attackRef.name);
+        
         // efficiency
         if (defendRef.abilities.includes('endurance')) {
           defendRef.efficiency -= 10;
@@ -288,10 +299,16 @@ Abilities: ${unit.abilities.join(', ')}
       if (hit.type === 'secondary') {
         let resist = 0;
         let magicPsychic = false;
+        let ranged = false;
         for (const type of attackRef.secondaries) {
           if (type === 'magic' || type === 'psychic') magicPsychic = true;
+          if (type === 'ranged') ranged = true;
           resist += defendRef.resistances[type];
         }
+        if (defenderFlying) {
+          if (attackerFlying === false && ranged === false) continue;
+        }
+
         let damageTypePCT = 100 - resist / attackRef.secondaries.length;
         let damage = 
           accuracy * 
@@ -304,7 +321,7 @@ Abilities: ${unit.abilities.join(', ')}
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
 
-        //console.log('sec attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        console.log('sec attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
       }
     }
 

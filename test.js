@@ -58,7 +58,7 @@ console.log(engine.replyBestAgainst(
 
 console.log(engine.simulate(
   engine.findUnit('treant'),
-  engine.findUnit('lich')
+  engine.findUnit('archangel')
 ));
 
 
