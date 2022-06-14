@@ -931,7 +931,7 @@
     "power": 423,
     "a1_power": 4200,
     "a1_type": "melee",
-    "a1_init": 2,
+    "a1_init": 1,
     "counter": 1680,
     "a2_power": 2500,
     "a2_type": "melee",

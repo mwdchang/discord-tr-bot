@@ -57,8 +57,8 @@ console.log(engine.replyBestAgainst(
 
 
 console.log(engine.simulate(
-  engine.findUnit('naga queen'),
-  engine.findUnit('dwarven shaman')
+  engine.findUnit('treant'),
+  engine.findUnit('lich')
 ));
 
 

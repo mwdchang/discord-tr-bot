@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const fs = require('fs');
+const { randomBM } = require('./util.js');
 
 class Engine {
   constructor() {
@@ -38,7 +39,6 @@ Abilities: ${unit.abilities.join(', ')}
   simulate(attacker, defender) {
     // Allocate approximate number of units at equal net power
     const TOTAL_NP = 2000000;
-    console.log('[', attacker.name, ' attacking ', defender.name, ']');
 
     const attackerRef = {
       name: attacker.name,
@@ -74,6 +74,8 @@ Abilities: ${unit.abilities.join(', ')}
       powerLoss: 0
     };
 
+    console.log(`${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits})`);
+
     // temp
     let attackRef = null;
     let defendRef = null;
@@ -90,7 +92,7 @@ Abilities: ${unit.abilities.join(', ')}
       initList.push({ 
         role: 'attacker', 
         type: 'secondary',
-        init: attacker.a1_init ,
+        init: attacker.a2_init ,
       });
     }
     initList.push({ 
@@ -102,7 +104,7 @@ Abilities: ${unit.abilities.join(', ')}
       initList.push({ 
         role: 'defender', 
         type: 'secondary',
-        init: defender.a1_init ,
+        init: defender.a2_init ,
       });
     }
     const initOrder = _.shuffle(initList);
@@ -127,59 +129,175 @@ Abilities: ${unit.abilities.join(', ')}
       if (defendRef.abilities.includes('beauty')) {
         accuracy -= 0.05;
       }
+      if (defendRef.abilities.includes('fear') && !attackRef.abilities.includes('fear')) {
+        accuracy -= 0.15;
+      }
       if (attackRef.abilities.includes('marksmanship')) {
         accuracy += 0.10;
       }
 
+
       // Primary attack
+      // TODO:
+      //  - bursting
+      //  - steal life
       if (hit.type === 'primary') {
         let resist = 0;
+        let magicPsychic = false;
         for (const type of attackRef.primaries) {
+          if (type === 'magic' || type === 'psychic') magicPsychic = true;
           resist += defendRef.resistances[type];
         }
         let damageTypePCT = 100 - resist / attackRef.primaries.length;
-        let damage = accuracy * (damageTypePCT / 100) * (attackRef.efficiency / 100) * attackRef.numUnits * attackRef.primaryPower;
+        let damage = 
+          accuracy * 
+          (damageTypePCT / 100) * 
+          (attackRef.efficiency / 100) * 
+          attackRef.numUnits * 
+          attackRef.primaryPower *
+          (magicPsychic === true ? 0.5 : randomBM());
+
+        // weakness
+        let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
+        for (const weakness of weaknesses) {
+          const weakType = weakness.split(' ')[1];
+          if (attackRef.primaries.includes(weakType)) {
+            damage *= 2;
+          }
+        }
+
+        // charm
+        if (defendRef.abilities.includes('charm')) {
+          damage /= 2;
+        }
 
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
         defendRef.powerLoss += unitLoss * defenderRef.power;
+        console.log('pri attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
-        // attack penalty
-        attackRef.efficiency -= 10;
+        // efficiency
+        if (attackRef.abilities.includes('siege')) {
+          attackRef.efficiency -= 10;
+        } else {
+          attackRef.efficiency -= 15;
+        }
+        attackRef.efficiency = Math.max(0, attackRef.efficiency);
 
         if (attackRef.abilities.includes('additional strike')) {
-          damage = accuracy * (damageTypePCT / 100) * (attackRef.efficiency / 100) * attackRef.numUnits * attackRef.primaryPower;
-          attackRef.efficiency -= 10;
+          damage = 
+            accuracy * 
+            (damageTypePCT / 100) * 
+            (attackRef.efficiency / 100) * 
+            attackRef.numUnits * 
+            attackRef.primaryPower *
+            (magicPsychic === true ? 0.5 : randomBM());
+
+          // weakness
+          let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
+          for (const weakness of weaknesses) {
+            const weakType = weakness.split(' ')[1];
+            if (attackRef.primaries.includes(weakType)) {
+              damage *= 2;
+            }
+          }
+
+          // charm
+          if (defendRef.abilities.includes('charm')) {
+            damage /= 2;
+          }
 
           let unitLoss = Math.floor(damage / defendRef.hp);
           defendRef.numUnits -= unitLoss;
           defendRef.powerLoss += unitLoss * defenderRef.power;
+          console.log('add attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
+
+          // efficiency
+          if (attackRef.abilities.includes('siege')) {
+            attackRef.efficiency -= 10;
+          } else {
+            attackRef.efficiency -= 15;
+          }
+          attackRef.efficiency = Math.max(0, attackRef.efficiency);
         }
 
-        // defend penalty
-        defendRef.efficiency -= 10;
-        console.log(attackRef.name, `slew ${unitLoss}`, defendRef.name);
+
+        //////////////////////////////////////////////////////////////////////////////// 
+        // counter
+        //////////////////////////////////////////////////////////////////////////////// 
+        resist = 0;
+        magicPsychic = false;
+        for (const type of defendRef.primaries) {
+          if (type === 'magic' || type === 'psychic') magicPsychic = true;
+          resist += attackRef.resistances[type];
+        }
+        damageTypePCT = 100 - resist / defendRef.primaries.length;
+        damage = 
+          accuracy * 
+          (damageTypePCT / 100) * 
+          (defendRef.efficiency / 100) * 
+          defendRef.numUnits * 
+          defendRef.counterPower *
+          (magicPsychic === true ? 0.5 : randomBM());
+
+        weaknesses = attackRef.abilities.filter(d => d.startsWith('weakness'));
+        for (const weakness of weaknesses) {
+          const weakType = weakness.split(' ')[1];
+          if (defendRef.primaries.includes(weakType)) {
+            damage *= 2;
+          }
+        }
+
+        // charm
+        if (attackRef.abilities.includes('charm')) {
+          damage /= 2;
+        }
+
+        // ranged
+        if (attackRef.primaries.includes('ranged')) {
+          damage = 0;
+        }
+
+        unitLoss = Math.floor(damage / attackRef.hp);
+        attackRef.numUnits -= unitLoss;
+        attackRef.powerLoss += unitLoss * attackRef.power;
+        console.log('counter:', defendRef.name, `slew ${unitLoss}`, attackRef.name);
+        // efficiency
+        if (defendRef.abilities.includes('siege')) {
+          defendRef.efficiency -= 10;
+        } else {
+          defendRef.efficiency -= 15;
+        }
+        defendRef.efficiency = Math.max(0, defendRef.efficiency);
       }
 
       if (hit.type === 'secondary') {
         let resist = 0;
+        let magicPsychic = false;
         for (const type of attackRef.secondaries) {
+          if (type === 'magic' || type === 'psychic') magicPsychic = true;
           resist += defendRef.resistances[type];
         }
         let damageTypePCT = 100 - resist / attackRef.secondaries.length;
-        let damage = accuracy * (damageTypePCT / 100) * attackRef.numUnits * attackRef.secondaryPower;;
+        let damage = 
+          accuracy * 
+          (damageTypePCT / 100) * 
+          attackRef.numUnits * 
+          attackRef.secondaryPower *
+          (magicPsychic === true ? 0.5 : randomBM());
 
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
         defendRef.powerLoss += unitLoss * defenderRef.power;
 
-        console.log(attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        console.log('sec attack:', attackRef.name, `slew ${unitLoss}`, defendRef.name);
       }
     }
 
-    console.log('attacker loss', attackerRef.powerLoss);
-    console.log('defender loss', defenderRef.powerLoss);
-    return '';
+    console.log('Attacker loss np', attackerRef.powerLoss);
+    console.log('Defender loss np', defenderRef.powerLoss);
+    console.log(randomBM());
+    return initOrder;
   }
 
 
