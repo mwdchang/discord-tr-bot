@@ -287,7 +287,7 @@
     "a1_type": "melee lightning",
     "a1_init": 2,
     "counter": 2500,
-    "a2_power": 17625,
+    "a2_power": 17600,
     "a2_type": "lightning",
     "a2_init": 2,
     "hp": 10500,

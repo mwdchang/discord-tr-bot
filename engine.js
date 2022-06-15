@@ -192,6 +192,9 @@ Abilities: ${unit.abilities.join(', ')}
       if (attackRef.abilities.includes('marksmanship')) {
         accuracy += 0.10;
       }
+      if (attackRef.abilities.includes('clumsiness')) {
+        accuracy -= 0.10;
+      }
 
       const defenderFlying = defendRef.abilities.includes('flying') ? true : false;
       const attackerFlying = attackRef.abilities.includes('flying') ? true : false;
@@ -210,12 +213,18 @@ Abilities: ${unit.abilities.join(', ')}
           if (type === 'ranged') ranged = true; 
           resist += defendRef.resistances[type];
         }
+        resist /= attackRef.primaries.length;
+
+        if (attackRef.primaries.includes('ranged') && defendRef.abilities.includes('large shield')) {
+          resist += 50;
+          resist = Math.min(100, resist);
+        }
 
         if (defenderFlying) {
           if (attackerFlying === false && ranged === false) continue;
         }
 
-        let damageTypePCT = 100 - resist / attackRef.primaries.length;
+        let damageTypePCT = 100 - resist; 
         let damage = 
           accuracy * 
           (damageTypePCT / 100) * 
@@ -316,6 +325,9 @@ Abilities: ${unit.abilities.join(', ')}
         if (defendRef.abilities.includes('marksmanship')) {
           counterAccuracy += 0.10;
         }
+        if (defendRef.abilities.includes('clumsiness')) {
+          counterAccuracy -= 0.10;
+        }
 
         resist = 0;
         magicPsychic = false;
@@ -323,7 +335,14 @@ Abilities: ${unit.abilities.join(', ')}
           if (type === 'magic' || type === 'psychic') magicPsychic = true;
           resist += attackRef.resistances[type];
         }
-        damageTypePCT = 100 - resist / defendRef.primaries.length;
+        resist /= defendRef.primaries.length;
+
+        if (defendRef.primaries.includes('ranged') && attackRef.abilities.includes('larged shield')) {
+          resist += 50;
+          resist = Math.min(100, resist);
+        }
+
+        damageTypePCT = 100 - resist; 
         damage = 
           counterAccuracy * 
           (damageTypePCT / 100) * 
@@ -377,11 +396,18 @@ Abilities: ${unit.abilities.join(', ')}
           if (type === 'ranged') ranged = true;
           resist += defendRef.resistances[type];
         }
+        resist /= attackRef.secondaries.length;
+
+        if (attackRef.secondaries.includes('ranged') && defendRef.abilities.includes('larged shield')) {
+          resist += 50;
+          resist = Math.min(100, resist);
+        }
+
         if (defenderFlying) {
           if (attackerFlying === false && ranged === false) continue;
         }
 
-        let damageTypePCT = 100 - resist / attackRef.secondaries.length;
+        let damageTypePCT = 100 - resist; 
         let damage = 
           accuracy * 
           (damageTypePCT / 100) * 
@@ -437,6 +463,7 @@ Abilities: ${unit.abilities.join(', ')}
   }
 
 
+  /*
   vsScore(attacker, defender) {
     const primaries = attacker.a1_type.split(' ');
     const secondaries = attacker.a2_type === "" ? [] : attacker.a2_type.split(' ');
@@ -535,6 +562,7 @@ Abilities: ${unit.abilities.join(', ')}
 
     return mod * acc * (primaryDamage + secondaryDamage + counterDamage) * powerRating / toughnessRating;
   }
+  */
 
 
   replyBestAgainst(unit) {
