@@ -1,6 +1,7 @@
 [
   {
     "name": "Angel",
+    "magic": "ascendant",
     "race": ["angel"],
     "power": 193,
     "a1_power": 800,
@@ -29,6 +30,7 @@
   },
   {
     "name": "Archangel",
+    "magic": "ascendant",
     "race": ["angel"],
     "power": 750,
     "a1_power": 4000,
@@ -57,6 +59,7 @@
   },
   {
     "name": "Astral Magician",
+    "magic": "ascendant",
     "race": ["astral"],
     "power": 170,
     "a1_power": 1200,
@@ -85,6 +88,7 @@
   },
   {
     "name": "Catapult",
+    "magic": "ascendant",
     "race": ["human"],
     "power": 70,
     "a1_power": 600,
@@ -113,6 +117,7 @@
   },
   {
     "name": "Crusader",
+    "magic": "ascendant",
     "race": ["human"],
     "power": 14,
     "a1_power": 160,
@@ -141,6 +146,7 @@
   },
   {
     "name": "Dominion",
+    "magic": "ascendant",
     "race": ["angel"],
     "power": 39013,
     "a1_power": 200000,
@@ -169,6 +175,7 @@
   },
   {
     "name": "Empyrean Inquisitor",
+    "magic": "ascendant",
     "race": ["astral"],
     "power": 2500,
     "a1_power": 13500,
@@ -197,6 +204,7 @@
   },
   {
     "name": "High Priest",
+    "magic": "ascendant",
     "race": ["human"],
     "power": 21,
     "a1_power": 200,
@@ -225,6 +233,7 @@
   },
   {
     "name": "Knight",
+    "magic": "ascendant",
     "race": ["human"],
     "power": 23,
     "a1_power": 250,
@@ -253,6 +262,7 @@
   },
   {
     "name": "Knight Templar",
+    "magic": "ascendant",
     "race": ["human"],
     "power": 60,
     "a1_power": 400,
@@ -281,6 +291,7 @@
   },
   {
     "name": "Naga Queen",
+    "magic": "ascendant",
     "race": ["reptile"],
     "power": 2700,
     "a1_power": 13000,
@@ -309,6 +320,7 @@
   },
   {
     "name": "Paladin",
+    "magic": "ascendant",
     "race": ["human"],
     "power": 32,
     "a1_power": 300,
@@ -337,6 +349,7 @@
   },
   {
     "name": "Pegasus",
+    "magic": "ascendant",
     "race": ["animal"],
     "power": 40,
     "a1_power": 300,
@@ -365,6 +378,7 @@
   },
   {
     "name": "Preacher",
+    "magic": "ascendant",
     "race": ["human"],
     "power": 16,
     "a1_power": 10,
@@ -393,6 +407,7 @@
   },
   {
     "name": "Soul Speaker",
+    "magic": "ascendant",
     "race": ["astral"],
     "power": 27,
     "a1_power": 260,
@@ -421,6 +436,7 @@
   },
   {
     "name": "Spirit Warrior",
+    "magic": "ascendant",
     "race": ["astral"],
     "power": 475,
     "a1_power": 2900,
@@ -449,6 +465,7 @@
   },
   {
     "name": "Titan",
+    "magic": "ascendant",
     "race": ["giant"],
     "power": 50000,
     "a1_power": 200000,
@@ -477,6 +494,7 @@
   },
   {
     "name": "Unicorn",
+    "magic": "ascendant",
     "race": ["elemental"],
     "power": 375,
     "a1_power": 4000,
@@ -507,6 +525,7 @@
   
   {
     "name": "Creeping Vines",
+    "magic": "verdant",
     "race": ["treefolk"],
     "power": 40,
     "a1_power": 336,
@@ -535,6 +554,7 @@
   },
   {
     "name": "Druid",
+    "magic": "verdant",
     "race": ["elf"],
     "power": 40,
     "a1_power": 440,
@@ -563,6 +583,7 @@
   },
   {
     "name": "Dryad",
+    "magic": "verdant",
     "race": ["pixie"],
     "power": 23,
     "a1_power": 240,
@@ -591,6 +612,7 @@
   },
   {
     "name": "Earth Elemental",
+    "magic": "verdant",
     "race": ["elemental"],
     "power": 22000,
     "a1_power": 100000,
@@ -619,6 +641,7 @@
   },
   {
     "name": "Elven Archer",
+    "magic": "verdant",
     "race": ["elf"],
     "power": 20,
     "a1_power": 120,
@@ -647,6 +670,7 @@
   },
   {
     "name": "Elven Blade Dancer",
+    "magic": "verdant",
     "race": ["elf"],
     "power": 1850,
     "a1_power": 9000,
@@ -675,6 +699,7 @@
   },
   {
     "name": "Elven Magician",
+    "magic": "verdant",
     "race": ["elf"],
     "power": 41,
     "a1_power": 500,
@@ -703,6 +728,7 @@
   },
   {
     "name": "Faerie Dragon",
+    "magic": "verdant",
     "race": ["dragon"],
     "power": 34,
     "a1_power": 300,
@@ -731,6 +757,7 @@
   },
   {
     "name": "Gorilla",
+    "magic": "verdant",
     "race": ["animal"],
     "power": 34,
     "a1_power": 240,
@@ -759,6 +786,7 @@
   },
   {
     "name": "Griffon",
+    "magic": "verdant",
     "race": ["animal"],
     "power": 399,
     "a1_power": 2750,
@@ -787,6 +815,7 @@
   },
   {
     "name": "High Elf",
+    "magic": "verdant",
     "race": ["elf"],
     "power": 1542,
     "a1_power": 13000,
@@ -815,6 +844,7 @@
   },
   {
     "name": "Mandrake",
+    "magic": "verdant",
     "race": ["treefolk"],
     "power": 180,
     "a1_power": 1680,
@@ -843,6 +873,7 @@
   },
   {
     "name": "Nymph",
+    "magic": "verdant",
     "race": ["pixie"],
     "power": 62,
     "a1_power": 940,
@@ -871,6 +902,7 @@
   },
   {
     "name": "Phoenix",
+    "magic": "verdant",
     "race": ["elemental"],
     "power": 36883,
     "a1_power": 200000,
@@ -899,6 +931,7 @@
   },
   {
     "name": "Swanmy",
+    "magic": "verdant",
     "race": ["human", "animal"],
     "power": 35,
     "a1_power": 220,
@@ -927,6 +960,7 @@
   },
   {
     "name": "Treant",
+    "magic": "verdant",
     "race": ["treefolk"],
     "power": 423,
     "a1_power": 4200,
@@ -955,6 +989,7 @@
   },
   {
     "name": "Werebear",
+    "magic": "verdant",
     "race": ["human", "animal"],
     "power": 161,
     "a1_power": 2300,
@@ -985,6 +1020,7 @@
 
   {
     "name": "Chimera",
+    "magic": "eradication",
     "race": ["dragon"],
     "power": 391,
     "a1_power": 2500,
@@ -1013,6 +1049,7 @@
   },
   {
     "name": "Dwarven Deathseeker",
+    "magic": "eradication",
     "race": ["dwarf"],
     "power": 40,
     "a1_power": 275,
@@ -1041,6 +1078,7 @@
   },
   {
     "name": "Dwarven Elite",
+    "magic": "eradication",
     "race": ["dwarf"],
     "power": 27,
     "a1_power": 300,
@@ -1069,6 +1107,7 @@
   },
   {
     "name": "Dwarven Shaman",
+    "magic": "eradication",
     "race": ["dwarf"],
     "power": 1000,
     "a1_power": 5000,
@@ -1097,6 +1136,7 @@
   },
   {
     "name": "Dwarven Warrior",
+    "magic": "eradication",
     "race": ["dwarf"],
     "power": 20,
     "a1_power": 200,
@@ -1125,6 +1165,7 @@
   },
   {
     "name": "Efreeti",
+    "magic": "eradication",
     "race": ["elemental"],
     "power": 1200,
     "a1_power": 5000,
@@ -1153,6 +1194,7 @@
   },
   {
     "name": "Fire Elemental",
+    "magic": "eradication",
     "race": ["elemental"],
     "power": 21000,
     "a1_power": 100000,
@@ -1181,6 +1223,7 @@
   },
   {
     "name": "Fire Giant",
+    "magic": "eradication",
     "race": ["giant"],
     "power": 92,
     "a1_power": 1100,
@@ -1209,6 +1252,7 @@
   },
   {
     "name": "Goblin",
+    "magic": "eradication",
     "race": ["orc"],
     "power": 13,
     "a1_power": 125,
@@ -1237,6 +1281,7 @@
   },
   {
     "name": "Hell Hound",
+    "magic": "eradication",
     "race": ["demon"],
     "power": 159,
     "a1_power": 1000,
@@ -1265,6 +1310,7 @@
   },
   {
     "name": "Hydra",
+    "magic": "eradication",
     "race": ["reptile"],
     "power": 457,
     "a1_power": 3000,
@@ -1293,6 +1339,7 @@
   },
   {
     "name": "Lizard Man",
+    "magic": "eradication",
     "race": ["reptile"],
     "power": 36,
     "a1_power": 300,
@@ -1321,6 +1368,7 @@
   },
   {
     "name": "Ogre",
+    "magic": "eradication",
     "race": ["giant"],
     "power": 34,
     "a1_power": 400,
@@ -1349,6 +1397,7 @@
   },
   {
     "name": "Red Dragon",
+    "magic": "eradication",
     "race": ["dragon"],
     "power": 82378,
     "a1_power": 250000,
@@ -1377,6 +1426,7 @@
   },
   {
     "name": "Salamander",
+    "magic": "eradication",
     "race": ["elemental"],
     "power": 188,
     "a1_power": 3000,
@@ -1405,6 +1455,7 @@
   },
   {
     "name": "Storm Giant",
+    "magic": "eradication",
     "race": ["giant"],
     "power": 1550,
     "a1_power": 16000,
@@ -1433,6 +1484,7 @@
   },
   {
     "name": "Troglodyte",
+    "magic": "eradication",
     "race": ["reptile"],
     "power": 22,
     "a1_power": 200,
@@ -1461,6 +1513,7 @@
   },
   {
     "name": "Wyvern",
+    "magic": "eradication",
     "race": ["dragon"],
     "power": 150,
     "a1_power": 800,
@@ -1488,8 +1541,10 @@
     }
   },
 
+
   {
     "name": "Bulwark Horror",
+    "magic": "nether",
     "race": ["demon"],
     "power": 2018,
     "a1_power": 13600,
@@ -1518,6 +1573,7 @@
   },
   {
     "name": "Cave Troll",
+    "magic": "nether",
     "race": ["troll"],
     "power": 49,
     "a1_power": 400,
@@ -1546,6 +1602,7 @@
   },
   {
     "name": "Dark Apprentice",
+    "magic": "nether",
     "race": ["human"],
     "power": 51,
     "a1_power": 700,
@@ -1574,6 +1631,7 @@
   },
   {
     "name": "Dark Elf Magician",
+    "magic": "nether",
     "race": ["elf"],
     "power": 666,
     "a1_power": 4500,
@@ -1602,6 +1660,7 @@
   },
   {
     "name": "Demon Knight",
+    "magic": "nether",
     "race": ["demon"],
     "power": 1850,
     "a1_power": 10000,
@@ -1630,6 +1689,7 @@
   },
   {
     "name": "Devil",
+    "magic": "nether",
     "race": ["demon"],
     "power": 18586,
     "a1_power": 100000,
@@ -1658,6 +1718,7 @@
   },
   {
     "name": "Fallen Angel",
+    "magic": "nether",
     "race": ["angel"],
     "power": 193,
     "a1_power": 2400,
@@ -1686,6 +1747,7 @@
   },
   {
     "name": "Fallen Archangel",
+    "magic": "nether",
     "race": ["angel"],
     "power": 750,
     "a1_power": 12000,
@@ -1714,6 +1776,7 @@
   },
   {
     "name": "Fallen Dominion",
+    "magic": "nether",
     "race": ["angel"],
     "power": 59020,
     "a1_power": 600000,
@@ -1742,6 +1805,7 @@
   },
   {
     "name": "Gargoyle",
+    "magic": "nether",
     "race": ["golem"],
     "power": 64,
     "a1_power": 400,
@@ -1770,6 +1834,7 @@
   },
   {
     "name": "Ghoul",
+    "magic": "nether",
     "race": ["undead"],
     "power": 35,
     "a1_power": 500,
@@ -1798,6 +1863,7 @@
  },
  {
     "name": "Horned Demon",
+    "magic": "nether",
     "race": ["demon"],
     "power": 170,
     "a1_power": 2750,
@@ -1826,6 +1892,7 @@
  },
  {
     "name": "Imp",
+    "magic": "nether",
     "race": ["demon"],
     "power": 19,
     "a1_power": 150,
@@ -1854,6 +1921,7 @@
  },
  {
     "name": "Lich",
+    "magic": "nether",
     "race": ["undead"],
     "power": 2027,
     "a1_power": 5500,
@@ -1882,6 +1950,7 @@
  },
  {
     "name": "Orc Raider",
+    "magic": "nether",
     "race": ["orc"],
     "power": 12,
     "a1_power": 100,
@@ -1910,6 +1979,7 @@
  },
  {
     "name": "Orcish Archer ",
+    "magic": "nether",
     "race": ["orc"],
     "power": 12,
     "a1_power": 80,
@@ -1938,6 +2008,7 @@
  },
  {
     "name": "Shadow",
+    "magic": "nether",
     "race": ["undead"],
     "power": 40,
     "a1_power": 600,
@@ -1966,6 +2037,7 @@
  },
  {
     "name": "Skeleton",
+    "magic": "nether",
     "race": ["undead"],
     "power": 10,
     "a1_power": 100,
@@ -1994,6 +2066,7 @@
  },
  {
     "name": "Succubus",
+    "magic": "nether",
     "race": ["demon"],
     "power": 29,
     "a1_power": 200,
@@ -2022,6 +2095,7 @@
  },
  {
     "name": "Unholy Reaver",
+    "magic": "nether",
     "race": ["demon"],
     "power": 50000,
     "a1_power": 210000,
@@ -2050,6 +2124,7 @@
  },
  {
     "name": "Vampire",
+    "magic": "nether",
     "race": ["undead"],
     "power": 2058,
     "a1_power": 9000,
@@ -2078,6 +2153,7 @@
  },
  {
     "name": "Wolf Raider",
+    "magic": "nether",
     "race": ["orc"],
     "power": 25,
     "a1_power": 200,
@@ -2106,6 +2182,7 @@
  },
  {
     "name": "Wraith",
+    "magic": "nether",
     "race": ["undead"],
     "power": 160,
     "a1_power": 2400,
@@ -2134,6 +2211,7 @@
  },
  {
     "name": "Zombie",
+    "magic": "nether",
     "race": ["undead"],
     "power": 15,
     "a1_power": 210,
@@ -2161,8 +2239,10 @@
     }
  },
 
+
  {
     "name": "Air Elemental",
+    "magic": "phantasm",
     "race": ["elemental"],
     "power": 25000,
     "a1_power": 300000,
@@ -2191,6 +2271,7 @@
  },
  {
     "name": "Djinni",
+    "magic": "phantasm",
     "race": ["elemental"],
     "power": 1700,
     "a1_power": 8000,
@@ -2219,6 +2300,7 @@
  },
  {
     "name": "Ice Elemental",
+    "magic": "phantasm",
     "race": ["elemental"],
     "power": 21800,
     "a1_power": 200000,
@@ -2247,6 +2329,7 @@
  },
  {
     "name": "Leviathan",
+    "magic": "phantasm",
     "race": ["giant"],
     "power": 49500,
     "a1_power": 200000,
@@ -2275,6 +2358,7 @@
  },
  {
     "name": "Medusa",
+    "magic": "phantasm",
     "race": ["reptile"],
     "power": 200,
     "a1_power": 2000,
@@ -2303,6 +2387,7 @@
  },
  {
     "name": "Mind Ripper",
+    "magic": "phantasm",
     "race": ["telepath"],
     "power": 1154,
     "a1_power": 8000,
@@ -2331,6 +2416,7 @@
  },
  {
     "name": "Phantom",
+    "magic": "phantasm",
     "race": ["illusion"],
     "power": 20,
     "a1_power": 100,
@@ -2359,6 +2445,7 @@
  },
  {
     "name": "Psychic Wisp",
+    "magic": "phantasm",
     "race": ["elemental"],
     "power": 40,
     "a1_power": 460,
@@ -2387,6 +2474,7 @@
  },
  {
     "name": "Shadow Monster",
+    "magic": "phantasm",
     "race": ["illusion"],
     "power": 6,
     "a1_power": 400,
@@ -2415,6 +2503,7 @@
  },
  {
     "name": "Siren",
+    "magic": "phantasm",
     "race": ["pixie"],
     "power": 176,
     "a1_power": 3400,
@@ -2443,6 +2532,7 @@
  },
  {
     "name": "Sprite",
+    "magic": "phantasm",
     "race": ["pixie"],
     "power": 38,
     "a1_power": 400,
@@ -2471,6 +2561,7 @@
  },
  {
     "name": "Sylph",
+    "magic": "phantasm",
     "race": ["elemental"],
     "power": 68,
     "a1_power": 1000,
@@ -2499,6 +2590,7 @@
  },
  {
     "name": "Water Elemental",
+    "magic": "phantasm",
     "race": ["elemental"],
     "power": 19406,
     "a1_power": 400000,
@@ -2527,6 +2619,7 @@
  },
  {
     "name": "Yeti",
+    "magic": "phantasm",
     "race": ["giant"],
     "power": 180,
     "a1_power": 500,

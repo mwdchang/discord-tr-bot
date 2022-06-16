@@ -3,13 +3,18 @@ require('dotenv').config()
 const fs = require('fs');
 const { Client, Intents } = require('discord.js');
 const { engine } = require('./engine');
-engine.init('./units.json');
+engine.init('./units.json', './slangs.json');
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGES
+  ]
 });
 
 
+/*
 const content = fs.readFileSync('./units.json', { encoding: 'utf-8' });
 const unitData = JSON.parse(content);
 const unitMap = new Map();
@@ -30,6 +35,7 @@ init: ${unit.a1_init}
 Abilities: ${unit.abilities.join(', ')}
  `;
 };
+*/
 
 
 let botId = 0;
@@ -70,35 +76,79 @@ client.on('message', msg => {
   content = content.replace(/\<.*\>/, '');
   content = content.toLowerCase().trim();
 
+  const channel = msg.channel;
+
   if (content.startsWith('show match')) {
     const tokens = content.replace('show match', '').split('vs');
     const u1str = tokens[0].trim();
     const u2str = tokens[1].trim();
     const u1 = engine.findUnit(u1str);
     const u2 = engine.findUnit(u2str);
-
-    console.log('checking', u1str, u2str);
+    const N = 10;
 
     if (u1 && u2) {
-      const results = engine.simulateX(u1, u2, 10);
-      let u1loss = 0;
-      let u2loss = 0;
-      for (const r of results) {
-        u1loss += r.attackerLoss;
-        u2loss += r.defenderLoss;
-      }
-      u1loss /= 10;
-      u2loss /= 10;
+      const results = engine.simulateX(u1, u2, N);
+      let attackerloss = 0;
+      let attackerunit = 0;
+      let defenderloss = 0;
+      let defenderunit = 0;
 
-      if (u1loss < u2loss) {
-        msg.reply(`${u1.name} wins on average ${u1.name} np-loss=${u1loss.toFixed(0)} : ${u2.name} np-loss=${u2loss.toFixed(0)} (smaller is better)`);
-      } else {
-        msg.reply(`${u2.name} wins on average ${u1.name} np-loss=${u1loss.toFixed(0)} : ${u2.name} np-loss=${u2loss.toFixed(0)} (smaller is better)`);
+      // FIXME: what is a win?
+      let wins = 0;
+      let losses = 0;
+      for (const r of results) {
+        attackerloss += r.attackerLoss;
+        attackerunit += r.attackerUnitLoss;
+        defenderloss += r.defenderLoss;
+        defenderunit += r.defenderUnitLoss;
+
+        if (r.defenderLoss / r.attackerLoss > 1.1) {
+          wins ++;
+        } else if (r.attackerLoss / r.defenderLoss > 1.1) {
+          losses ++;
+        }
       }
+      let ties = N - wins - losses;
+
+      attackerloss /= N;
+      attackerunit /= N;
+      defenderloss /= N;
+      defenderunit /= N;
+      
+      let attackercount = results[0].attackerUnitCount;
+      let defendercount = results[0].defenderUnitCount;
+      const attacker = results[0].attacker;
+      const defender = results[0].defender;
+
+      channel.send(`Report: **${wins} wins, ${losses} losses, ${ties} draws**
+        Attacker ${attacker.name}  AP=${attacker.primaryPower}/${attacker.secondaryPower}/${attacker.counterPower} HP=${attacker.hp}
+        Defender ${defender.name}  AP=${defender.primaryPower}/${defender.secondaryPower}/${defender.counterPower} HP=${defender.hp}
+
+        On average:
+        ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
+        ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)
+      `);
+
+      /*
+      if (Math.abs(attackerloss - defenderloss) / defenderloss < 0.1) {
+        channel.send(`More or less a tie, on average: 
+          ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
+          ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)`);
+      } else if (attackerloss < defenderloss) {
+        channel.send(`${attacker.name} wins, on average: 
+          ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
+          ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)`);
+      } else {
+        channel.send(`${defender.name} wins, on avearge: 
+          ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np) 
+          ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)`);
+      }
+      */
     }
     return;
   }
   if (content.startsWith('show unit')) {
+    msg.channel.send('hello channel')
     return;
   }
 });

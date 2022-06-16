@@ -1,23 +1,46 @@
 const _ = require('lodash');
 const fs = require('fs');
-const { randomBM } = require('./util.js');
+const { randomBM, levenshteinDistance } = require('./util.js');
 
 class Engine {
   constructor() {
     this.unitMap = new Map();
+    this.slangMap = new Map();
+    this.enchantments = true;
   }
 
-  init(unitFile) {
-    const content = fs.readFileSync(unitFile, { encoding: 'utf-8' });
+  init(unitFile, slangFile) {
+    let content = fs.readFileSync(unitFile, { encoding: 'utf-8' });
     const unitData = JSON.parse(content);
     for (const unit of unitData) {
       this.unitMap.set(unit.name.toLowerCase(), unit);
     }
+
+    if (slangFile) {
+      content = fs.readFileSync(slangFile, { encoding: 'utf-8' });
+      const slangData = JSON.parse(content);
+      Object.keys(slangData).forEach(k => {
+        this.slangMap.set(k, slangData[k]);
+      });
+    }
+
   }
 
   findUnit(name) {
-    if (this.unitMap.has(name.toLowerCase())) {
-      return this.unitMap.get(name.toLowerCase());
+    const str = name.toLowerCase().replaceAll('*', '');
+    if (this.unitMap.has(str)) {
+      return this.unitMap.get(str);
+    }
+    if (this.slangMap.has(str)) {
+      return this.unitMap.get(this.slangMap.get(str));
+    }
+
+    if (str.length > 4) {
+      for (const u of this.unitMap.values()) {
+        if (levenshteinDistance(str, u.name.toLowerCase()) < 2) {
+          return u;
+        }
+      }
     }
     return null;
   }
@@ -96,8 +119,11 @@ Abilities: ${unit.abilities.join(', ')}
 
     const attackerRef = {
       name: attacker.name,
+      magic: attacker.magic,
+      race: attacker.race,
       efficiency: 100,
       hp: attacker.hp,
+      accuracy: 0.3,
       power: attacker.power,
       numUnits: Math.floor(TOTAL_NP / attacker.power),
       abilities: attacker.abilities,
@@ -109,13 +135,23 @@ Abilities: ${unit.abilities.join(', ')}
       counterPower: attacker.counter,
       resistances: attacker.resistances,
       unitLoss: 0,
-      powerLoss: 0
+      powerLoss: 0,
+
+      base: {
+        hp: attacker.hp,
+        primaryPower: attacker.a1_power,
+        secondaryPower: attacker.a2_power,
+        counterPower: attacker.counter
+      }
     };
 
     const defenderRef = {
       name: defender.name,
+      magic: defender.magic,
+      race: defender.race,
       efficiency: 100,
       hp: defender.hp,
+      accuracy: 0.3,
       power: defender.power,
       numUnits: Math.floor(TOTAL_NP / defender.power),
       abilities: defender.abilities,
@@ -127,8 +163,54 @@ Abilities: ${unit.abilities.join(', ')}
       counterPower: defender.counter,
       resistances: defender.resistances,
       unitLoss: 0,
-      powerLoss: 0
+      powerLoss: 0,
+
+      base: {
+        hp: defender.hp,
+        primaryPower: defender.a1_power,
+        secondaryPower: defender.a2_power,
+        counterPower: defender.counter
+      }
     };
+
+    // Expected enchantments
+    if (this.enchantments === true) {
+      [defenderRef, attackerRef].forEach(ref => {
+        if (ref.magic === 'ascendant') {
+          // LnP
+          ref.hp += ref.base.hp * 0.25;
+          ref.primaryPower -= ref.base.primaryPower * 0.2;
+          ref.secondaryPower -= ref.base.secondaryPower * 0.2;
+          ref.counterPower -= ref.base.counterPower * 0.2;
+
+          // THL
+          ref.primaryPower += ref.base.primaryPower * 0.1263;
+          ref.secondaryPower += ref.base.secondaryPower * 0.1263;
+          ref.counterPower += ref.base.counterPower * 0.1263;
+          ref.accuracy += 0.06315;
+
+          if (ref.primaries.includes('melee') || ref.secondaries.includes('melee')) {
+            if (!ref.primaries.includes('holy')) {
+              ref.primaries.push('holy');
+            }
+          }
+        }
+        if (ref.magic === 'verdant') {
+          // EA
+          // Lore
+          // PG
+          if (ref.race === 'treefolk') {
+            ref.primaryPower += ref.base.primaryPower * 0.9524;
+            ref.counterPower += ref.base.counterPower * 0.9524;
+            ref.hp += ref.base.hp * 0.9524;
+          }
+        }
+        if (ref.magic === 'eradication') {
+          // BC
+        }
+      });
+    }
+    
 
     console.log('');
     console.log(`### ${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits}) ###`);
@@ -179,7 +261,7 @@ Abilities: ${unit.abilities.join(', ')}
         defendRef = attackerRef;
       }
 
-      let accuracy = 0.30;
+      let accuracy = attackRef.accuracy;
       if (defendRef.abilities.includes('swift')) {
         accuracy -= 0.10;
       }
@@ -256,7 +338,7 @@ Abilities: ${unit.abilities.join(', ')}
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
-        console.log(`pri attack (${accuracy}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        console.log(`pri attack (${accuracy.toFixed(2)}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
         // efficiency
         if (attackRef.abilities.includes('endurance')) {
@@ -297,7 +379,7 @@ Abilities: ${unit.abilities.join(', ')}
           let unitLoss = Math.floor(damage / defendRef.hp);
           defendRef.numUnits -= unitLoss;
           defendRef.unitLoss += unitLoss;
-          console.log(`add attack (${accuracy}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
+          console.log(`add attack (${accuracy.toFixed(2)}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
 
           // efficiency
           if (attackRef.abilities.includes('endurance')) {
@@ -312,7 +394,7 @@ Abilities: ${unit.abilities.join(', ')}
         //////////////////////////////////////////////////////////////////////////////// 
         // counter
         //////////////////////////////////////////////////////////////////////////////// 
-        let counterAccuracy = 0.30;
+        let counterAccuracy = defendRef.accuracy;
         if (attackRef.abilities.includes('swift')) {
           counterAccuracy -= 0.10;
         }
@@ -431,7 +513,7 @@ Abilities: ${unit.abilities.join(', ')}
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
 
-        console.log(`sec attack (${accuracy}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        console.log(`sec attack (${accuracy.toFixed(2)}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
       }
     }
 
@@ -453,11 +535,15 @@ Abilities: ${unit.abilities.join(', ')}
     // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
     // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
     return {
-      attcker: attackerRef.name,
+      attacker: attackerRef,
+      defender: defenderRef,
+
       attackerLoss: attackerRef.unitLoss * attackerRef.power,
+      attackerUnitCount: Math.floor(TOTAL_NP / attacker.power),
       attackerUnitLoss: attackerRef.unitLoss,
-      defender: defenderRef.name,
+
       defenderLoss: defenderRef.unitLoss * defenderRef.power,
+      defenderUnitCount: Math.floor(TOTAL_NP / defender.power),
       defenderUnitLoss: defenderRef.unitLoss
     };
   }
