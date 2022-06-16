@@ -14,30 +14,6 @@ const client = new Client({
 });
 
 
-/*
-const content = fs.readFileSync('./units.json', { encoding: 'utf-8' });
-const unitData = JSON.parse(content);
-const unitMap = new Map();
-
-for (const unit of unitData) {
-  unitMap.set(unit.name.toLowerCase(), unit);
-}
-
-const replyUnitStat = (unit) => {
-  return `
-Unit: ${unit.name}
-Primary: ${unit.a1_power}
-Type: ${unit.a1_type}
-init: ${unit.a1_init}
-Secondary: ${unit.a1_power}
-Type: ${unit.a1_type}
-init: ${unit.a1_init}
-Abilities: ${unit.abilities.join(', ')}
- `;
-};
-*/
-
-
 let botId = 0;
 let botTag = '';
 
@@ -86,6 +62,15 @@ client.on('message', msg => {
     const u2 = engine.findUnit(u2str);
     const N = 10;
 
+    if (!u1) {
+      channel.send(`I cannot find "${tokens[0]}", not in DB or short-name not registered.`);
+      return;
+    }
+    if (!u1) {
+      channel.send(`I cannot find "${tokens[1]}", not in DB or short-name not registered.`);
+      return;
+    }
+
     if (u1 && u2) {
       const results = engine.simulateX(u1, u2, N);
       let attackerloss = 0;
@@ -128,22 +113,6 @@ client.on('message', msg => {
         ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
         ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)
       `);
-
-      /*
-      if (Math.abs(attackerloss - defenderloss) / defenderloss < 0.1) {
-        channel.send(`More or less a tie, on average: 
-          ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
-          ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)`);
-      } else if (attackerloss < defenderloss) {
-        channel.send(`${attacker.name} wins, on average: 
-          ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
-          ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)`);
-      } else {
-        channel.send(`${defender.name} wins, on avearge: 
-          ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np) 
-          ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)`);
-      }
-      */
     }
     return;
   }

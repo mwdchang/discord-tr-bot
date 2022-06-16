@@ -45,19 +45,6 @@ class Engine {
     return null;
   }
 
-  replyUnitStat(unit) {
-    return `
-Unit: ${unit.name}
-Primary: ${unit.a1_power}
-Type: ${unit.a1_type}
-init: ${unit.a1_init}
-Secondary: ${unit.a1_power}
-Type: ${unit.a1_type}
-init: ${unit.a1_init}
-Abilities: ${unit.abilities.join(', ')}
-   `;
-  };
-
 
   bestAgainst(unit) {
     const skipList = ['Devil', 'Fallen Dominion', 'Fallen Archangel', 'Fallen Angel', 'Shadow Monster', 'Succubus'];
@@ -208,9 +195,11 @@ Abilities: ${unit.abilities.join(', ')}
         if (ref.magic === 'eradication') {
           // BC
         }
+        if (ref.magic === 'nether') {
+          // BS
+        }
       });
     }
-    
 
     console.log('');
     console.log(`### ${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits}) ###`);
