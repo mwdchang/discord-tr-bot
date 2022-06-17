@@ -1,6 +1,7 @@
 // https://discord.com/developers/applications
 require('dotenv').config()
 const fs = require('fs');
+const _ = require('lodash');
 const { Client, Intents } = require('discord.js');
 const { engine } = require('./engine');
 engine.init('./units.json', './slangs.json');
@@ -54,6 +55,84 @@ client.on('message', msg => {
 
   const channel = msg.channel;
 
+  if (content.startsWith('help')) {
+    channel.send(`I can do these analyses:
+    **show match <unit1> vs <unit2>** - Evaluate head-to-head match up
+    **show pairing <unit>** - Evaluate top pairings
+    **show battle <uni1> vs <unit2>** - Single battle with logs
+    `);
+    return;
+  }
+
+  if (content.startsWith('show pairing')) {
+    const uStr = content.replace('show pairing', '').trim();
+    const u = engine.findUnit(uStr);
+
+    if (!u) {
+      channel.send(`I cannot find "${uStr}", not in DB or short-name not registered.`);
+      return;
+    }
+
+    const r = engine.findPairings(u);
+    const topAttackerAscendant = _.take(r.attackers.filter(d => d.magic === 'ascendant'), 3);
+    const topAttackerVerdant = _.take(r.attackers.filter(d => d.magic === 'verdant'), 3);
+    const topAttackerEradication = _.take(r.attackers.filter(d => d.magic === 'eradication'), 3);
+    const topAttackerNether = _.take(r.attackers.filter(d => d.magic === 'nether'), 3);
+    const topAttackerPhantasm = _.take(r.attackers.filter(d => d.magic === 'phantasm'), 3);
+
+    const topDefenderAscendant = _.take(r.defenders.filter(d => d.magic === 'ascendant'), 3);
+    const topDefenderVerdant = _.take(r.defenders.filter(d => d.magic === 'verdant'), 3);
+    const topDefenderEradication = _.take(r.defenders.filter(d => d.magic === 'eradication'), 3);
+    const topDefenderNether = _.take(r.defenders.filter(d => d.magic === 'nether'), 3);
+    const topDefenderPhantasm = _.take(r.defenders.filter(d => d.magic === 'phantasm'), 3);
+
+    channel.send(`Report: pairing against ${u.name}
+      Top attackers: 
+         Acendant: ${topAttackerAscendant.map(d => d.name).join(', ')}
+         Verdant: ${topAttackerVerdant.map(d => d.name).join(', ')}
+         Eradication: ${topAttackerEradication.map(d => d.name).join(', ')}
+         Nether: ${topAttackerNether.map(d => d.name).join(', ')}
+         Phantasm: ${topAttackerPhantasm.map(d => d.name).join(', ')}
+      Top defenders: 
+         Acendant: ${topDefenderAscendant.map(d => d.name).join(', ')}
+         Verdant: ${topDefenderVerdant.map(d => d.name).join(', ')}
+         Eradication: ${topDefenderEradication.map(d => d.name).join(', ')}
+         Nether: ${topDefenderNether.map(d => d.name).join(', ')}
+         Phantasm: ${topDefenderPhantasm.map(d => d.name).join(', ')}
+    `);
+    return;
+  }
+
+
+  if (content.startsWith('show battle')) {
+    const tokens = content.replace('show battle', '').split('vs');
+    const u1str = tokens[0].trim();
+    const u2str = tokens[1].trim();
+    const u1 = engine.findUnit(u1str);
+    const u2 = engine.findUnit(u2str);
+
+    if (!u1) {
+      channel.send(`I cannot find "${tokens[0]}", not in DB or short-name not registered.`);
+      return;
+    }
+    if (!u2) {
+      channel.send(`I cannot find "${tokens[1]}", not in DB or short-name not registered.`);
+      return;
+    }
+
+    if (u1 && u2) {
+      const r = engine.simulate(u1, u2);
+      const battleLog = r.battleLog;
+
+      let attackercount = r.attackerUnitCount;
+      let defendercount = r.defenderUnitCount;
+
+      channel.send(`Report: ${u1.name} (${attackercount}) vs ${u2.name} (${defendercount})
+${battleLog.join('\n')}
+      `);
+    }
+  }
+
   if (content.startsWith('show match')) {
     const tokens = content.replace('show match', '').split('vs');
     const u1str = tokens[0].trim();
@@ -66,7 +145,7 @@ client.on('message', msg => {
       channel.send(`I cannot find "${tokens[0]}", not in DB or short-name not registered.`);
       return;
     }
-    if (!u1) {
+    if (!u2) {
       channel.send(`I cannot find "${tokens[1]}", not in DB or short-name not registered.`);
       return;
     }

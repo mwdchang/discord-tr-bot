@@ -913,7 +913,7 @@
     "a2_type": "magic ranged",
     "a2_init": 5,
     "hp": 70000,
-    "abilities": ["flying", "regeneration", "bursting fire"],
+    "abilities": ["flying", "regeneration", "bursting fire 50000"],
     "resistances": {
       "missile": 90,
       "fire": 100,

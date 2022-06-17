@@ -186,7 +186,7 @@ class Engine {
           // EA
           // Lore
           // PG
-          if (ref.race === 'treefolk') {
+          if (ref.race.includes('treefolk')) {
             ref.primaryPower += ref.base.primaryPower * 0.9524;
             ref.counterPower += ref.base.counterPower * 0.9524;
             ref.hp += ref.base.hp * 0.9524;
@@ -240,6 +240,7 @@ class Engine {
 
 
     // Simulate actual attacks
+    const battleLog = [];
     for (const hit of initOrder) {
 
       if (hit.role === 'attacker') {
@@ -276,6 +277,57 @@ class Engine {
       //  - bursting
       //  - steal life
       if (hit.type === 'primary') {
+        const burst = defendRef.abilities.find(d => d.startsWith('bursting'))
+        if (burst) {
+          if (attackRef.primaries.includes('ranged') || attackRef.primaries.includes('magic') || attackRef.primaries.includes('psychic')) {
+          } else {
+            let damage = 0;
+            let unitLoss = 0;
+            const [_t, burstType, burstValue] = burst.split(' ');
+
+            // attacker
+            const attackRes = attackRef.resistances[burstType];
+            const attackWeakness = attackRef.abilities.filter(d => d.startsWith('weakness'));
+            damage = +burstValue *
+              defendRef.numUnits *
+              (defendRef.efficiency / 100)*
+              (100 - attackRes) / 100;
+
+            for (const weakness of attackWeakness) {
+              const weakType = weakness.split(' ')[1];
+              if (weakType === burstType) {
+                damage *= 2;
+              }
+            }
+
+            unitLoss = Math.floor(damage / attackRef.hp);
+            attackRef.numUnits -= unitLoss;
+            attackRef.unitLoss += unitLoss;
+            battleLog.push(`burst (${burstType} ${burstValue}): ${defendRef.name}, slew ${unitLoss} ${attackRef.name}`);
+
+
+            // defender
+            const defendRes = defendRef.resistances[burstType];
+            const defendWeakness = defendRef.abilities.filter(d => d.startsWith('weakness'));
+            damage = +burstValue *
+              defendRef.numUnits *
+              (defendRef.efficiency / 100) *
+              (100 - defendRes) / 100;
+
+            for (const weakness of defendWeakness) {
+              const weakType = weakness.split(' ')[1];
+              if (weakType === burstType) {
+                damage *= 2;
+              }
+            }
+            unitLoss = Math.floor(damage / attackRef.hp);
+            defendRef.numUnits -= unitLoss;
+            defendRef.unitLoss += unitLoss;
+            battleLog.push(`burst (${burstType} ${burstValue}): ${defendRef.name}, slew ${unitLoss} ${defendRef.name}`);
+          }
+        } // end burst
+
+
         let resist = 0;
         let magicPsychic = false;
         let ranged = false;
@@ -327,7 +379,7 @@ class Engine {
         let unitLoss = Math.floor(damage / defendRef.hp);
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
-        console.log(`pri attack (${accuracy.toFixed(2)}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        battleLog.push(`pri attack (${accuracy.toFixed(2)}): ${attackRef.name} slew ${unitLoss} ${defendRef.name}`);
 
         // efficiency
         if (attackRef.abilities.includes('endurance')) {
@@ -368,7 +420,7 @@ class Engine {
           let unitLoss = Math.floor(damage / defendRef.hp);
           defendRef.numUnits -= unitLoss;
           defendRef.unitLoss += unitLoss;
-          console.log(`add attack (${accuracy.toFixed(2)}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
+          battleLog.push(`add attack (${accuracy.toFixed(2)}): ${attackRef.name} slew ${unitLoss} ${defendRef.name}`);
 
           // efficiency
           if (attackRef.abilities.includes('endurance')) {
@@ -447,7 +499,7 @@ class Engine {
         unitLoss = Math.floor(damage / attackRef.hp);
         attackRef.numUnits -= unitLoss;
         attackRef.unitLoss += unitLoss;
-        console.log('counter:', defendRef.name, `slew ${unitLoss}`, attackRef.name);
+        battleLog.push(`counter: ${defendRef.name} slew ${unitLoss} ${attackRef.name}`);
         
         // efficiency
         if (defendRef.abilities.includes('endurance')) {
@@ -502,7 +554,7 @@ class Engine {
         defendRef.numUnits -= unitLoss;
         defendRef.unitLoss += unitLoss;
 
-        console.log(`sec attack (${accuracy.toFixed(2)}):`, attackRef.name, `slew ${unitLoss}`, defendRef.name);
+        battleLog.push(`sec attack (${accuracy.toFixed(2)}): ${attackRef.name} slew ${unitLoss} ${defendRef.name}`);
       }
     }
 
@@ -512,14 +564,19 @@ class Engine {
       let healing = 0;
       if (ref.abilities.includes('regeneration')) {
         regen = Math.floor(ref.unitLoss * 0.2);
+        battleLog.push(`${ref.name} ${regen} regened`);
       }
       if (ref.abilities.includes('healing')) {
         healing = Math.floor(ref.unitLoss * 0.3);
+        battleLog.push(`${ref.name} ${healing} healed`);
       }
 
       ref.unitLoss -= (regen + healing);
       ref.numUnits += (regen + healing);
     }
+
+    battleLog.push(`lost ${attackerRef.unitLoss} ${attackerRef.name}`);
+    battleLog.push(`lost ${defenderRef.unitLoss} ${defenderRef.name}`);
 
     // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
     // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
@@ -533,7 +590,9 @@ class Engine {
 
       defenderLoss: defenderRef.unitLoss * defenderRef.power,
       defenderUnitCount: Math.floor(TOTAL_NP / defender.power),
-      defenderUnitLoss: defenderRef.unitLoss
+      defenderUnitLoss: defenderRef.unitLoss,
+
+      battleLog
     };
   }
 
@@ -638,6 +697,32 @@ class Engine {
     return mod * acc * (primaryDamage + secondaryDamage + counterDamage) * powerRating / toughnessRating;
   }
   */
+
+  findPairings(unit) {
+    const skipList = ['Devil', 'Shadow Monster', 'Succubus'];
+
+    const bestAttackers = [];
+    const bestDefenders = [];
+
+    for (const candidate of this.unitMap.values()) {
+      if (skipList.includes(candidate.name)) continue;
+
+      const results = this.simulateX(candidate, unit, 10);
+      let attackerLoss = 0;
+      let defenderLoss = 0;
+      for (const r of results) {
+        attackerLoss += r.attackerLoss,
+        defenderLoss += r.defenderLoss
+      }
+      bestAttackers.push({ name: candidate.name, value: defenderLoss, magic: candidate.magic });
+      bestDefenders.push({ name: candidate.name, value: attackerLoss, magic: candidate.magic });
+    }
+
+    return {
+      attackers: _.orderBy(bestAttackers, d => -d.value),
+      defenders: _.orderBy(bestDefenders, d => d.value)
+    };
+  }
 
 
   replyBestAgainst(unit) {
