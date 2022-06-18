@@ -184,7 +184,24 @@ class Engine {
         }
         if (ref.magic === 'verdant') {
           // EA
+          if (ref.race.includes('animal')) {
+            ref.primaryPower += ref.base.primaryPower * 0.47;
+            ref.counterPower += ref.base.counterPower * 0.47;
+          }
+          
           // Lore
+          if (ref.race.includes('elf')) {
+            ref.accuracy += 0.07;
+            ref.primaryPower += ref.base.primaryPower * 0.13;
+            ref.secondaryPower += ref.base.secondaryPower * 0.13;
+            ref.counterPower += ref.base.counterPower * 0.13;
+          }
+          if (ref.race.includes('animal')) {
+            ref.primaryPower += ref.base.primaryPower * 0.25;
+            ref.counterPower += ref.base.counterPower * 0.25;
+            ref.hp += ref.base.hp * 0.20;
+          }
+
           // PG
           if (ref.race.includes('treefolk')) {
             ref.primaryPower += ref.base.primaryPower * 0.9524;
@@ -201,8 +218,8 @@ class Engine {
       });
     }
 
-    console.log('');
-    console.log(`### ${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits}) ###`);
+    // console.log('');
+    // console.log(`### ${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits}) ###`);
 
     // temp
     let attackRef = null;
@@ -715,7 +732,15 @@ class Engine {
         defenderLoss += r.defenderLoss
       }
       bestAttackers.push({ name: candidate.name, value: defenderLoss, magic: candidate.magic });
-      bestDefenders.push({ name: candidate.name, value: attackerLoss, magic: candidate.magic });
+
+      // Dont' evaulate air units against ground unit that cannot reach
+      if (!unit.abilities.includes('ranged') && !unit.abilities.includes('flying')) {
+        if (!candidate.abilities.includes('flying')) {
+          bestDefenders.push({ name: candidate.name, value: attackerLoss, magic: candidate.magic });
+        }
+      } else {
+        bestDefenders.push({ name: candidate.name, value: attackerLoss, magic: candidate.magic });
+      }
     }
 
     return {
