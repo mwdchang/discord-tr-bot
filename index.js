@@ -24,23 +24,6 @@ client.on('ready', () => {
   botTag = client.user.tag;
 });
 
-//client.on('message', msg => {
-//  const users = msg.mentions.users;
-//  if (users.size === 1 && users.has(botId)) {
-//    let content = msg.content;
-//    content = content.replace(/\<.*\>/, '');
-//    content = content.trim();
-//
-//    // Parse message
-//    if (unitMap.has(content)) {
-//      const u = unitMap.get(content);
-//      msg.reply(replyUnitStat(u));
-//    }
-//  }
-//});
-//
-//
-
 
 // Grammar
 // - show unit <unit>
@@ -60,8 +43,33 @@ client.on('message', msg => {
     **show match <unit1> vs <unit2>** - Evaluate head-to-head match up
     **show pairing <unit>** - Evaluate top pairings
     **show battle <uni1> vs <unit2>** - Single battle with logs
+    **settings attacker e1, e2,...** - Set attacker enchantments
+    **settings defender e1, e2,...** - Set defender enchantments
+    **settings reset** - Use default
     `);
     return;
+  }
+
+  if (content.startsWith('settings')) {
+    let str = content.replace('settings', '').trim();
+    let role = '';
+
+    if (str.startsWith('attacker')) {
+      str = str.replace('attacker', '').trim();
+      role = 'attacker';
+    } else if (str.startsWith('defender')) {
+      str = str.replace('defender', '').trim();
+      role = 'defender';
+    } else if (str.startsWith('reset')) {
+      role = 'reset';
+    } else {
+      role = '';
+    }
+
+    if (role === 'reset') {
+    } else if (role === 'attacker') {
+    } else if (role === 'defender') {
+    }
   }
 
   if (content.startsWith('show pairing')) {
@@ -189,8 +197,8 @@ ${battleLog.join('\n')}
         Defender ${defender.name}  AP=${defender.primaryPower}/${defender.secondaryPower}/${defender.counterPower} HP=${defender.hp}
 
         On average:
-        ${attacker.name} loss = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
-        ${defender.name} loss = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)
+        ${attacker.name} loss ${(attackerloss / 2000000).toFixed(1)}% = ${attackerunit.toFixed(0)}/${attackercount} (${attackerloss.toFixed(0)} np)
+        ${defender.name} loss ${(defenderloss / 2000000).toFixed(1)}% = ${defenderunit.toFixed(0)}/${defendercount} (${defenderloss.toFixed(0)} np)
       `);
     }
     return;
