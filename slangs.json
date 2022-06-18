@@ -5,20 +5,23 @@
 
   "rd": "red dragon",
   "chim": "chimera",
+  "fe": "fire elemental",
+  "shaman": "dwarven shaman",
 
   "aa": "archangel",
   "dom": "dominion",
   "kt": "knight templar",
+  "hp": "high priest",
   "sw": "spirit warrior",
+  "naga": "naga queen",
 
-  "ee": "earth elemental",
   "we": "water elemental",
-  "fe": "fire elemental",
   "ae": "air elemental",
   "ie": "ice elemental",
   "mr": "mind ripper",
 
 
+  "ee": "earth elemental",
   "he": "high elf",
   "nix": "phoenix",
   "ebd": "elven blade dancer"
