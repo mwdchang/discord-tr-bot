@@ -187,6 +187,7 @@ class Engine {
           if (ref.race.includes('animal')) {
             ref.primaryPower += ref.base.primaryPower * 0.47;
             ref.counterPower += ref.base.counterPower * 0.47;
+            ref.hp += ref.base.hp * 0.47;
           }
           
           // Lore
