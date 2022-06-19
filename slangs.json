@@ -2,6 +2,8 @@
   "dem": "dark elf magician",
   "hd": "horned demon",
   "dk": "demon knight",
+  "bulwark": "bulwark horror",
+  "wr": "wolf raider",
 
   "rd": "red dragon",
   "chim": "chimera",
@@ -14,6 +16,7 @@
   "hp": "high priest",
   "sw": "spirit warrior",
   "naga": "naga queen",
+  "nq": "naga queen",
 
   "we": "water elemental",
   "ae": "air elemental",

@@ -24,6 +24,8 @@ client.on('ready', () => {
   botTag = client.user.tag;
 });
 
+const GENERAL_ERROR = 'Cannot understand ???. Please use **help** to see a list of available options.';
+
 
 // Grammar
 // - show unit <unit>
@@ -46,6 +48,10 @@ client.on('message', msg => {
     **settings attacker e1, e2,...** - Set attacker enchantments
     **settings defender e1, e2,...** - Set defender enchantments
     **settings reset** - Use default
+
+    
+    if you'd like to contribute, see:
+    https://github.com/mwdchang/discord-tr-bot/
     `);
     return;
   }
@@ -77,7 +83,7 @@ client.on('message', msg => {
     const u = engine.findUnit(uStr);
 
     if (!u) {
-      channel.send(`I cannot find "${uStr}", not in DB or short-name not registered.`);
+      channel.send(`I cannot find "${uStr}". ${GENERAL_ERROR}`);
       return;
     }
 
@@ -120,11 +126,11 @@ client.on('message', msg => {
     const u2 = engine.findUnit(u2str);
 
     if (!u1) {
-      channel.send(`I cannot find "${tokens[0]}", not in DB or short-name not registered.`);
+      channel.send(`I cannot find "${tokens[0]}". ${GENERAL_ERROR}`);
       return;
     }
     if (!u2) {
-      channel.send(`I cannot find "${tokens[1]}", not in DB or short-name not registered.`);
+      channel.send(`I cannot find "${tokens[1]}". ${GENERAL_ERROR}`);
       return;
     }
 
@@ -150,11 +156,11 @@ ${battleLog.join('\n')}
     const N = 10;
 
     if (!u1) {
-      channel.send(`I cannot find "${tokens[0]}", not in DB or short-name not registered.`);
+      channel.send(`I cannot find "${tokens[0]}". ${GENERAL_ERROR}`);
       return;
     }
     if (!u2) {
-      channel.send(`I cannot find "${tokens[1]}", not in DB or short-name not registered.`);
+      channel.send(`I cannot find "${tokens[1]}". ${GENERAL_ERROR}`);
       return;
     }
 
