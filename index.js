@@ -45,13 +45,9 @@ client.on('message', msg => {
     **show match <unit1> vs <unit2>** - Evaluate head-to-head match up
     **show pairing <unit>** - Evaluate top pairings
     **show battle <uni1> vs <unit2>** - Single battle with logs
-    **settings attacker e1, e2,...** - Set attacker enchantments
-    **settings defender e1, e2,...** - Set defender enchantments
-    **settings reset** - Use default
 
-    
-    if you'd like to contribute, see:
-    https://github.com/mwdchang/discord-tr-bot/
+if you'd like to contribute or access to the source, see
+\`https://github.com/mwdchang/discord-tr-bot/\`
     `);
     return;
   }

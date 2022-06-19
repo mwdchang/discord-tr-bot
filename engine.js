@@ -7,7 +7,7 @@ class Engine {
     this.unitMap = new Map();
     this.slangMap = new Map();
     this.enchantmentMap = new Map();
-    this.useEnchantments = false;
+    this.useEnchantments = true;
   }
 
   init(unitFile, slangFile) {
@@ -360,7 +360,7 @@ class Engine {
     });
 
 
-    this._calcEnchantments(attackerRef, defenderRef);
+    // this._calcEnchantments(attackerRef, defenderRef);
 
     // Expected enchantments
     if (this.useEnchantments === true) {
