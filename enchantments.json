@@ -1,0 +1,62 @@
+[
+  {
+    "id": "thl",
+    "name": "The holy light",
+    "magic": "ascendant",
+    "effects": [
+      {
+        "filters": [
+          {
+            "magic": "ascendant",
+            "primaryTypes": ["melee"]
+          },
+          {
+            "magic": "ascendant",
+            "secondaryTypes": ["melee"]
+          }
+        ],
+        "action": {
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
+          "type": "spell multiplier",
+          "base_value": null, 
+          "value": 0.1263
+        }
+      },
+      {
+        "filters": [
+          {
+            "magic": "ascendant",
+            "primaryTypes": ["melee"]
+          },
+          {
+            "magic": "ascendant",
+            "secondaryTypes": ["melee"]
+          }
+        ],
+        "action": {
+          "attributes": ["accuracy"],
+          "type": "spell multiplier",
+          "base_value": 100,
+          "value": 0.06315
+        }
+      },
+      {
+        "filters": [
+          {
+            "magic": "ascendant",
+            "primaryTypes": ["melee"]
+          },
+          {
+            "magic": "ascendant",
+            "secondaryTypes": ["melee"]
+          }
+        ],
+        "action": {
+          "attributes": ["primaryTypes"],
+          "type": "add type",
+          "value": "holy"
+        }
+      }
+    ]
+  }
+]

@@ -6,7 +6,8 @@ class Engine {
   constructor() {
     this.unitMap = new Map();
     this.slangMap = new Map();
-    this.enchantments = true;
+    this.enchantmentMap = new Map();
+    this.useEnchantments = false;
   }
 
   init(unitFile, slangFile) {
@@ -22,6 +23,12 @@ class Engine {
       Object.keys(slangData).forEach(k => {
         this.slangMap.set(k, slangData[k]);
       });
+    }
+
+    content = fs.readFileSync('./enchantments.json', { encoding: 'utf-8' });
+    const enchantments = JSON.parse(content);
+    for (const e of enchantments) {
+      this.enchantmentMap.set(e.id, e);
     }
   }
 
@@ -45,6 +52,28 @@ class Engine {
   }
 
 
+  _applyEnchantment(enchant, ref) {
+    console.log(enchant.name);
+
+    enchant.effects.forEach(effect => {
+      const filters = effect.filters;
+      const canApply = false;
+
+      for (const filter of filters) {
+      }
+    });
+  }
+
+
+  _calcEnchantments(attackRef, defendRef) {
+    console.log('!!!');
+    for (const enchant of this.enchantmentMap.values()) {
+      this._applyEnchantment(enchant, attackRef);
+      this._applyEnchantment(enchant, defendRef);
+    }
+    console.log('');
+  }
+
   _calcAccuracy(attackRef, defendRef) {
     let accuracy = attackRef.accuracy;
     if (defendRef.abilities.includes('swift')) {
@@ -67,7 +96,7 @@ class Engine {
 
   _burst(attackRef, defendRef, battleLog) {
     const burst = defendRef.abilities.find(d => d.startsWith('bursting'))
-    if (attackRef.primaries.includes('ranged') || attackRef.primaries.includes('magic') || attackRef.primaries.includes('psychic')) {
+    if (attackRef.primaryTypes.includes('ranged') || attackRef.primaryTypes.includes('magic') || attackRef.primaryTypes.includes('psychic')) {
       return;
     } 
     let damage = 0;
@@ -123,14 +152,14 @@ class Engine {
     let resist = 0;
     let magicPsychic = false;
     let ranged = false;
-    for (const type of attackRef.primaries) {
+    for (const type of attackRef.primaryTypes) {
       if (type === 'magic' || type === 'psychic') magicPsychic = true;
       if (type === 'ranged') ranged = true; 
       resist += defendRef.resistances[type];
     }
-    resist /= attackRef.primaries.length;
+    resist /= attackRef.primaryTypes.length;
 
-    if (attackRef.primaries.includes('ranged') && defendRef.abilities.includes('large shield')) {
+    if (attackRef.primaryTypes.includes('ranged') && defendRef.abilities.includes('large shield')) {
       resist += 50;
       resist = Math.min(100, resist);
     }
@@ -152,7 +181,7 @@ class Engine {
     let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
     for (const weakness of weaknesses) {
       const weakType = weakness.split(' ')[1];
-      if (attackRef.primaries.includes(weakType)) {
+      if (attackRef.primaryTypes.includes(weakType)) {
         damage *= 2;
       }
     }
@@ -186,13 +215,13 @@ class Engine {
     let counterAccuracy = this._calcAccuracy(defendRef, attackRef);
     let resist = 0;
     let magicPsychic = false;
-    for (const type of defendRef.primaries) {
+    for (const type of defendRef.primaryTypes) {
       if (type === 'magic' || type === 'psychic') magicPsychic = true;
       resist += attackRef.resistances[type];
     }
-    resist /= defendRef.primaries.length;
+    resist /= defendRef.primaryTypes.length;
 
-    if (defendRef.primaries.includes('ranged') && attackRef.abilities.includes('larged shield')) {
+    if (defendRef.primaryTypes.includes('ranged') && attackRef.abilities.includes('larged shield')) {
       resist += 50;
       resist = Math.min(100, resist);
     }
@@ -209,7 +238,7 @@ class Engine {
     let weaknesses = attackRef.abilities.filter(d => d.startsWith('weakness'));
     for (const weakness of weaknesses) {
       const weakType = weakness.split(' ')[1];
-      if (defendRef.primaries.includes(weakType)) {
+      if (defendRef.primaryTypes.includes(weakType)) {
         damage *= 2;
       }
     }
@@ -224,7 +253,7 @@ class Engine {
     }
 
     // ranged
-    if (attackRef.primaries.includes('ranged')) {
+    if (attackRef.primaryTypes.includes('ranged')) {
       damage = 0;
     }
 
@@ -251,14 +280,14 @@ class Engine {
     let resist = 0;
     let magicPsychic = false;
     let ranged = false;
-    for (const type of attackRef.secondaries) {
+    for (const type of attackRef.secondaryTypes) {
       if (type === 'magic' || type === 'psychic') magicPsychic = true;
       if (type === 'ranged') ranged = true;
       resist += defendRef.resistances[type];
     }
-    resist /= attackRef.secondaries.length;
+    resist /= attackRef.secondaryTypes.length;
 
-    if (attackRef.secondaries.includes('ranged') && defendRef.abilities.includes('larged shield')) {
+    if (attackRef.secondaryTypes.includes('ranged') && defendRef.abilities.includes('larged shield')) {
       resist += 50;
       resist = Math.min(100, resist);
     }
@@ -278,7 +307,7 @@ class Engine {
     let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
     for (const weakness of weaknesses) {
       const weakType = weakness.split(' ')[1];
-      if (attackRef.secondaries.includes(weakType)) {
+      if (attackRef.secondaryTypes.includes(weakType)) {
         damage *= 2;
       }
     }
@@ -312,9 +341,9 @@ class Engine {
         numUnits: Math.floor(TOTAL_NP / ref.power),
         abilities: ref.abilities,
 
-        primaries: ref.a1_type.split(' '),
+        primaryTypes: ref.a1_type.split(' '),
         primaryPower: ref.a1_power,
-        secondaries: ref.a2_type.split(' '),
+        secondaryTypes: ref.a2_type.split(' '),
         secondaryPower: ref.a2_power,
         counterPower: ref.counter,
         resistances: ref.resistances,
@@ -327,12 +356,14 @@ class Engine {
           secondaryPower: ref.a2_power,
           counterPower: ref.counter
         }
-
       };
     });
 
+
+    this._calcEnchantments(attackerRef, defenderRef);
+
     // Expected enchantments
-    if (this.enchantments === true) {
+    if (this.useEnchantments === true) {
       [defenderRef, attackerRef].forEach(ref => {
         if (ref.magic === 'ascendant') {
           // LnP
@@ -347,9 +378,9 @@ class Engine {
           ref.counterPower += ref.base.counterPower * 0.1263;
           ref.accuracy += 0.06315;
 
-          if (ref.primaries.includes('melee') || ref.secondaries.includes('melee')) {
-            if (!ref.primaries.includes('holy')) {
-              ref.primaries.push('holy');
+          if (ref.primaryTypes.includes('melee') || ref.secondaryTypes.includes('melee')) {
+            if (!ref.primaryTypes.includes('holy')) {
+              ref.primaryTypes.push('holy');
             }
           }
         }
@@ -461,10 +492,12 @@ class Engine {
       let healing = 0;
       if (ref.abilities.includes('regeneration')) {
         regen = Math.floor(ref.unitLoss * 0.2);
+        battleLog.push(`${ref.name} ${ref.unitLoss} slain`);
         battleLog.push(`${ref.name} ${regen} regened`);
       }
       if (ref.abilities.includes('healing')) {
         healing = Math.floor(ref.unitLoss * 0.3);
+        battleLog.push(`${ref.name} ${ref.unitLoss} slain`);
         battleLog.push(`${ref.name} ${healing} healed`);
       }
 
