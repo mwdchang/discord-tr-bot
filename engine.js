@@ -239,6 +239,12 @@ class Engine {
       resist = Math.min(100, resist);
     }
 
+    if (attackRef.abilities.includes('piercing')) {
+      resist -= 10;
+      resist = Math.max(0, resist);
+    }
+
+
     if (defenderFlying) {
       if (attackerFlying === false && ranged === false) return;
     }
@@ -300,6 +306,12 @@ class Engine {
       resist += 50;
       resist = Math.min(100, resist);
     }
+
+    if (defendRef.abilities.includes('piercing')) {
+      resist -= 10;
+      resist = Math.max(0, resist);
+    }
+
 
     let damageTypePCT = 100 - resist; 
     let damage = 
@@ -366,6 +378,12 @@ class Engine {
       resist += 50;
       resist = Math.min(100, resist);
     }
+
+    if (attackRef.abilities.includes('piercing')) {
+      resist -= 10;
+      resist = Math.max(0, resist);
+    }
+
 
     if (defenderFlying) {
       if (attackerFlying === false && ranged === false) return;
