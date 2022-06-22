@@ -2,12 +2,17 @@ const _ = require('lodash');
 const fs = require('fs');
 const { randomBM, levenshteinDistance } = require('./util.js');
 
+// TODO
+// - abilities: pike, att def against, steal life
+// - units negative
+// - hallu, EA, BC, BS
+
 class Engine {
   constructor() {
     this.unitMap = new Map();
     this.slangMap = new Map();
     this.enchantmentMap = new Map();
-    this.useEnchantments = true;
+    this.useEnchantments = false;
   }
 
   init(unitFile, slangFile) {
@@ -53,25 +58,95 @@ class Engine {
 
 
   _applyEnchantment(enchant, ref) {
-    console.log(enchant.name);
-
     enchant.effects.forEach(effect => {
       const filters = effect.filters;
-      const canApply = false;
+      const action = effect.action;
+      let canApply = false;
 
-      for (const filter of filters) {
+      if (filters !== null) {
+        for (const filter of filters) {
+          let match = true;
+          for (const [k, v] of Object.entries(filter)) {
+            if (_.isArray(v)) {
+              if (_.difference(v, ref[k]).length !== 0) match = false; 
+            } else {
+              if (ref[k] !== v) match = false;
+            }
+          }
+          if (match === true) {
+            canApply = true;
+            break;
+          }
+        }
+      } else {
+        canApply = true;
+      }
+
+      if (canApply === false) return;
+
+      if (ref.activeEnchantments.includes(enchant.id) === false) {
+        ref.activeEnchantments.push(enchant.id);
+      }
+      if (action.type === 'add attack type') {
+        for (const attr of action.attributes) {
+          if (ref[attr].includes(action.value) === false) {
+            ref[attr].push(action.value);
+          }
+        }
+        return;
+      }
+
+      if (action.type === 'change value') {
+        for (const attr of action.attributes) {
+          const delta = action.value * action.base ? 
+            action.base * action.value : 
+            ref.base[attr] * action.value;
+
+          if (attr.includes('.')) {
+            const [a1, a2] = attr.split('.');
+            ref[a1][a2] += delta;
+          } else {
+            ref[attr] += delta;
+          }
+        }
       }
     });
   }
 
 
   _calcEnchantments(attackRef, defendRef) {
-    console.log('!!!');
-    for (const enchant of this.enchantmentMap.values()) {
-      this._applyEnchantment(enchant, attackRef);
-      this._applyEnchantment(enchant, defendRef);
+    let attackEnchant = [];
+    let defendEnchant = [];
+
+    if (attackRef.magic === 'ascendant') attackEnchant = ['thl', 'lnp'];
+    if (attackRef.magic === 'verdant') attackEnchant = ['ea', 'pg', 'lore'];
+    if (attackRef.magic === 'eradication') attackEnchant = ['bc'];
+    if (attackRef.magic === 'nether') attackEnchant = ['bs'];
+    if (attackRef.magic === 'phantasm') attackEnchant = ['hallu'];
+
+    if (defendRef.magic === 'ascendant') defendEnchant = ['thl', 'lnp'];
+    if (defendRef.magic === 'verdant') defendEnchant = ['ea', 'pg', 'lore'];
+    if (defendRef.magic === 'eradication') defendEnchant = ['bc'];
+    if (defendRef.magic === 'nether') defendEnchant = ['bs'];
+    if (defendRef.magic === 'phantasm') defendEnchant = ['hallu'];
+
+    for (const e of attackEnchant) {
+      this._applyEnchantment(this.enchantmentMap.get(e), attackRef);
     }
-    console.log('');
+
+    for (const e of defendEnchant) {
+      if (e === 'hallu') {
+        this._applyEnchantment(this.enchantmentMap.get(e), attackRef);
+      } else {
+        this._applyEnchantment(this.enchantmentMap.get(e), defendRef);
+      }
+    }
+
+
+    // for (const enchant of this.enchantmentMap.values()) {
+    //   this._applyEnchantment(enchant, attackRef);
+    //   this._applyEnchantment(enchant, defendRef);
+    // }
   }
 
   _calcAccuracy(attackRef, defendRef) {
@@ -349,6 +424,7 @@ class Engine {
         resistances: ref.resistances,
         unitLoss: 0,
         powerLoss: 0,
+        activeEnchantments: [],
 
         base: {
           hp: ref.hp,
@@ -360,7 +436,7 @@ class Engine {
     });
 
 
-    // this._calcEnchantments(attackerRef, defenderRef);
+    this._calcEnchantments(attackerRef, defenderRef);
 
     // Expected enchantments
     if (this.useEnchantments === true) {
@@ -428,7 +504,6 @@ class Engine {
     let attackRef = null;
     let defendRef = null;
 
-
     // Allocate init order
     const initList = [];
     initList.push({ 
@@ -460,6 +535,12 @@ class Engine {
 
     // Simulate actual attacks
     const battleLog = [];
+    [attackerRef, defenderRef].forEach(ref => {
+      battleLog.push(`${ref.name}=${ref.numUnits} power=${ref.primaryPower}/${ref.secondaryPower}/${ref.counterPower}, hp=${ref.hp}, acc=${ref.accuracy}, enchants=${ref.activeEnchantments}`);
+    });
+    battleLog.push("");
+
+
     for (const hit of initOrder) {
       if (hit.role === 'attacker') {
         attackRef = attackerRef;
@@ -510,6 +591,7 @@ class Engine {
 
     // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
     // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
+    //
     return {
       attacker: attackerRef,
       defender: defenderRef,
