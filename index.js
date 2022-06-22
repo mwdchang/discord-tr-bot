@@ -205,10 +205,9 @@ ${battleLog.join('\n')}
     }
     return;
   }
-  if (content.startsWith('show unit')) {
-    msg.channel.send('hello channel')
-    return;
-  }
+
+  // last
+  channel.send('??? use **help** to see available options');
 });
 
 client.login(process.env.TOKEN);
