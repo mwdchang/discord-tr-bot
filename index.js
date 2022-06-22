@@ -96,6 +96,34 @@ if you'd like to contribute or access to the source, see
     const topDefenderNether = _.take(r.defenders.filter(d => d.magic === 'nether'), 3);
     const topDefenderPhantasm = _.take(r.defenders.filter(d => d.magic === 'phantasm'), 3);
 
+
+    const T_attack = 2000000 * 0.15;
+    const T_defend = 2000000 * 0.08;
+
+    [
+      topAttackerAscendant, 
+      topAttackerVerdant,
+      topAttackerEradication,
+      topAttackerNether,
+      topAttackerEradication
+    ].forEach(list => {
+      list.forEach(d => {
+        if (d.value >= T_attack) d.name = `**${d.name}**`;
+      });
+    });
+
+    [
+      topDefenderAscendant, 
+      topDefenderVerdant,
+      topDefenderEradication,
+      topDefenderNether,
+      topDefenderEradication
+    ].forEach(list => {
+      list.forEach(d => {
+        if (d.value <= T_defend) d.name = `**${d.name}**`;
+      });
+    });
+
     channel.send(`Report: pairing against ${u.name}
       Top attackers: 
          Acendant: ${topAttackerAscendant.map(d => d.name).join(', ')}
@@ -109,6 +137,8 @@ if you'd like to contribute or access to the source, see
          Eradication: ${topDefenderEradication.map(d => d.name).join(', ')}
          Nether: ${topDefenderNether.map(d => d.name).join(', ')}
          Phantasm: ${topDefenderPhantasm.map(d => d.name).join(', ')}
+
+      Bolded units are more viable units. Attackers with > 15% destroyed. Defenders with < 8% loss.
     `);
     return;
   }

@@ -439,7 +439,7 @@ class Engine {
         secondaryTypes: ref.a2_type.split(' '),
         secondaryPower: ref.a2_power,
         counterPower: ref.counter,
-        resistances: ref.resistances,
+        resistances: _.cloneDeep(ref.resistances),
         unitLoss: 0,
         powerLoss: 0,
         activeEnchantments: [],
@@ -641,26 +641,28 @@ class Engine {
 
     const bestAttackers = [];
     const bestDefenders = [];
+    const N = 10;
 
     for (const candidate of this.unitMap.values()) {
       if (skipList.includes(candidate.name)) continue;
 
-      const results = this.simulateX(candidate, unit, 10);
+      const results = this.simulateX(candidate, unit, N);
       let attackerLoss = 0;
       let defenderLoss = 0;
       for (const r of results) {
         attackerLoss += r.attackerLoss,
         defenderLoss += r.defenderLoss
       }
-      bestAttackers.push({ name: candidate.name, value: defenderLoss, magic: candidate.magic });
+      bestAttackers.push({ name: candidate.name, value: defenderLoss/N, magic: candidate.magic });
+
 
       // Dont' evaulate air units against ground unit that cannot reach
       if (!unit.abilities.includes('ranged') && !unit.abilities.includes('flying')) {
         if (!candidate.abilities.includes('flying')) {
-          bestDefenders.push({ name: candidate.name, value: attackerLoss, magic: candidate.magic });
+          bestDefenders.push({ name: candidate.name, value: attackerLoss/N, magic: candidate.magic });
         }
       } else {
-        bestDefenders.push({ name: candidate.name, value: attackerLoss, magic: candidate.magic });
+        bestDefenders.push({ name: candidate.name, value: attackerLoss/N, magic: candidate.magic });
       }
     }
 
