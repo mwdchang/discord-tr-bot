@@ -105,7 +105,7 @@ if you'd like to contribute or access to the source, see
       topAttackerVerdant,
       topAttackerEradication,
       topAttackerNether,
-      topAttackerEradication
+      topAttackerPhantasm
     ].forEach(list => {
       list.forEach(d => {
         if (d.value >= T_attack) d.name = `**${d.name}**`;
@@ -117,7 +117,7 @@ if you'd like to contribute or access to the source, see
       topDefenderVerdant,
       topDefenderEradication,
       topDefenderNether,
-      topDefenderEradication
+      topDefenderPhantasm
     ].forEach(list => {
       list.forEach(d => {
         if (d.value <= T_defend) d.name = `**${d.name}**`;
