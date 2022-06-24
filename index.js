@@ -90,6 +90,13 @@ if you'd like to contribute or access to the source, see
     const topAttackerNether = _.take(r.attackers.filter(d => d.magic === 'nether'), 3);
     const topAttackerPhantasm = _.take(r.attackers.filter(d => d.magic === 'phantasm'), 3);
 
+    const topViableAscendant = _.take(r.viables.filter(d => d.magic === 'ascendant'), 3);
+    const topViableVerdant = _.take(r.viables.filter(d => d.magic === 'verdant'), 3);
+    const topViableEradication = _.take(r.viables.filter(d => d.magic === 'eradication'), 3);
+    const topViableNether = _.take(r.viables.filter(d => d.magic === 'nether'), 3);
+    const topViablePhantasm = _.take(r.viables.filter(d => d.magic === 'phantasm'), 3);
+
+
     const topDefenderAscendant = _.take(r.defenders.filter(d => d.magic === 'ascendant'), 3);
     const topDefenderVerdant = _.take(r.defenders.filter(d => d.magic === 'verdant'), 3);
     const topDefenderEradication = _.take(r.defenders.filter(d => d.magic === 'eradication'), 3);
@@ -99,16 +106,30 @@ if you'd like to contribute or access to the source, see
 
     const T_attack = 2000000 * 0.15;
     const T_defend = 2000000 * 0.08;
+    const T_viable = 2000000 * 0.05;
 
     [
       topAttackerAscendant, 
       topAttackerVerdant,
       topAttackerEradication,
       topAttackerNether,
-      topAttackerPhantasm
+      topAttackerPhantasm,
     ].forEach(list => {
       list.forEach(d => {
         if (d.value >= T_attack) d.name = `**${d.name}**`;
+      });
+    });
+
+
+    [
+      topViableAscendant, 
+      topViableVerdant,
+      topViableEradication,
+      topViableNether,
+      topViablePhantasm,
+    ].forEach(list => {
+      list.forEach(d => {
+        if (d.value >= T_viable && d.value2 > T_attack) d.name = `**${d.name}**`;
       });
     });
 
@@ -125,7 +146,7 @@ if you'd like to contribute or access to the source, see
     });
 
     channel.send(`Report: pairing against ${u.name}
-      Top attackers: 
+      Top damage dealer: 
          Acendant: ${topAttackerAscendant.map(d => d.name).join(', ')}
          Verdant: ${topAttackerVerdant.map(d => d.name).join(', ')}
          Eradication: ${topAttackerEradication.map(d => d.name).join(', ')}
@@ -137,8 +158,15 @@ if you'd like to contribute or access to the source, see
          Eradication: ${topDefenderEradication.map(d => d.name).join(', ')}
          Nether: ${topDefenderNether.map(d => d.name).join(', ')}
          Phantasm: ${topDefenderPhantasm.map(d => d.name).join(', ')}
+      Top head-to-head viable units: 
+         Acendant: ${topViableAscendant.map(d => d.name).join(', ')}
+         Verdant: ${topViableVerdant.map(d => d.name).join(', ')}
+         Eradication: ${topViableEradication.map(d => d.name).join(', ')}
+         Nether: ${topViableNether.map(d => d.name).join(', ')}
+         Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
 
-      Bolded units are more viable units. Attackers with > 15% destroyed. Defenders with < 8% loss.
+      Bolded attackers deal more than > 15% damage. Bolded defenders suffer < 8% loss.
+      Bolded viable units deal 5% more dmanage than they suffer.
     `);
     return;
   }

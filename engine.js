@@ -607,6 +607,9 @@ class Engine {
     battleLog.push(`lost ${attackerRef.unitLoss} ${attackerRef.name}`);
     battleLog.push(`lost ${defenderRef.unitLoss} ${defenderRef.name}`);
 
+    battleLog.push('Attacker loss np ' + attackerRef.unitLoss * attackerRef.power);
+    battleLog.push('Defender loss np ' + defenderRef.unitLoss * defenderRef.power);
+
     // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
     // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
     //
@@ -641,7 +644,9 @@ class Engine {
 
     const bestAttackers = [];
     const bestDefenders = [];
-    const N = 10;
+    const viableAttacker = [];
+
+    const N = 20;
 
     for (const candidate of this.unitMap.values()) {
       if (skipList.includes(candidate.name)) continue;
@@ -660,15 +665,24 @@ class Engine {
       if (!unit.abilities.includes('ranged') && !unit.abilities.includes('flying')) {
         if (!candidate.abilities.includes('flying')) {
           bestDefenders.push({ name: candidate.name, value: attackerLoss/N, magic: candidate.magic });
+          
+          if (defenderLoss > attackerLoss) { 
+            viableAttacker.push({ name: candidate.name, value: (defenderLoss - attackerLoss)/N, magic: candidate.magic, value2: defenderLoss / N });
+          }
         }
       } else {
         bestDefenders.push({ name: candidate.name, value: attackerLoss/N, magic: candidate.magic });
+
+        if (defenderLoss > attackerLoss) { 
+          viableAttacker.push({ name: candidate.name, value: (defenderLoss - attackerLoss)/N, magic: candidate.magic, value2: defenderLoss / N });
+        }
       }
     }
 
     return {
       attackers: _.orderBy(bestAttackers, d => -d.value),
-      defenders: _.orderBy(bestDefenders, d => d.value)
+      defenders: _.orderBy(bestDefenders, d => d.value),
+      viables: _.orderBy(viableAttacker, d => -d.value)
     };
   }
 }
