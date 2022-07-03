@@ -26,6 +26,8 @@ client.on('ready', () => {
 
 const GENERAL_ERROR = 'Cannot understand ???. Please use **help** to see a list of available options.';
 
+const userPrefMap = new Map();
+
 
 // Grammar
 // - show unit <unit>
@@ -39,12 +41,22 @@ client.on('message', msg => {
   content = content.toLowerCase().trim();
 
   const channel = msg.channel;
+  const username = msg.author.username;
+
+  if (userPrefMap.has(username) === false) {
+    userPrefMap.set(username, {
+      attackerEnchants: null,
+      defenderEnchants: null 
+    });
+    return;
+  }
 
   if (content.startsWith('help')) {
     channel.send(`I can do these analyses:
     **show match <unit1> vs <unit2>** - Evaluate head-to-head match up
     **show pairing <unit>** - Evaluate top pairings
     **show battle <uni1> vs <unit2>** - Single battle with logs
+    **set enchants [<e1> <e2> vs <e1> <e2>]** - Set enchantments
 
 if you'd like to contribute or access to the source, see
 \`https://github.com/mwdchang/discord-tr-bot/\`
@@ -52,27 +64,41 @@ if you'd like to contribute or access to the source, see
     return;
   }
 
-  if (content.startsWith('settings')) {
-    let str = content.replace('settings', '').trim();
-    let role = '';
+  if (content.startsWith('set enchant')) {
+    const tokens = content.replace('set enchant', '').split('vs');
 
-    if (str.startsWith('attacker')) {
-      str = str.replace('attacker', '').trim();
-      role = 'attacker';
-    } else if (str.startsWith('defender')) {
-      str = str.replace('defender', '').trim();
-      role = 'defender';
-    } else if (str.startsWith('reset')) {
-      role = 'reset';
-    } else {
-      role = '';
+
+    // Reset
+    if (!tokens || tokens.length !== 2) {
+      userPrefMap.get(username).attackerEnchants = null;
+      userPrefMap.get(username).defenderEnchants = null;
+      channel.send(`${username} reset enchantments to default`); 
+      return;
     }
 
-    if (role === 'reset') {
-    } else if (role === 'attacker') {
-    } else if (role === 'defender') {
-    }
+    // Set enchants
+    const attackerEnchants = tokens[0].split(/[\s,]/).filter(d => d != '');
+    const defenderEnchants = tokens[1].split(/[\s,]/).filter(d => d != '');
+
+
+    userPrefMap.get(username).attackerEnchants = attackerEnchants;
+    userPrefMap.get(username).defenderEnchants = defenderEnchants;
+
+    console.log(userPrefMap.get(username));
+
+    channel.send(`${username}: attacker=${attackerEnchants.join(' ')} defender=${defenderEnchants.join(' ')}`);
+    return;
   }
+
+  if (content.startsWith('show prefs')) {
+    const userPref = userPrefMap.get(username);
+    channel.send(`${username}'s setup
+    attacker enchantments = ${userPref.attackerEnchants.join(', ')}
+    defender enchantments = ${userPref.defenderEnchants.join(', ')}
+    `);
+    return;
+  }
+
 
   if (content.startsWith('show pairing')) {
     const uStr = content.replace('show pairing', '').trim();
@@ -189,7 +215,10 @@ if you'd like to contribute or access to the source, see
     }
 
     if (u1 && u2) {
-      const r = engine.simulate(u1, u2);
+      const attackerEnchants = userPrefMap.get(username).attackerEnchants;
+      const defenderEnchants = userPrefMap.get(username).defenderEnchants;
+
+      const r = engine.simulate(u1, u2, attackerEnchants, defenderEnchants);
       const battleLog = r.battleLog;
 
       let attackercount = r.attackerUnitCount;
@@ -199,6 +228,7 @@ if you'd like to contribute or access to the source, see
 ${battleLog.join('\n')}
       `);
     }
+    return;
   }
 
   if (content.startsWith('show match')) {
@@ -219,7 +249,10 @@ ${battleLog.join('\n')}
     }
 
     if (u1 && u2) {
-      const results = engine.simulateX(u1, u2, N);
+      const attackerEnchants = userPrefMap.get(username).attackerEnchants;
+      const defenderEnchants = userPrefMap.get(username).defenderEnchants;
+
+      const results = engine.simulateX(u1, u2, attackerEnchants, defenderEnchants, N);
       let attackerloss = 0;
       let attackerunit = 0;
       let defenderloss = 0;
@@ -265,7 +298,7 @@ ${battleLog.join('\n')}
   }
 
   // last
-  channel.send('??? use **help** to see available options');
+  channel.send(`Hey ${username} use **help** to see available options`);
 });
 
 client.login(process.env.TOKEN);

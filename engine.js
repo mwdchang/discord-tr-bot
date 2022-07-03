@@ -114,21 +114,29 @@ class Engine {
   }
 
 
-  _calcEnchantments(attackRef, defendRef) {
+  _calcEnchantments(attackRef, defendRef, attackerEnchants, defenderEnchants) {
     let attackEnchant = [];
     let defendEnchant = [];
 
-    if (attackRef.magic === 'ascendant') attackEnchant = ['thl', 'lnp'];
-    if (attackRef.magic === 'verdant') attackEnchant = ['ea', 'pg', 'lore'];
-    if (attackRef.magic === 'eradication') attackEnchant = ['bc'];
-    if (attackRef.magic === 'nether') attackEnchant = ['bs'];
-    if (attackRef.magic === 'phantasm') attackEnchant = ['hallu'];
+    if (!attackerEnchants) {
+      if (attackRef.magic === 'ascendant') attackEnchant = ['thl', 'lnp'];
+      if (attackRef.magic === 'verdant') attackEnchant = ['ea', 'pg', 'lore'];
+      if (attackRef.magic === 'eradication') attackEnchant = ['bc'];
+      if (attackRef.magic === 'nether') attackEnchant = ['bs'];
+      if (attackRef.magic === 'phantasm') attackEnchant = ['hallu'];
+    } else {
+      attackEnchant = attackerEnchants;
+    }
 
-    if (defendRef.magic === 'ascendant') defendEnchant = ['thl', 'lnp'];
-    if (defendRef.magic === 'verdant') defendEnchant = ['ea', 'pg', 'lore'];
-    if (defendRef.magic === 'eradication') defendEnchant = ['bc'];
-    if (defendRef.magic === 'nether') defendEnchant = ['bs'];
-    if (defendRef.magic === 'phantasm') defendEnchant = ['hallu'];
+    if (!defenderEnchants) {
+      if (defendRef.magic === 'ascendant') defendEnchant = ['thl', 'lnp'];
+      if (defendRef.magic === 'verdant') defendEnchant = ['ea', 'pg', 'lore'];
+      if (defendRef.magic === 'eradication') defendEnchant = ['bc'];
+      if (defendRef.magic === 'nether') defendEnchant = ['bs'];
+      if (defendRef.magic === 'phantasm') defendEnchant = ['hallu'];
+    } else {
+      defendEnchant = defenderEnchants; 
+    }
 
     for (const e of attackEnchant) {
       this._applyEnchantment(this.enchantmentMap.get(e), attackRef);
@@ -418,7 +426,7 @@ class Engine {
 
 
   // Main method
-  simulate(attacker, defender) {
+  simulate(attacker, defender, attackerEnchants = null, defenderEnchants = null) {
     // Allocate approximate number of units at equal net power
     const TOTAL_NP = 2000000;
 
@@ -454,7 +462,7 @@ class Engine {
     });
 
 
-    this._calcEnchantments(attackerRef, defenderRef);
+    this._calcEnchantments(attackerRef, defenderRef, attackerEnchants, defenderEnchants);
 
     // Expected enchantments
     if (this.useEnchantments === true) {
@@ -629,11 +637,11 @@ class Engine {
     };
   }
 
-  simulateX(attacker, defender, n) {
+  simulateX(attacker, defender, attackerEnchants, defenderEnchants, n) {
     const r = [];
     for (let i = 0; i < n; i++) {
       r.push(
-        this.simulate(attacker, defender)
+        this.simulate(attacker, defender, attackerEnchants, defenderEnchants)
       );
     }
     return r;
