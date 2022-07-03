@@ -109,7 +109,11 @@ if you'd like to contribute or access to the source, see
       return;
     }
 
-    const r = engine.findPairings(u);
+
+    const attackerEnchants = userPrefMap.get(username).attackerEnchants;
+    const defenderEnchants = userPrefMap.get(username).defenderEnchants;
+    const r = engine.findPairings(u, attackerEnchants, defenderEnchants);
+
     const topAttackerAscendant = _.take(r.attackers.filter(d => d.magic === 'ascendant'), 3);
     const topAttackerVerdant = _.take(r.attackers.filter(d => d.magic === 'verdant'), 3);
     const topAttackerEradication = _.take(r.attackers.filter(d => d.magic === 'eradication'), 3);

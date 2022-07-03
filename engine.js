@@ -647,7 +647,7 @@ class Engine {
     return r;
   }
 
-  findPairings(unit) {
+  findPairings(unit, attackerEnchants, defenderEnchants) {
     const skipList = ['Devil', 'Shadow Monster', 'Succubus'];
 
     const bestAttackers = [];
@@ -659,7 +659,7 @@ class Engine {
     for (const candidate of this.unitMap.values()) {
       if (skipList.includes(candidate.name)) continue;
 
-      const results = this.simulateX(candidate, unit, N);
+      const results = this.simulateX(candidate, unit, attackerEnchants, defenderEnchants, N);
       let attackerLoss = 0;
       let defenderLoss = 0;
       for (const r of results) {
