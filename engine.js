@@ -182,6 +182,10 @@ class Engine {
     if (attackRef.primaryTypes.includes('ranged') || attackRef.primaryTypes.includes('magic') || attackRef.primaryTypes.includes('psychic')) {
       return;
     } 
+    if (defendRef.abilities.includes('flying') && !attackRef.abilities.includes('flying')) {
+      return;
+    }
+
     let damage = 0;
     let unitLoss = 0;
     const [_t, burstType, burstValue] = burst.split(' ');
@@ -254,7 +258,7 @@ class Engine {
 
 
     if (defenderFlying) {
-      if (attackerFlying === false && ranged === false) return;
+      if (attackerFlying === false && ranged === false) return false;
     }
 
     let damageTypePCT = 100 - resist; 
@@ -296,7 +300,9 @@ class Engine {
     let unitLoss = Math.floor(damage / defendRef.hp);
     defendRef.numUnits -= unitLoss;
     defendRef.unitLoss += unitLoss;
-    battleLog.push(`pri attack (acc ${accuracy.toFixed(2)}): ${attackRef.name} slew ${unitLoss} ${defendRef.name}`);
+    battleLog.push(`${attackRef.name} slew ${unitLoss} ${defendRef.name} > Primary attack (acc ${accuracy.toFixed(2)})`);
+
+    return true;
   }
 
 
@@ -421,7 +427,7 @@ class Engine {
     defendRef.numUnits -= unitLoss;
     defendRef.unitLoss += unitLoss;
 
-    battleLog.push(`sec attack (acc ${accuracy.toFixed(2)}): ${attackRef.name} slew ${unitLoss} ${defendRef.name}`);
+    battleLog.push(`${attackRef.name} slew ${unitLoss} ${defendRef.name} > Secondary attack (acc ${accuracy.toFixed(2)})`);
   }
 
 
@@ -581,11 +587,18 @@ class Engine {
         if (burst) {
           this._burst(attackRef, defendRef, battleLog)
         } 
-        this._primaryAttack(attackRef, defendRef, battleLog);
+        const canCounter = this._primaryAttack(attackRef, defendRef, battleLog);
+
         if (attackRef.abilities.includes('additional strike')) {
           this._primaryAttack(attackRef, defendRef, battleLog);
         }
-        this._counter(attackRef, defendRef, battleLog);
+
+        if (canCounter) {
+          if (attackRef.primaryTypes.includes('ranged') || attackRef.primaryTypes.includes('paralyse')) {
+            continue;
+          }
+          this._counter(attackRef, defendRef, battleLog);
+        }
       }
 
       if (hit.type === 'secondary') {
@@ -612,8 +625,9 @@ class Engine {
       ref.numUnits += (regen + healing);
     }
 
-    battleLog.push(`lost ${attackerRef.unitLoss} ${attackerRef.name}`);
-    battleLog.push(`lost ${defenderRef.unitLoss} ${defenderRef.name}`);
+    battleLog.push('');
+    battleLog.push(`Attacker lost ${attackerRef.unitLoss} ${attackerRef.name}`);
+    battleLog.push(`Defender lost ${defenderRef.unitLoss} ${defenderRef.name}`);
 
     battleLog.push('Attacker loss np ' + attackerRef.unitLoss * attackerRef.power);
     battleLog.push('Defender loss np ' + defenderRef.unitLoss * defenderRef.power);

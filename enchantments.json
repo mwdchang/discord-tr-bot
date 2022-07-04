@@ -153,7 +153,7 @@
           { "race": ["animal"] }
         ],
         "action": {
-          "attributes": ["primaryPower", "secondaryPower", "counterPower", "hp"],
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
           "type": "change value",
           "base": null,
           "value": 0.47
