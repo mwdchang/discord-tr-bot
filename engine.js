@@ -3,10 +3,7 @@ const fs = require('fs');
 const { randomBM, levenshteinDistance } = require('./util.js');
 
 // TODO
-// - abilities: pike, att def against, steal life
-// - units negative
-// - hallu, EA, BC, BS
-
+// - abilities: att def against, steal life
 class Engine {
   constructor() {
     this.unitMap = new Map();
@@ -369,7 +366,7 @@ class Engine {
     let unitLoss = Math.floor(damage / attackRef.hp);
     attackRef.numUnits -= unitLoss;
     attackRef.unitLoss += unitLoss;
-    battleLog.push(`counter: ${defendRef.name} slew ${unitLoss} ${attackRef.name}`);
+    battleLog.push(`  counter: ${defendRef.name} slew ${unitLoss} ${attackRef.name}`);
   }
 
 
@@ -450,8 +447,10 @@ class Engine {
 
         primaryTypes: ref.a1_type.split(' '),
         primaryPower: ref.a1_power,
+        primaryInit: ref.a1_init,
         secondaryTypes: ref.a2_type.split(' '),
         secondaryPower: ref.a2_power,
+        secondaryInit: ref.a2_init,
         counterPower: ref.counter,
         resistances: _.cloneDeep(ref.resistances),
         unitLoss: 0,
@@ -467,6 +466,16 @@ class Engine {
       };
     });
 
+    // Annoying PIKE ability
+    if (attackerRef.abilities.includes('pike')) {
+      if (defenderRef.primaryInit === 2) defenderRef.primaryInit = 1;
+      if (defenderRef.secondaryInit === 2) defenderRef.secondaryInit = 1;
+      console.log('hihi');
+    }
+    if (defenderRef.abilities.includes('pike')) {
+      if (attackerRef.primaryInit === 2) attackerRef.primaryInit = 1
+      if (attackerRef.secondaryInit === 2) attackerRef.secondaryInit = 1;
+    }
 
     this._calcEnchantments(attackerRef, defenderRef, attackerEnchants, defenderEnchants);
 
@@ -529,9 +538,6 @@ class Engine {
       });
     }
 
-    // console.log('');
-    // console.log(`### ${attackerRef.name} (${attackerRef.numUnits}) > ${defenderRef.name} (${defenderRef.numUnits}) ###`);
-
     // temp
     let attackRef = null;
     let defendRef = null;
@@ -541,25 +547,25 @@ class Engine {
     initList.push({ 
       role: 'attacker',
       type: 'primary',
-      init: attacker.a1_init ,
+      init: attackerRef.primaryInit
     });
     if (attacker.a2_init > 0) {
       initList.push({ 
         role: 'attacker', 
         type: 'secondary',
-        init: attacker.a2_init ,
+        init: attackerRef.secondaryInit
       });
     }
     initList.push({ 
       role: 'defender',
       type: 'primary',
-      init: defender.a1_init ,
+      init: defenderRef.primaryInit
     });
     if (defender.a2_init > 0) {
       initList.push({ 
         role: 'defender', 
         type: 'secondary',
-        init: defender.a2_init ,
+        init: defenderRef.secondaryInit
       });
     }
     const initOrder = _.shuffle(initList);

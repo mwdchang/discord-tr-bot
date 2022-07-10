@@ -67,7 +67,6 @@ if you'd like to contribute or access to the source, see
   if (content.startsWith('set enchant')) {
     const tokens = content.replace('set enchant', '').split('vs');
 
-
     // Reset
     if (!tokens || tokens.length !== 2) {
       userPrefMap.get(username).attackerEnchants = null;
@@ -99,7 +98,6 @@ if you'd like to contribute or access to the source, see
     return;
   }
 
-
   if (content.startsWith('show pairing')) {
     const uStr = content.replace('show pairing', '').trim();
     const u = engine.findUnit(uStr);
@@ -108,7 +106,6 @@ if you'd like to contribute or access to the source, see
       channel.send(`I cannot find "${uStr}". ${GENERAL_ERROR}`);
       return;
     }
-
 
     const attackerEnchants = userPrefMap.get(username).attackerEnchants;
     const defenderEnchants = userPrefMap.get(username).defenderEnchants;
@@ -204,10 +201,21 @@ if you'd like to contribute or access to the source, see
 
   if (content.startsWith('show battle')) {
     const tokens = content.replace('show battle', '').split('vs');
-    const u1str = tokens[0].trim();
-    const u2str = tokens[1].trim();
-    const u1 = engine.findUnit(u1str);
-    const u2 = engine.findUnit(u2str);
+
+    let u1str = null;
+    let u2str = null;
+    let u1 = null;
+    let u2 = null;
+    try {
+      u1str = tokens[0].trim();
+      u2str = tokens[1].trim();
+      u1 = engine.findUnit(u1str);
+      u2 = engine.findUnit(u2str);
+    } catch (error) {
+      console.error(`Parsing error: ${content}`);
+      channel.send('Parsing error');
+      return;
+    }
 
     if (!u1) {
       channel.send(`I cannot find "${tokens[0]}". ${GENERAL_ERROR}`);
@@ -237,10 +245,21 @@ ${battleLog.join('\n')}
 
   if (content.startsWith('show match')) {
     const tokens = content.replace('show match', '').split('vs');
-    const u1str = tokens[0].trim();
-    const u2str = tokens[1].trim();
-    const u1 = engine.findUnit(u1str);
-    const u2 = engine.findUnit(u2str);
+
+    let u1str = null;
+    let u2str = null;
+    let u1 = null;
+    let u2 = null;
+    try {
+      u1str = tokens[0].trim();
+      u2str = tokens[1].trim();
+      u1 = engine.findUnit(u1str);
+      u2 = engine.findUnit(u2str);
+    } catch (error) {
+      console.error(`Parsing error: ${content}`);
+      channel.send('Parsing error');
+      return;
+    }
     const N = 10;
 
     if (!u1) {
