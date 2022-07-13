@@ -988,6 +988,35 @@
     }
   },
   {
+    "name": "Venus Flytrap",
+    "magic": "verdant",
+    "race": ["treefolk"],
+    "power": 380,
+    "a1_power": 1754,
+    "a1_type": "ranged poison",
+    "a1_init": 1,
+    "counter": 336,
+    "a2_power": 3000,
+    "a2_type": "ranged poison",
+    "a2_init": 3,
+    "hp": 1344,
+    "abilities": ["charm", "regeneration", "weakness fire"],
+    "resistances": {
+      "missile": 67,
+      "fire": 0,
+      "poison": 90,
+      "breath": 20,
+      "magic": 50,
+      "melee": 67,
+      "ranged": 67,
+      "lightning": 40,
+      "cold": 40,
+      "paralyse": 75,
+      "psychic": 85,
+      "holy": 40
+    }
+  },
+  {
     "name": "Werebear",
     "magic": "verdant",
     "race": ["human", "animal"],
