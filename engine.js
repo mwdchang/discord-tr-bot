@@ -470,7 +470,6 @@ class Engine {
     if (attackerRef.abilities.includes('pike')) {
       if (defenderRef.primaryInit === 2) defenderRef.primaryInit = 1;
       if (defenderRef.secondaryInit === 2) defenderRef.secondaryInit = 1;
-      console.log('hihi');
     }
     if (defenderRef.abilities.includes('pike')) {
       if (attackerRef.primaryInit === 2) attackerRef.primaryInit = 1
