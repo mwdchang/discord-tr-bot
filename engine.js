@@ -313,7 +313,7 @@ class Engine {
     }
     resist /= defendRef.primaryTypes.length;
 
-    if (defendRef.primaryTypes.includes('ranged') && attackRef.abilities.includes('larged shield')) {
+    if (defendRef.primaryTypes.includes('ranged') && attackRef.abilities.includes('large shield')) {
       resist += 50;
       resist = Math.min(100, resist);
     }
@@ -385,7 +385,7 @@ class Engine {
     }
     resist /= attackRef.secondaryTypes.length;
 
-    if (attackRef.secondaryTypes.includes('ranged') && defendRef.abilities.includes('larged shield')) {
+    if (attackRef.secondaryTypes.includes('ranged') && defendRef.abilities.includes('large shield')) {
       resist += 50;
       resist = Math.min(100, resist);
     }
@@ -713,6 +713,16 @@ class Engine {
       viables: _.orderBy(viableAttacker, d => -d.value)
     };
   }
+
+  ratios() {
+    const unitMap = this.unitMap;
+
+    for (const unit of unitMap.values()) {
+      console.log(unit.hp / unit.power, unit.name);
+    }
+
+  }
+  
 }
 
 
