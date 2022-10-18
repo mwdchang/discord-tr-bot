@@ -145,6 +145,35 @@
     }
   },
   {
+    "name": "Dark Elemental",
+    "magic": "nether",
+    "race": ["elemental"],
+    "power": 20586,
+    "a1_power": 100000,
+    "a1_type": "paralyze",
+    "a1_init": 1,
+    "counter": 15000,
+    "a2_power": 300000,
+    "a2_type": "paralyze ranged",
+    "a2_init": 3,
+    "hp": 80000,
+    "abilities": ["endurance"],
+    "resistances": {
+      "missile": 90,
+      "fire": 60,
+      "poison": 90,
+      "breath": 50,
+      "magic": 60,
+      "melee": 100,
+      "ranged": 85,
+      "lightning": 50,
+      "cold": 50,
+      "paralyse": 100,
+      "psychic": 50,
+      "holy": 50
+    }
+  },
+  {
     "name": "Dominion",
     "magic": "ascendant",
     "race": ["angel"],
