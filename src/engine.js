@@ -1,10 +1,10 @@
-const _ = require('lodash');
-const fs = require('fs');
-const { randomBM, levenshteinDistance } = require('./util.js');
+import _ from 'lodash';
+import fs from 'fs';
+import { randomBM, levenshteinDistance } from './util';
 
 // TODO
 // - abilities: att def against, steal life
-class Engine {
+export const Engine = class {
   constructor() {
     this.unitMap = new Map();
     this.slangMap = new Map();
@@ -12,7 +12,7 @@ class Engine {
     this.useEnchantments = false;
   }
 
-  init(unitFile, slangFile) {
+  init(unitFile, slangFile, enchantFile) {
     let content = fs.readFileSync(unitFile, { encoding: 'utf-8' });
     const unitData = JSON.parse(content);
     for (const unit of unitData) {
@@ -27,7 +27,7 @@ class Engine {
       });
     }
 
-    content = fs.readFileSync('./enchantments.json', { encoding: 'utf-8' });
+    content = fs.readFileSync(enchantFile, { encoding: 'utf-8' });
     const enchantments = JSON.parse(content);
     for (const e of enchantments) {
       this.enchantmentMap.set(e.id, e);
@@ -316,6 +316,7 @@ class Engine {
     if (defendRef.primaryTypes.includes('ranged') && attackRef.abilities.includes('large shield')) {
       resist += 50;
       resist = Math.min(100, resist);
+      console.log('!!', defendRef.name, resist);
     }
 
     if (defendRef.abilities.includes('piercing')) {
@@ -721,10 +722,4 @@ class Engine {
     }
 
   }
-  
 }
-
-
-module.exports = {
-  engine: new Engine()
-};

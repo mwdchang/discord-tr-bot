@@ -1,5 +1,5 @@
 // https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
-function randomBM() {
+export const randomBM = () => {
   let u = 0, v = 0;
   while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
   while(v === 0) v = Math.random();
@@ -10,8 +10,7 @@ function randomBM() {
   return num
 }
 
-
-const levenshteinDistance = (str1 = '', str2 = '') => {
+export const levenshteinDistance = (str1 = '', str2 = '') => {
    const track = Array(str2.length + 1).fill(null).map(() =>
    Array(str1.length + 1).fill(null));
    for (let i = 0; i <= str1.length; i += 1) {
@@ -31,9 +30,4 @@ const levenshteinDistance = (str1 = '', str2 = '') => {
       }
    }
    return track[str2.length][str1.length];
-};
-
-module.exports = {
-  randomBM,
-  levenshteinDistance
 };
