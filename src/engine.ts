@@ -1,10 +1,17 @@
 import _ from 'lodash';
 import fs from 'fs';
 import { randomBM, levenshteinDistance } from './util';
+import { Unit, Ref, SimResult } from './types';
 
 // TODO
 // - abilities: att def against, steal life
 export const Engine = class {
+  // class vars
+  unitMap: Map<string, Unit>
+  slangMap: Map<string, string>
+  enchantmentMap: Map<string, any>
+  useEnchantments: boolean
+
   constructor() {
     this.unitMap = new Map();
     this.slangMap = new Map();
@@ -12,7 +19,7 @@ export const Engine = class {
     this.useEnchantments = false;
   }
 
-  init(unitFile, slangFile, enchantFile) {
+  init(unitFile: string, slangFile: string, enchantFile: string) {
     let content = fs.readFileSync(unitFile, { encoding: 'utf-8' });
     const unitData = JSON.parse(content);
     for (const unit of unitData) {
@@ -34,18 +41,18 @@ export const Engine = class {
     }
   }
 
-  findUnit(name) {
+  findUnit(name: string) {
     const str = name.toLowerCase().replaceAll('*', '');
     if (this.unitMap.has(str)) {
       return this.unitMap.get(str);
     }
     if (this.slangMap.has(str)) {
-      return this.unitMap.get(this.slangMap.get(str));
+      return this.unitMap.get(this.slangMap.get(str) || '');
     }
 
     if (str.length > 4) {
       for (const u of this.unitMap.values()) {
-        if (levenshteinDistance(str, u.name.toLowerCase()) < 2) {
+        if (levenshteinDistance(str, u.name.toLowerCase() || '') < 2) {
           return u;
         }
       }
@@ -54,7 +61,7 @@ export const Engine = class {
   }
 
 
-  _applyEnchantment(enchant, ref) {
+  _applyEnchantment(enchant: any, ref: Ref) {
     enchant.effects.forEach(effect => {
       const filters = effect.filters;
       const action = effect.action;
@@ -111,9 +118,9 @@ export const Engine = class {
   }
 
 
-  _calcEnchantments(attackRef, defendRef, attackerEnchants, defenderEnchants) {
-    let attackEnchant = [];
-    let defendEnchant = [];
+  _calcEnchantments(attackRef: Ref, defendRef: Ref, attackerEnchants: any, defenderEnchants: any) {
+    let attackEnchant: string[] = [];
+    let defendEnchant: string[] = [];
 
     if (!attackerEnchants) {
       if (attackRef.magic === 'ascendant') attackEnchant = ['thl', 'lnp'];
@@ -154,7 +161,7 @@ export const Engine = class {
     // }
   }
 
-  _calcAccuracy(attackRef, defendRef) {
+  _calcAccuracy(attackRef: Ref, defendRef: Ref) {
     let accuracy = attackRef.accuracy;
     if (defendRef.abilities.includes('swift')) {
       accuracy -= 0.10;
@@ -174,7 +181,7 @@ export const Engine = class {
     return accuracy;
   }
 
-  _burst(attackRef, defendRef, battleLog) {
+  _burst(attackRef: Ref, defendRef: Ref, battleLog: string[]) {
     const burst = defendRef.abilities.find(d => d.startsWith('bursting'))
     if (attackRef.primaryTypes.includes('ranged') || attackRef.primaryTypes.includes('magic') || attackRef.primaryTypes.includes('psychic')) {
       return;
@@ -185,7 +192,7 @@ export const Engine = class {
 
     let damage = 0;
     let unitLoss = 0;
-    const [_t, burstType, burstValue] = burst.split(' ');
+    const [_t, burstType, burstValue] = (burst as string).split(' ');
 
     // attacker
     const attackRes = attackRef.resistances[burstType];
@@ -228,7 +235,7 @@ export const Engine = class {
     battleLog.push(`burst (${burstType} ${burstValue}): ${defendRef.name} slew ${unitLoss} ${defendRef.name}`);
   }
 
-  _primaryAttack(attackRef, defendRef, battleLog) {
+  _primaryAttack(attackRef: Ref, defendRef: Ref, battleLog: string[]) {
     const defenderFlying = defendRef.abilities.includes('flying') ? true : false;
     const attackerFlying = attackRef.abilities.includes('flying') ? true : false;
 
@@ -303,7 +310,7 @@ export const Engine = class {
   }
 
 
-  _counter(attackRef, defendRef, battleLog) {
+  _counter(attackRef: Ref, defendRef: Ref, battleLog: string[]) {
     let counterAccuracy = this._calcAccuracy(defendRef, attackRef);
     let resist = 0;
     let magicPsychic = false;
@@ -371,7 +378,7 @@ export const Engine = class {
   }
 
 
-  _secondary(attackRef, defendRef, battleLog) {
+  _secondary(attackRef: Ref, defendRef: Ref, battleLog: string[]) {
     const defenderFlying = defendRef.abilities.includes('flying') ? true : false;
     const attackerFlying = attackRef.abilities.includes('flying') ? true : false;
 
@@ -430,7 +437,7 @@ export const Engine = class {
 
 
   // Main method
-  simulate(attacker, defender, attackerEnchants = null, defenderEnchants = null) {
+  simulate(attacker: Unit, defender: Unit, attackerEnchants: any , defenderEnchants: any) {
     // Allocate approximate number of units at equal net power
     const TOTAL_NP = 2000000;
 
@@ -464,7 +471,7 @@ export const Engine = class {
           secondaryPower: ref.a2_power,
           counterPower: ref.counter
         }
-      };
+      } as Ref;
     });
 
     // Annoying PIKE ability
@@ -539,11 +546,11 @@ export const Engine = class {
     }
 
     // temp
-    let attackRef = null;
-    let defendRef = null;
+    let attackRef: Ref | null = null;
+    let defendRef: Ref | null = null;
 
     // Allocate init order
-    const initList = [];
+    const initList :any[] = [];
     initList.push({ 
       role: 'attacker',
       type: 'primary',
@@ -572,7 +579,7 @@ export const Engine = class {
     initOrder.sort((a, b) => b.init - a.init);
 
     // Simulate actual attacks
-    const battleLog = [];
+    const battleLog: string[] = [];
     [attackerRef, defenderRef].forEach(ref => {
       battleLog.push(`${ref.name}=${ref.numUnits} power=${ref.primaryPower}/${ref.secondaryPower}/${ref.counterPower}, hp=${ref.hp}, acc=${ref.accuracy}, enchants=${ref.activeEnchantments}`);
     });
@@ -654,11 +661,11 @@ export const Engine = class {
       defenderUnitLoss: defenderRef.unitLoss,
 
       battleLog
-    };
+    } as SimResult;
   }
 
-  simulateX(attacker, defender, attackerEnchants, defenderEnchants, n) {
-    const r = [];
+  simulateX(attacker: Unit, defender: Unit, attackerEnchants: any, defenderEnchants: any, n: number) {
+    const r: SimResult[] = [];
     for (let i = 0; i < n; i++) {
       r.push(
         this.simulate(attacker, defender, attackerEnchants, defenderEnchants)
@@ -667,12 +674,12 @@ export const Engine = class {
     return r;
   }
 
-  findPairings(unit, attackerEnchants, defenderEnchants) {
+  findPairings(unit: Unit, attackerEnchants: any, defenderEnchants: any) {
     const skipList = ['Devil', 'Shadow Monster', 'Succubus'];
 
-    const bestAttackers = [];
-    const bestDefenders = [];
-    const viableAttacker = [];
+    const bestAttackers: any[] = [];
+    const bestDefenders: any[] = [];
+    const viableAttacker: any[] = [];
 
     const N = 20;
 
@@ -720,6 +727,5 @@ export const Engine = class {
     for (const unit of unitMap.values()) {
       console.log(unit.hp / unit.power, unit.name);
     }
-
   }
 }

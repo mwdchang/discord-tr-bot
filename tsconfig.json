@@ -13,11 +13,16 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
+		"strict": true,
+    "lib": [
+      "ES2021.String"
+    ],
+    "target": "ESNext"
 	},
   "include": [
     "src/*.js",
-    "src/*.ts"
+    "src/*.ts",
+    "src/*.d.ts"
   ],
   "exclude": [
     "node_modules"
