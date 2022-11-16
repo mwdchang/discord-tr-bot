@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Engine }  from './engine';
 
 const engine = new Engine();
-engine.init('data/blitz/units.json', 'data/slangs.json', 'data/blitz/enchantments.json');
+engine.init('data/beta/units.json', 'data/slangs.json', 'data/beta/enchantments.json');
 
 // console.log(engine.bestAgainst(
 //   engine.findUnit('phoenix')
@@ -10,7 +10,7 @@ engine.init('data/blitz/units.json', 'data/slangs.json', 'data/blitz/enchantment
 
 console.log(engine.simulate(
   engine.findUnit('phantom'),
-  engine.findUnit('bulwark horror')
+  engine.findUnit('dark elemental')
 ).battleLog);
 
 

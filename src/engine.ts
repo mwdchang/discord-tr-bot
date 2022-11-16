@@ -7,51 +7,75 @@ import { Unit, Ref, SimResult } from './types';
 // - abilities: att def against, steal life
 export const Engine = class {
   // class vars
-  unitMap: Map<string, Unit>
+  unitMap: Map<string, Map<string, Unit>>
+  enchantmentMap: Map<string, Map<string, any>>
+
   slangMap: Map<string, string>
-  enchantmentMap: Map<string, any>
-  useEnchantments: boolean
 
   constructor() {
     this.unitMap = new Map();
     this.slangMap = new Map();
     this.enchantmentMap = new Map();
-    this.useEnchantments = false;
   }
 
-  init(unitFile: string, slangFile: string, enchantFile: string) {
-    let content = fs.readFileSync(unitFile, { encoding: 'utf-8' });
-    const unitData = JSON.parse(content);
-    for (const unit of unitData) {
-      this.unitMap.set(unit.name.toLowerCase(), unit);
-    }
+  /**
+   * Initializes datasets. It is exptected that the folder layout to be
+   *
+   * /data
+   *   slangs.json
+   *   /<server>
+   *     enchantments.json
+   *     unit.json
+   *   
+   */
+  init(dataPath: string) {
+    const serverListing = fs.readdirSync(dataPath, { withFileTypes: true }).filter(d => d.isDirectory());
+    console.log(serverListing);
 
-    if (slangFile) {
-      content = fs.readFileSync(slangFile, { encoding: 'utf-8' });
-      const slangData = JSON.parse(content);
-      Object.keys(slangData).forEach(k => {
-        this.slangMap.set(k, slangData[k]);
-      });
-    }
+    // Read slangs file
+    let content = fs.readFileSync(`${dataPath}/slangs.json`, { encoding: 'utf-8' });
+    const slangData = JSON.parse(content);
+    Object.keys(slangData).forEach(k => {
+      this.slangMap.set(k, slangData[k]);
+    });
 
-    content = fs.readFileSync(enchantFile, { encoding: 'utf-8' });
-    const enchantments = JSON.parse(content);
-    for (const e of enchantments) {
-      this.enchantmentMap.set(e.id, e);
+    // Loop over server-listing
+
+    for (const server of serverListing) {
+      const uMap: Map<string, Unit> = new Map();
+      const eMap: Map<string, any> = new Map();
+
+      console.log('server', server.name);
+      content = fs.readFileSync(`${dataPath}/${server.name}/units.json`, { encoding: 'utf-8' });
+      const unitData = JSON.parse(content);
+      for (const unit of unitData) {
+        uMap.set(unit.name.toLowerCase(), unit);
+      }
+
+      content = fs.readFileSync(`${dataPath}/${server.name}/enchantments.json`, { encoding: 'utf-8' });
+      const enchantments = JSON.parse(content);
+      for (const e of enchantments) {
+        eMap.set(e.id, e);
+      }
+
+      this.unitMap.set(server.name, uMap);
+      this.enchantmentMap.set(server.name, eMap);
     }
   }
 
-  findUnit(name: string) {
+  findUnit(name: string, serverName: string) {
     const str = name.toLowerCase().replaceAll('*', '');
-    if (this.unitMap.has(str)) {
-      return this.unitMap.get(str);
+    const unitMap = this.unitMap.get(serverName);
+
+    if (unitMap?.has(str)) {
+      return unitMap?.get(str);
     }
     if (this.slangMap.has(str)) {
-      return this.unitMap.get(this.slangMap.get(str) || '');
+      return unitMap?.get(this.slangMap.get(str) || '');
     }
 
-    if (str.length > 4) {
-      for (const u of this.unitMap.values()) {
+    if (str.length > 4 && unitMap) {
+      for (const u of unitMap.values()) {
         if (levenshteinDistance(str, u.name.toLowerCase() || '') < 2) {
           return u;
         }
@@ -62,7 +86,7 @@ export const Engine = class {
 
 
   _applyEnchantment(enchant: any, ref: Ref) {
-    enchant.effects.forEach(effect => {
+    enchant.effects.forEach((effect: any) => {
       const filters = effect.filters;
       const action = effect.action;
       let canApply = false;
@@ -118,7 +142,7 @@ export const Engine = class {
   }
 
 
-  _calcEnchantments(attackRef: Ref, defendRef: Ref, attackerEnchants: any, defenderEnchants: any) {
+  _calcEnchantments(attackRef: Ref, defendRef: Ref, serverName: string, attackerEnchants: any, defenderEnchants: any) {
     let attackEnchant: string[] = [];
     let defendEnchant: string[] = [];
 
@@ -142,23 +166,22 @@ export const Engine = class {
       defendEnchant = defenderEnchants; 
     }
 
+    const enchantmentMap = this.enchantmentMap.get(serverName);
+    if (!enchantmentMap) {
+      throw `Cannot find enchantment for ${serverName}`;
+    }
+
     for (const e of attackEnchant) {
-      this._applyEnchantment(this.enchantmentMap.get(e), attackRef);
+      this._applyEnchantment(enchantmentMap.get(e), attackRef);
     }
 
     for (const e of defendEnchant) {
       if (e === 'hallu') {
-        this._applyEnchantment(this.enchantmentMap.get(e), attackRef);
+        this._applyEnchantment(enchantmentMap.get(e), attackRef);
       } else {
-        this._applyEnchantment(this.enchantmentMap.get(e), defendRef);
+        this._applyEnchantment(enchantmentMap.get(e), defendRef);
       }
     }
-
-
-    // for (const enchant of this.enchantmentMap.values()) {
-    //   this._applyEnchantment(enchant, attackRef);
-    //   this._applyEnchantment(enchant, defendRef);
-    // }
   }
 
   _calcAccuracy(attackRef: Ref, defendRef: Ref) {
@@ -323,7 +346,6 @@ export const Engine = class {
     if (defendRef.primaryTypes.includes('ranged') && attackRef.abilities.includes('large shield')) {
       resist += 50;
       resist = Math.min(100, resist);
-      console.log('!!', defendRef.name, resist);
     }
 
     if (defendRef.abilities.includes('piercing')) {
@@ -437,7 +459,7 @@ export const Engine = class {
 
 
   // Main method
-  simulate(attacker: Unit, defender: Unit, attackerEnchants: any , defenderEnchants: any) {
+  simulate(attacker: Unit, defender: Unit, serverName: string, attackerEnchants: any , defenderEnchants: any) {
     // Allocate approximate number of units at equal net power
     const TOTAL_NP = 2000000;
 
@@ -484,66 +506,7 @@ export const Engine = class {
       if (attackerRef.secondaryInit === 2) attackerRef.secondaryInit = 1;
     }
 
-    this._calcEnchantments(attackerRef, defenderRef, attackerEnchants, defenderEnchants);
-
-    // Expected enchantments
-    if (this.useEnchantments === true) {
-      [defenderRef, attackerRef].forEach(ref => {
-        if (ref.magic === 'ascendant') {
-          // LnP
-          ref.hp += ref.base.hp * 0.25;
-          ref.primaryPower -= ref.base.primaryPower * 0.2;
-          ref.secondaryPower -= ref.base.secondaryPower * 0.2;
-          ref.counterPower -= ref.base.counterPower * 0.2;
-
-          // THL
-          ref.primaryPower += ref.base.primaryPower * 0.1263;
-          ref.secondaryPower += ref.base.secondaryPower * 0.1263;
-          ref.counterPower += ref.base.counterPower * 0.1263;
-          ref.accuracy += 0.06315;
-
-          if (ref.primaryTypes.includes('melee') || ref.secondaryTypes.includes('melee')) {
-            if (!ref.primaryTypes.includes('holy')) {
-              ref.primaryTypes.push('holy');
-            }
-          }
-        }
-        if (ref.magic === 'verdant') {
-          // EA
-          if (ref.race.includes('animal')) {
-            ref.primaryPower += ref.base.primaryPower * 0.47;
-            ref.counterPower += ref.base.counterPower * 0.47;
-            ref.hp += ref.base.hp * 0.47;
-          }
-          
-          // Lore
-          if (ref.race.includes('elf')) {
-            ref.accuracy += 0.07;
-            ref.primaryPower += ref.base.primaryPower * 0.13;
-            ref.secondaryPower += ref.base.secondaryPower * 0.13;
-            ref.counterPower += ref.base.counterPower * 0.13;
-          }
-          if (ref.race.includes('animal')) {
-            ref.primaryPower += ref.base.primaryPower * 0.25;
-            ref.counterPower += ref.base.counterPower * 0.25;
-            ref.hp += ref.base.hp * 0.20;
-          }
-
-          // PG
-          if (ref.race.includes('treefolk')) {
-            ref.primaryPower += ref.base.primaryPower * 0.9524;
-            ref.counterPower += ref.base.counterPower * 0.9524;
-            ref.hp += ref.base.hp * 0.9524;
-          }
-        }
-        if (ref.magic === 'eradication') {
-          // BC
-        }
-        if (ref.magic === 'nether') {
-          // BS
-        }
-      });
-    }
+    this._calcEnchantments(attackerRef, defenderRef, serverName, attackerEnchants, defenderEnchants);
 
     // temp
     let attackRef: Ref | null = null;
@@ -664,17 +627,17 @@ export const Engine = class {
     } as SimResult;
   }
 
-  simulateX(attacker: Unit, defender: Unit, attackerEnchants: any, defenderEnchants: any, n: number) {
+  simulateX(attacker: Unit, defender: Unit, serverName: string, attackerEnchants: any, defenderEnchants: any, n: number) {
     const r: SimResult[] = [];
     for (let i = 0; i < n; i++) {
       r.push(
-        this.simulate(attacker, defender, attackerEnchants, defenderEnchants)
+        this.simulate(attacker, defender, serverName, attackerEnchants, defenderEnchants)
       );
     }
     return r;
   }
 
-  findPairings(unit: Unit, attackerEnchants: any, defenderEnchants: any) {
+  findPairings(unit: Unit, serverName: string, attackerEnchants: any, defenderEnchants: any) {
     const skipList = ['Devil', 'Shadow Monster', 'Succubus'];
 
     const bestAttackers: any[] = [];
@@ -682,11 +645,13 @@ export const Engine = class {
     const viableAttacker: any[] = [];
 
     const N = 20;
+    const unitMap = this.unitMap.get(serverName);
+    if (!unitMap) return
 
-    for (const candidate of this.unitMap.values()) {
+    for (const candidate of unitMap.values()) {
       if (skipList.includes(candidate.name)) continue;
 
-      const results = this.simulateX(candidate, unit, attackerEnchants, defenderEnchants, N);
+      const results = this.simulateX(candidate, unit, serverName, attackerEnchants, defenderEnchants, N);
       let attackerLoss = 0;
       let defenderLoss = 0;
       for (const r of results) {
@@ -721,11 +686,10 @@ export const Engine = class {
     };
   }
 
-  ratios() {
-    const unitMap = this.unitMap;
-
-    for (const unit of unitMap.values()) {
-      console.log(unit.hp / unit.power, unit.name);
-    }
-  }
+  // ratios() {
+  //   const unitMap = this.unitMap;
+  //   for (const unit of unitMap.values()) {
+  //     console.log(unit.hp / unit.power, unit.name);
+  //   }
+  // }
 }
