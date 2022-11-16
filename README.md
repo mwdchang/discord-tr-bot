@@ -27,7 +27,14 @@ TOKEN=<access token>
 
 
 ## Interacting with the Bot
-Support the following queries
+The follow analysis directives are supported
+- show match {unit1} vs {unit2}
+- show battle {unit1} vs {unit2}
+- show pairing {unit}
+
+The following configurations directives are available
+- show config
+- set server
 
 
 ### Head-to-head match up
@@ -40,7 +47,15 @@ Runs head-to-head simulation match up between two units
 yields
 
 ```
-Dwarven Shaman wins on average Lich np-loss=190943 : Dwarven Shaman np-loss=137836 (smaller is better)
+### Report
+0 wins, 10 losses, 0 draws
+
+Attacker Lich  AP=5500/16000/2000 HP=7500 Enchants=
+Defender Dominion  AP=200000/250000/30000 HP=80000 Enchants=
+
+On average:
+Lich loss 44.7% = 441/986 (893299 np)
+Dominion loss 5.9% = 3/51 (117039 np)
 ```
 
 
@@ -51,22 +66,37 @@ Run pairwise simulations to determine the best offensive and defensive units.
 @botname show paring lich
 ```
 
-yields
+results in
 
 ```
-Report: pairing against Yeti
-      Top attackers: 
-         Acendant: Naga Queen, Titan, Astral Magician
-         Verdant: Phoenix, Treant, Mandrake
-         Eradication: Fire Elemental, Chimera, Hell Hound
-         Nether: Unholy Reaver, Dark Elf Magician, Horned Demon
-         Phantasm: Siren, Mind Ripper, Phantom
-      Top defenders: 
-         Acendant: Preacher, Naga Queen, Titan
-         Verdant: Treant, Werebear, Mandrake
-         Eradication: Dwarven Shaman, Storm Giant, Efreeti
-         Nether: Wolf Raider, Lich, Unholy Reaver
-         Phantasm: Yeti, Leviathan, Ice Elemental
+### Top damage dealers 
+Ascendant: ^Dominion, ^Spirit Warrior, ^Titan
+Verdant: Faerie Dragon, Earth Elemental, Phoenix
+Eradication: ^Hell Hound, ^Storm Giant, Chimera
+Nether: ^Fallen Dominion, Horned Demon, Unholy Reaver
+Phantasm: ^Yeti, Medusa, Air Elemental
+
+^ Deals at least 15% damage (good snipers)
+
+
+### Top defenders 
+Ascendant: ^Preacher, ^Knight Templar, ^Naga Queen
+Verdant: ^Treant, Werebear, Swanmy
+Eradication: ^Dwarven Shaman, Hydra, Efreeti
+Nether: ^Bulwark Horror, ^Lich, ^Dark Elf Magician
+Phantasm: ^Leviathan, ^Ice Elemental, ^Yeti
+
+^ Receives less than 8% damage (good tanks)
+
+
+### Top head-to-head viable units:
+Ascendant: ^Titan, ^Spirit Warrior, ^High Priest
+Verdant: 
+Eradication: Dwarven Shaman, Storm Giant
+Nether: Horned Demon, Dark Elf Magician, Lich
+Phantasm: ^Yeti, Leviathan, Ice Elemental
+
+^ Deals 5% or more damage than it receives (good head-to-head)
 ```
 
 
@@ -77,19 +107,25 @@ Runs a single battle with detailed logs
 @botname show battle naga vs ebd
 ```
 
-yields 
+results in
 
 ```
-Report: Naga Queen (740) vs Elven Blade Dancer (1081)
-pri attack (0.37): Elven Blade Dancer slew 5 Naga Queen
-add attack (0.37): Elven Blade Dancer slew 4 Naga Queen
-counter: Naga Queen slew 20 Elven Blade Dancer
-sec attack (0.31): Naga Queen slew 232 Elven Blade Dancer
-burst (melee 3000): Elven Blade Dancer, slew 6 Naga Queen
-burst (melee 3000): Elven Blade Dancer, slew 0 Elven Blade Dancer
-pri attack (0.31): Naga Queen slew 110 Elven Blade Dancer
-counter: Elven Blade Dancer slew 0 Naga Queen
-sec attack (0.37): Elven Blade Dancer slew 22 Naga Queen
-lost 37 Naga Queen
-lost 362 Elven Blade Dancer
+### Battle report 
+Naga Queen (740) vs Dwarven Shaman (2000)
+Naga Queen=740 power=13000/17600/2500, hp=10500, acc=0.3, enchants=
+Dwarven Shaman=2000 power=5000/8000/300, hp=4500, acc=0.3, enchants=
+
+Dwarven Shaman slew 121 Naga Queen > Secondary attack (acc 0.30)
+Naga Queen slew 532 Dwarven Shaman > Secondary attack (acc 0.40)
+Dwarven Shaman slew 49 Naga Queen > Primary attack (acc 0.30)
+  counter: Naga Queen slew 36 Dwarven Shaman
+Naga Queen slew 93 Dwarven Shaman > Primary attack (acc 0.40)
+  counter: Dwarven Shaman slew 2 Naga Queen
+Dwarven Shaman 661 slain
+Dwarven Shaman 198 healed
+
+Attacker lost 172 Naga Queen
+Defender lost 463 Dwarven Shaman
+Attacker loss np 464400
+Defender loss np 463000
 ```

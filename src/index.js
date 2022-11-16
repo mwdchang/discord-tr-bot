@@ -32,8 +32,6 @@ client.on('ready', () => {
   botTag = client.user.tag;
 });
 
-const GENERAL_ERROR = 'Cannot understand ???. Please use **help** to see a list of available options.';
-
 const userPrefMap = new Map();
 
 
@@ -133,7 +131,7 @@ server = ${userPref.serverName}
     const u = engine.findUnit(uStr, serverName);
 
     if (!u) {
-      channel.send(`I cannot find "${uStr}". ${GENERAL_ERROR}`);
+      channel.send(`I cannot find "${uStr}"`);
       return;
     }
 
@@ -204,7 +202,7 @@ server = ${userPref.serverName}
 
     const reportText = `
 ### Top damage dealers 
-Acendant: ${topAttackerAscendant.map(d => d.name).join(', ')}
+Ascendant: ${topAttackerAscendant.map(d => d.name).join(', ')}
 Verdant: ${topAttackerVerdant.map(d => d.name).join(', ')}
 Eradication: ${topAttackerEradication.map(d => d.name).join(', ')}
 Nether: ${topAttackerNether.map(d => d.name).join(', ')}
@@ -214,17 +212,17 @@ Phantasm: ${topAttackerPhantasm.map(d => d.name).join(', ')}
 
 
 ### Top defenders 
-Acendant: ${topDefenderAscendant.map(d => d.name).join(', ')}
+Ascendant: ${topDefenderAscendant.map(d => d.name).join(', ')}
 Verdant: ${topDefenderVerdant.map(d => d.name).join(', ')}
 Eradication: ${topDefenderEradication.map(d => d.name).join(', ')}
 Nether: ${topDefenderNether.map(d => d.name).join(', ')}
 Phantasm: ${topDefenderPhantasm.map(d => d.name).join(', ')}
 
-^ Receives at least 8% damage (good tanks)
+^ Receives less than 8% damage (good tanks)
 
 
 ### Top head-to-head viable units:
-Acendant: ${topViableAscendant.map(d => d.name).join(', ')}
+Ascendant: ${topViableAscendant.map(d => d.name).join(', ')}
 Verdant: ${topViableVerdant.map(d => d.name).join(', ')}
 Eradication: ${topViableEradication.map(d => d.name).join(', ')}
 Nether: ${topViableNether.map(d => d.name).join(', ')}
@@ -260,11 +258,11 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
     console.log(serverName, u1);
 
     if (!u1) {
-      channel.send(`I cannot find "${tokens[0]}". ${GENERAL_ERROR}`);
+      channel.send(`I cannot find "${tokens[0]}"`);
       return;
     }
     if (!u2) {
-      channel.send(`I cannot find "${tokens[1]}". ${GENERAL_ERROR}`);
+      channel.send(`I cannot find "${tokens[1]}"`);
       return;
     }
 
@@ -309,11 +307,11 @@ ${battleLog.join('\n')}
     const N = 10;
 
     if (!u1) {
-      channel.send(`I cannot find "${tokens[0]}". ${GENERAL_ERROR}`);
+      channel.send(`I cannot find "${tokens[0]}"`);
       return;
     }
     if (!u2) {
-      channel.send(`I cannot find "${tokens[1]}". ${GENERAL_ERROR}`);
+      channel.send(`I cannot find "${tokens[1]}"`);
       return;
     }
 
@@ -371,7 +369,7 @@ ${defender.name} loss ${(100 * defenderloss / 2000000).toFixed(1)}% = ${defender
     return;
   }
 
-  // last
+  // Last
   channel.send(`Hey ${username} use **help** to see available options`);
 });
 
