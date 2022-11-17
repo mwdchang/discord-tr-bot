@@ -24,7 +24,8 @@ const DEFAULT_SERVER = 'blitz';
 
 
 let botId = '';
-// let botTag = '';
+// annel.send('```' + text + '```');
+// et botTag = '';
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user?.tag}!`)
@@ -37,8 +38,6 @@ const userPrefMap = new Map();
 const unitQueryStats: Map<string, number> = new Map();
 const logUsage = (...args: string[]) => {
   for (const s of args) {
-
-    console.log(s, unitQueryStats.has(s));
     if (unitQueryStats.has(s)) {
       const v = unitQueryStats.get(s) as number;
       unitQueryStats.set(s, v + 1);
