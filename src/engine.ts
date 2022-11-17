@@ -30,7 +30,6 @@ export const Engine = class {
    */
   init(dataPath: string) {
     const serverListing = fs.readdirSync(dataPath, { withFileTypes: true }).filter(d => d.isDirectory());
-    console.log(serverListing);
 
     // Read slangs file
     let content = fs.readFileSync(`${dataPath}/slangs.json`, { encoding: 'utf-8' });

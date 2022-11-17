@@ -2,10 +2,10 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-const fs = require('fs');
-const _ = require('lodash');
-const { Client, Intents } = require('discord.js');
-const { Engine } = require('./engine');
+import _ from 'lodash';
+import { Client, Intents } from 'discord.js';
+import { Engine } from './engine';
+import { Unit } from './types';
 
 const engine = new Engine();
 engine.init('./data');
@@ -23,17 +23,30 @@ const client = new Client({
 const DEFAULT_SERVER = 'blitz';
 
 
-let botId = 0;
-let botTag = '';
+let botId = '';
+// let botTag = '';
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`)
-  botId = client.user.id;
-  botTag = client.user.tag;
+  console.log(`Logged in as ${client.user?.tag}!`)
+  botId = client.user?.id as string;
+  // botTag = client.user.tag;
 });
 
 const userPrefMap = new Map();
 
+const unitQueryStats: Map<string, number> = new Map();
+const logUsage = (...args: string[]) => {
+  for (const s of args) {
+
+    console.log(s, unitQueryStats.has(s));
+    if (unitQueryStats.has(s)) {
+      const v = unitQueryStats.get(s) as number;
+      unitQueryStats.set(s, v + 1);
+    } else {
+      unitQueryStats.set(s, 1);
+    }
+  }
+}
 
 // Grammar
 // - show unit <unit>
@@ -78,6 +91,18 @@ if you'd like to contribute or access to the source, see https://github.com/mwdc
     return;
   }
 
+  if (content.startsWith('show usage')) {
+    const listing = _.take([...unitQueryStats.entries()].sort((a, b) => b[1] - a[1]), 20);
+    const usageText = listing.map(d => `${d[0]} : ${d[1]}`).join('\n');
+    const usageReport = `
+### Top 20 queried units
+${usageText}
+    `;
+
+    channel.send('```' + usageReport+ '```');
+    return;
+  }
+
   if (content.startsWith('set server')) {
     const server = content.replace('set server', '').trim();
     if (server !== 'blitz' && server !== 'beta') {
@@ -85,7 +110,8 @@ if you'd like to contribute or access to the source, see https://github.com/mwdc
       return;
     }
     userPrefMap.get(username).serverName = server;
-    channel.send(`Selecting ${server} is for ${username}`);
+    const text = `Set server to ${server} for ${username}`;
+    channel.send('```' + text + '```');
     return;
   }
 
@@ -108,8 +134,6 @@ if you'd like to contribute or access to the source, see https://github.com/mwdc
     userPrefMap.get(username).attackerEnchants = attackerEnchants;
     userPrefMap.get(username).defenderEnchants = defenderEnchants;
 
-    console.log(userPrefMap.get(username));
-
     channel.send(`${username}: attacker=${attackerEnchants.join(' ')} defender=${defenderEnchants.join(' ')}`);
     return;
   }
@@ -130,14 +154,19 @@ server = ${userPref.serverName}
     const uStr = content.replace('show pairing', '').trim();
     const u = engine.findUnit(uStr, serverName);
 
+
     if (!u) {
       channel.send(`I cannot find "${uStr}"`);
       return;
     }
 
+    logUsage(u.name);
+
     const attackerEnchants = userPrefMap.get(username).attackerEnchants;
     const defenderEnchants = userPrefMap.get(username).defenderEnchants;
     const r = engine.findPairings(u, serverName, attackerEnchants, defenderEnchants);
+
+    if (!r) return;
 
     const topAttackerAscendant = _.take(r.attackers.filter(d => d.magic === 'ascendant'), 3);
     const topAttackerVerdant = _.take(r.attackers.filter(d => d.magic === 'verdant'), 3);
@@ -201,7 +230,9 @@ server = ${userPref.serverName}
     });
 
     const reportText = `
-### Top damage dealers 
+### Report - ${serverName}
+
+#### Top damage dealers 
 Ascendant: ${topAttackerAscendant.map(d => d.name).join(', ')}
 Verdant: ${topAttackerVerdant.map(d => d.name).join(', ')}
 Eradication: ${topAttackerEradication.map(d => d.name).join(', ')}
@@ -211,7 +242,7 @@ Phantasm: ${topAttackerPhantasm.map(d => d.name).join(', ')}
 ^ Deals at least 15% damage (good snipers)
 
 
-### Top defenders 
+#### Top defenders 
 Ascendant: ${topDefenderAscendant.map(d => d.name).join(', ')}
 Verdant: ${topDefenderVerdant.map(d => d.name).join(', ')}
 Eradication: ${topDefenderEradication.map(d => d.name).join(', ')}
@@ -221,7 +252,7 @@ Phantasm: ${topDefenderPhantasm.map(d => d.name).join(', ')}
 ^ Receives less than 8% damage (good tanks)
 
 
-### Top head-to-head viable units:
+#### Top head-to-head viable units:
 Ascendant: ${topViableAscendant.map(d => d.name).join(', ')}
 Verdant: ${topViableVerdant.map(d => d.name).join(', ')}
 Eradication: ${topViableEradication.map(d => d.name).join(', ')}
@@ -240,10 +271,10 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
   if (content.startsWith('show battle')) {
     const tokens = content.replace('show battle', '').split('vs');
 
-    let u1str = null;
-    let u2str = null;
-    let u1 = null;
-    let u2 = null;
+    let u1str = '';
+    let u2str = '';
+    let u1: Unit | null | undefined = null;
+    let u2: Unit | null | undefined = null;
     try {
       u1str = tokens[0].trim();
       u2str = tokens[1].trim();
@@ -255,8 +286,6 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
       return;
     }
 
-    console.log(serverName, u1);
-
     if (!u1) {
       channel.send(`I cannot find "${tokens[0]}"`);
       return;
@@ -267,6 +296,8 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
     }
 
     if (u1 && u2) {
+      logUsage(u1.name, u2.name);
+
       const attackerEnchants = userPrefMap.get(username).attackerEnchants;
       const defenderEnchants = userPrefMap.get(username).defenderEnchants;
 
@@ -277,7 +308,7 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
       let defendercount = r.defenderUnitCount;
 
       const battleText = `
-### Battle report 
+### Report - ${serverName}
 ${u1.name} (${attackercount}) vs ${u2.name} (${defendercount})
 ${battleLog.join('\n')}
       `;
@@ -290,10 +321,10 @@ ${battleLog.join('\n')}
   if (content.startsWith('show match')) {
     const tokens = content.replace('show match', '').split('vs');
 
-    let u1str = null;
-    let u2str = null;
-    let u1 = null;
-    let u2 = null;
+    let u1str = '';
+    let u2str = '';
+    let u1: Unit | null | undefined = null;
+    let u2: Unit | null | undefined = null;
     try {
       u1str = tokens[0].trim();
       u2str = tokens[1].trim();
@@ -316,6 +347,8 @@ ${battleLog.join('\n')}
     }
 
     if (u1 && u2) {
+      logUsage(u1.name, u2.name);
+
       const attackerEnchants = userPrefMap.get(username).attackerEnchants;
       const defenderEnchants = userPrefMap.get(username).defenderEnchants;
 
@@ -353,7 +386,7 @@ ${battleLog.join('\n')}
       const defender = results[0].defender;
 
       const reportText = `
-### Report
+### Report - ${serverName}
 ${wins} wins, ${losses} losses, ${ties} draws
 
 Attacker ${attacker.name}  AP=${attacker.primaryPower}/${attacker.secondaryPower}/${attacker.counterPower} HP=${attacker.hp} Enchants=${attacker.activeEnchantments}
