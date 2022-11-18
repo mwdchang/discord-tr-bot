@@ -145,7 +145,7 @@ export const Engine = class {
     let attackEnchant: string[] = [];
     let defendEnchant: string[] = [];
 
-    if (!attackerEnchants) {
+    if (!attackerEnchants || attackerEnchants.length === 0) {
       if (attackRef.magic === 'ascendant') attackEnchant = ['thl', 'lnp'];
       if (attackRef.magic === 'verdant') attackEnchant = ['ea', 'pg', 'lore'];
       if (attackRef.magic === 'eradication') attackEnchant = ['bc'];
@@ -155,7 +155,7 @@ export const Engine = class {
       attackEnchant = attackerEnchants;
     }
 
-    if (!defenderEnchants) {
+    if (!defenderEnchants || defenderEnchants.length === 0) {
       if (defendRef.magic === 'ascendant') defendEnchant = ['thl', 'lnp'];
       if (defendRef.magic === 'verdant') defendEnchant = ['ea', 'pg', 'lore'];
       if (defendRef.magic === 'eradication') defendEnchant = ['bc'];
