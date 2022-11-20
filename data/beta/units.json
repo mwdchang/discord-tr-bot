@@ -2527,7 +2527,7 @@
             "orc"
         ],
         "power": 13,
-        "hp": 150,
+        "hp": 180,
         "a1_power": 125,
         "a1_type": "melee",
         "a1_init": 1,
@@ -2650,7 +2650,7 @@
             "undead"
         ],
         "power": 35,
-        "hp": 650,
+        "hp": 400,
         "a1_power": 500,
         "a1_type": "melee paralyse",
         "a1_init": 1,
@@ -2671,7 +2671,7 @@
             "poison": 100,
             "breath": 0,
             "magic": 0,
-            "melee": 75,
+            "melee": 0,
             "ranged": 0,
             "lightning": 0,
             "cold": 0,
@@ -3208,7 +3208,7 @@
         "name": "Dark Elemental",
         "magic": "nether",
         "race": [
-            "elemental"
+            "demon"
         ],
         "power": 20586,
         "hp": 80000,
@@ -3238,7 +3238,7 @@
             "cold": 50,
             "paralyse": 100,
             "psychic": 50,
-            "holy": 50
+            "holy": 20
         },
         "abilities": [
             "endurance",

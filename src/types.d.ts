@@ -4,6 +4,15 @@ type Race = "angel" | "animal" | "astral" | "demon" | "dragon" | "dwarf" | "elem
 
 type Magic = "ascendant" | "verdant" | "eradication" | "nether" | "phantasm"
 
+// export enum Abilities {
+//   FLYING = 'flying',
+//   SWIFT = 'swfit',
+//   BEAUTY = 'beauty',
+//   FEAR = 'fear',
+//   MARKMANSHIP = 'marksmanship',
+//   CLUMSINESS = 'clumsiness'
+// }
+
 export interface Unit {
   name: string
   magic: Magic
@@ -18,6 +27,13 @@ export interface Unit {
   counter: number
   hp: number
   abilities: string[]
+  spell_resistance: {
+    ascendant: number
+    verdant: number
+    eradication: number
+    nether: number
+    phantasm: number
+  }
   resistances: {
     missile: number	
     fire:	number

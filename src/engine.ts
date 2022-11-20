@@ -607,9 +607,6 @@ export const Engine = class {
     battleLog.push('Attacker loss np ' + attackerRef.unitLoss * attackerRef.power);
     battleLog.push('Defender loss np ' + defenderRef.unitLoss * defenderRef.power);
 
-    // console.log('Attacker loss np', attackerRef.unitLoss * attackerRef.power);
-    // console.log('Defender loss np', defenderRef.unitLoss * defenderRef.power);
-    //
     return {
       attacker: attackerRef,
       defender: defenderRef,
@@ -626,6 +623,7 @@ export const Engine = class {
     } as SimResult;
   }
 
+  // Run a series of simulations
   simulateX(attacker: Unit, defender: Unit, serverName: string, attackerEnchants: any, defenderEnchants: any, n: number) {
     const r: SimResult[] = [];
     for (let i = 0; i < n; i++) {
