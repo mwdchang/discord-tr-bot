@@ -683,6 +683,51 @@ export const Engine = class {
     };
   }
 
+
+  reisitanceReport(serverName: string, blackList: string[]) {
+    const unitMap = this.unitMap.get(serverName) || new Map<string, Unit>();
+    let c = 0;
+
+    let resist = {
+      missile: 0,
+      fire: 0,
+      poison: 0,
+      breath: 0,
+      magic: 0,
+      melee: 0,
+      ranged: 0,
+      lightning: 0,
+      cold: 0,
+      paralyse: 0,
+      psychic: 0,
+      holy: 0
+    };
+
+    for (const unit of unitMap.values()) {
+      if (blackList.includes(unit.name)) continue;
+
+      resist.missile += unit.resistances.missile;
+      resist.fire += unit.resistances.fire;
+      resist.poison += unit.resistances.poison;
+      resist.breath += unit.resistances.breath;
+      resist.magic += unit.resistances.magic;
+      resist.melee += unit.resistances.melee;
+      resist.ranged += unit.resistances.ranged;
+      resist.lightning += unit.resistances.lightning;
+      resist.cold += unit.resistances.cold;
+      resist.paralyse += unit.resistances.paralyse;
+      resist.psychic += unit.resistances.psychic;
+      resist.holy += unit.resistances.holy;
+      c++;
+    }
+
+    Object.entries(resist).sort((a, b) => b[1] - a[1]).forEach(k => {
+      console.log(k[0], +(k[1]/c).toFixed(2));
+    });
+
+  }
+
+
   // ratios() {
   //   const unitMap = this.unitMap;
   //   for (const unit of unitMap.values()) {

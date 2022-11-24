@@ -1,2678 +1,4622 @@
 [
-  {
-    "name": "Angel",
-    "magic": "ascendant",
-    "race": ["angel"],
-    "power": 193,
-    "a1_power": 800,
-    "a1_type": "holy",
-    "a1_init": 2,
-    "counter": 200,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 1000,
-    "abilities": ["beauty", "flying", "healing"],
-    "resistances": {
-      "missile":	50,
-      "fire":	50,
-      "poison":	0,
-      "breath":	0,
-      "magic":	50,
-      "melee":	50,
-      "ranged":	50,
-      "lightning":	50,
-      "cold":	50,
-      "paralyse":	0,
-      "psychic":	50,
-      "holy":	25
+    {
+        "name": "Militia",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 9,
+        "hp": 80,
+        "a1_power": 80,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 20,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness",
+            "recruit speed 100%"
+        ]
+    },
+    {
+        "name": "Phalanx",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 14,
+        "hp": 100,
+        "a1_power": 90,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 30,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "large shield"
+        ]
+    },
+    {
+        "name": "Pikeman",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 12,
+        "hp": 90,
+        "a1_power": 100,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 40,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "pike"
+        ]
+    },
+    {
+        "name": "Archer",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 12,
+        "hp": 80,
+        "a1_power": 80,
+        "a1_type": "missile ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": []
+    },
+    {
+        "name": "Cavalry",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 18,
+        "hp": 120,
+        "a1_power": 180,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 30,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": []
+    },
+    {
+        "name": "Catapult",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 70,
+        "hp": 450,
+        "a1_power": 600,
+        "a1_type": "missile ranged",
+        "a1_init": 4,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 60,
+            "psychic": 60,
+            "holy": 0
+        },
+        "abilities": [
+            "siege",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Knight",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 23,
+        "hp": 200,
+        "a1_power": 250,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 50,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "large shield",
+            "recruit speed -15%"
+        ]
+    },
+    {
+        "name": "Paladin",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 32,
+        "hp": 240,
+        "a1_power": 360,
+        "a1_type": "melee holy",
+        "a1_init": 2,
+        "counter": 60,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 25,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 33,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "large shield",
+            "recruit speed -15%"
+        ]
+    },
+    {
+        "name": "Crusader",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 14,
+        "hp": 130,
+        "a1_power": 160,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 40,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "large shield",
+            "recruit speed 50%"
+        ]
+    },
+    {
+        "name": "High Priest",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 21,
+        "hp": 130,
+        "a1_power": 200,
+        "a1_type": "ranged holy",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 50,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 25,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 50,
+            "holy": 25
+        },
+        "abilities": [
+            "healing",
+            "recruit speed -10%"
+        ]
+    },
+    {
+        "name": "Knight Templar",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 60,
+        "hp": 375,
+        "a1_power": 400,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 75,
+        "a2_power": 150,
+        "a2_type": "ranged holy",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 50,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 25,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 25,
+            "melee": 75,
+            "ranged": 25,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 50,
+            "holy": 25
+        },
+        "abilities": [
+            "healing",
+            "large shield",
+            "recruit speed -8%"
+        ]
+    },
+    {
+        "name": "Elven Archer",
+        "magic": "verdant",
+        "race": [
+            "elf"
+        ],
+        "power": 20,
+        "hp": 100,
+        "a1_power": 120,
+        "a1_type": "missile ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 90,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "marksmanship",
+            "recruit speed -10%",
+            "swift"
+        ]
+    },
+    {
+        "name": "Elven Magician",
+        "magic": "verdant",
+        "race": [
+            "elf"
+        ],
+        "power": 41,
+        "hp": 100,
+        "a1_power": 500,
+        "a1_type": "magic ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 10,
+            "nether": 60,
+            "phantasm": 5
+        },
+        "resistances": {
+            "missile": 80,
+            "fire": 50,
+            "poison": 0,
+            "breath": 0,
+            "magic": 80,
+            "melee": 80,
+            "ranged": 80,
+            "lightning": 50,
+            "cold": 0,
+            "paralyse": 80,
+            "psychic": 90,
+            "holy": 50
+        },
+        "abilities": [
+            "marksmanship",
+            "recruit speed -10%",
+            "swift"
+        ]
+    },
+    {
+        "name": "Swanmay",
+        "magic": "verdant",
+        "race": [
+            "human",
+            "animal"
+        ],
+        "power": 35,
+        "hp": 255,
+        "a1_power": 220,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 60,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 10,
+            "nether": 10,
+            "phantasm": 5
+        },
+        "resistances": {
+            "missile": 15,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 15,
+            "melee": 15,
+            "ranged": 15,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "beauty",
+            "marksmanship",
+            "recruit speed -15%",
+            "swift"
+        ]
+    },
+    {
+        "name": "Faerie Dragon",
+        "magic": "verdant",
+        "race": [
+            "dragon"
+        ],
+        "power": 34,
+        "hp": 60,
+        "a1_power": 300,
+        "a1_type": "magic breath",
+        "a1_init": 5,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 400,
+            "nether": 400,
+            "phantasm": 400
+        },
+        "resistances": {
+            "missile": 90,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 90,
+            "melee": 90,
+            "ranged": 90,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 50
+        },
+        "abilities": [
+            "flying",
+            "recruit speed -30%",
+            "swift"
+        ]
+    },
+    {
+        "name": "Druid",
+        "magic": "verdant",
+        "race": [
+            "elf"
+        ],
+        "power": 40,
+        "hp": 180,
+        "a1_power": 440,
+        "a1_type": "magic ranged",
+        "a1_init": 3,
+        "counter": 60,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 50,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 25,
+            "poison": 90,
+            "breath": 0,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 25,
+            "cold": 25,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "recruit speed -15%"
+        ]
+    },
+    {
+        "name": "Dwarven Warrior",
+        "magic": "eradication",
+        "race": [
+            "dwarf"
+        ],
+        "power": 20,
+        "hp": 160,
+        "a1_power": 200,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 50,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 25,
+            "breath": 0,
+            "magic": 15,
+            "melee": 25,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 10
+        },
+        "abilities": [
+            "endurance",
+            "recruit speed 30%",
+            "racial enemy orc 50%"
+        ]
+    },
+    {
+        "name": "Dwarven Elite",
+        "magic": "eradication",
+        "race": [
+            "dwarf"
+        ],
+        "power": 27,
+        "hp": 220,
+        "a1_power": 300,
+        "a1_type": "melee poison",
+        "a1_init": 1,
+        "counter": 70,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 50,
+            "breath": 0,
+            "magic": 30,
+            "melee": 33,
+            "ranged": 30,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 15
+        },
+        "abilities": [
+            "endurance",
+            "recruit speed 10%",
+            "racial enemy orc 50%"
+        ]
+    },
+    {
+        "name": "Fire Giant",
+        "magic": "eradication",
+        "race": [
+            "giant"
+        ],
+        "power": 92,
+        "hp": 700,
+        "a1_power": 1100,
+        "a1_type": "fire ranged",
+        "a1_init": 3,
+        "counter": 200,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 25,
+            "fire": 100,
+            "poison": 0,
+            "breath": 25,
+            "magic": 25,
+            "melee": 25,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "endurance",
+            "recruit speed -25%",
+            "weak to attack type cold"
+        ]
+    },
+    {
+        "name": "Ogre",
+        "magic": "eradication",
+        "race": [
+            "giant"
+        ],
+        "power": 34,
+        "hp": 300,
+        "a1_power": 400,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 100,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "endurance",
+            "recruit speed 10%"
+        ]
+    },
+    {
+        "name": "Troglodyte",
+        "magic": "eradication",
+        "race": [
+            "reptile"
+        ],
+        "power": 22,
+        "hp": 160,
+        "a1_power": 200,
+        "a1_type": "poison",
+        "a1_init": 1,
+        "counter": 35,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "recruit speed 35%",
+            "scales"
+        ]
+    },
+    {
+        "name": "Orc Raider",
+        "magic": "nether",
+        "race": [
+            "orc"
+        ],
+        "power": 12,
+        "hp": 110,
+        "a1_power": 100,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 20,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness",
+            "recruit speed 50%"
+        ]
+    },
+    {
+        "name": "Wolf Raider",
+        "magic": "nether",
+        "race": [
+            "orc"
+        ],
+        "power": 25,
+        "hp": 550,
+        "a1_power": 200,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 150,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness",
+            "recruit speed 33%"
+        ]
+    },
+    {
+        "name": "Orcish Archer",
+        "magic": "nether",
+        "race": [
+            "orc"
+        ],
+        "power": 12,
+        "hp": 100,
+        "a1_power": 80,
+        "a1_type": "missile ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness",
+            "recruit speed 50%"
+        ]
+    },
+    {
+        "name": "Cave Troll",
+        "magic": "nether",
+        "race": [
+            "troll"
+        ],
+        "power": 49,
+        "hp": 400,
+        "a1_power": 400,
+        "a1_type": "poison",
+        "a1_init": 1,
+        "counter": 100,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "regeneration",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Imp",
+        "magic": "nether",
+        "race": [
+            "demon"
+        ],
+        "power": 19,
+        "hp": 80,
+        "a1_power": 150,
+        "a1_type": "poison",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 30,
+            "fire": 0,
+            "poison": 30,
+            "breath": 0,
+            "magic": 30,
+            "melee": 30,
+            "ranged": 30,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 30,
+            "holy": 0
+        },
+        "abilities": [
+            "flying"
+        ]
+    },
+    {
+        "name": "Gargoyle",
+        "magic": "nether",
+        "race": [
+            "golem"
+        ],
+        "power": 64,
+        "hp": 300,
+        "a1_power": 400,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 25,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 25,
+            "melee": 25,
+            "ranged": 25,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "flying"
+        ]
+    },
+    {
+        "name": "Dark Apprentice",
+        "magic": "nether",
+        "race": [
+            "human"
+        ],
+        "power": 51,
+        "hp": 100,
+        "a1_power": 700,
+        "a1_type": "magic ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 80,
+            "fire": 50,
+            "poison": 0,
+            "breath": 0,
+            "magic": 80,
+            "melee": 80,
+            "ranged": 80,
+            "lightning": 50,
+            "cold": 0,
+            "paralyse": 80,
+            "psychic": 80,
+            "holy": 0
+        },
+        "abilities": [
+            "marksmanship",
+            "recruit speed -10%",
+            "swift"
+        ]
+    },
+    {
+        "name": "Pegasus",
+        "magic": "ascendant",
+        "race": [
+            "animal"
+        ],
+        "power": 40,
+        "hp": 290,
+        "a1_power": 300,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "flying"
+        ]
+    },
+    {
+        "name": "Angel",
+        "magic": "ascendant",
+        "race": [
+            "angel"
+        ],
+        "power": 193,
+        "hp": 1000,
+        "a1_power": 800,
+        "a1_type": "holy",
+        "a1_init": 2,
+        "counter": 200,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 65,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 50,
+            "poison": 0,
+            "breath": 0,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 50,
+            "cold": 50,
+            "paralyse": 0,
+            "psychic": 50,
+            "holy": 25
+        },
+        "abilities": [
+            "beauty",
+            "flying",
+            "healing"
+        ]
+    },
+    {
+        "name": "Unicorn",
+        "magic": "ascendant",
+        "race": [
+            "elemental"
+        ],
+        "power": 375,
+        "hp": 2500,
+        "a1_power": 4000,
+        "a1_type": "magic",
+        "a1_init": 2,
+        "counter": 800,
+        "a2_power": 1000,
+        "a2_type": "melee",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 40,
+            "nether": 60,
+            "phantasm": 20
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 60,
+            "poison": 100,
+            "breath": 0,
+            "magic": 50,
+            "melee": 30,
+            "ranged": 30,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 60,
+            "psychic": 60,
+            "holy": 30
+        },
+        "abilities": [
+            "beauty",
+            "swift"
+        ]
+    },
+    {
+        "name": "Archangel",
+        "magic": "ascendant",
+        "race": [
+            "angel"
+        ],
+        "power": 750,
+        "hp": 5000,
+        "a1_power": 4000,
+        "a1_type": "holy",
+        "a1_init": 2,
+        "counter": 400,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 45,
+            "nether": 70,
+            "phantasm": 30
+        },
+        "resistances": {
+            "missile": 70,
+            "fire": 70,
+            "poison": 0,
+            "breath": 0,
+            "magic": 70,
+            "melee": 70,
+            "ranged": 70,
+            "lightning": 70,
+            "cold": 70,
+            "paralyse": 0,
+            "psychic": 70,
+            "holy": 50
+        },
+        "abilities": [
+            "beauty",
+            "flying",
+            "healing"
+        ]
+    },
+    {
+        "name": "Dominion",
+        "magic": "ascendant",
+        "race": [
+            "angel"
+        ],
+        "power": 39013,
+        "hp": 80000,
+        "a1_power": 200000,
+        "a1_type": "holy",
+        "a1_init": 2,
+        "counter": 30000,
+        "a2_power": 250000,
+        "a2_type": "holy",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 80,
+            "nether": 80,
+            "phantasm": 50
+        },
+        "resistances": {
+            "missile": 85,
+            "fire": 85,
+            "poison": 85,
+            "breath": 85,
+            "magic": 85,
+            "melee": 85,
+            "ranged": 85,
+            "lightning": 85,
+            "cold": 85,
+            "paralyse": 85,
+            "psychic": 85,
+            "holy": 80
+        },
+        "abilities": [
+            "flying",
+            "healing"
+        ]
+    },
+    {
+        "name": "Preacher",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 16,
+        "hp": 133,
+        "a1_power": 10,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 75,
+            "nether": 75,
+            "phantasm": 50
+        },
+        "resistances": {
+            "missile": 75,
+            "fire": 75,
+            "poison": 75,
+            "breath": 75,
+            "magic": 75,
+            "melee": 75,
+            "ranged": 75,
+            "lightning": 75,
+            "cold": 75,
+            "paralyse": 75,
+            "psychic": 100,
+            "holy": 75
+        },
+        "abilities": [
+            "healing"
+        ]
+    },
+    {
+        "name": "Soul Speaker",
+        "magic": "ascendant",
+        "race": [
+            "astral"
+        ],
+        "power": 27,
+        "hp": 75,
+        "a1_power": 260,
+        "a1_type": "ranged psychic",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 35,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 20,
+            "melee": 40,
+            "ranged": 0,
+            "lightning": 40,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 30,
+            "holy": 0
+        },
+        "abilities": [
+            "beauty",
+            "healing"
+        ]
+    },
+    {
+        "name": "Astral Magician",
+        "magic": "ascendant",
+        "race": [
+            "astral"
+        ],
+        "power": 170,
+        "hp": 750,
+        "a1_power": 1200,
+        "a1_type": "ranged magic",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 1200,
+        "a2_type": "ranged lightning",
+        "a2_init": 4,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 30,
+            "nether": 60,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 40,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 45,
+            "melee": 30,
+            "ranged": 40,
+            "lightning": 65,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 45,
+            "holy": 20
+        },
+        "abilities": [
+            "swift"
+        ]
+    },
+    {
+        "name": "Spirit Warrior",
+        "magic": "ascendant",
+        "race": [
+            "astral"
+        ],
+        "power": 475,
+        "hp": 2600,
+        "a1_power": 2900,
+        "a1_type": "melee holy",
+        "a1_init": 2,
+        "counter": 600,
+        "a2_power": 2300,
+        "a2_type": "holy",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 30,
+            "nether": 75,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 60,
+            "fire": 50,
+            "poison": 0,
+            "breath": 40,
+            "magic": 50,
+            "melee": 35,
+            "ranged": 25,
+            "lightning": 70,
+            "cold": 0,
+            "paralyse": 45,
+            "psychic": 40,
+            "holy": 0
+        },
+        "abilities": [
+            "beauty",
+            "charm",
+            "endurance"
+        ]
+    },
+    {
+        "name": "Titan",
+        "magic": "ascendant",
+        "race": [
+            "giant"
+        ],
+        "power": 50000,
+        "hp": 85000,
+        "a1_power": 200000,
+        "a1_type": "melee holy",
+        "a1_init": 1,
+        "counter": 50000,
+        "a2_power": 250000,
+        "a2_type": "ranged lightning",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 85,
+            "eradication": 85,
+            "nether": 85,
+            "phantasm": 85
+        },
+        "resistances": {
+            "missile": 85,
+            "fire": 75,
+            "poison": 85,
+            "breath": 80,
+            "magic": 80,
+            "melee": 90,
+            "ranged": 95,
+            "lightning": 100,
+            "cold": 85,
+            "paralyse": 85,
+            "psychic": 95,
+            "holy": 75
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "marksmanship",
+            "siege"
+        ]
+    },
+    {
+        "name": "Naga Queen",
+        "magic": "ascendant",
+        "race": [
+            "reptile"
+        ],
+        "power": 2700,
+        "hp": 10500,
+        "a1_power": 13000,
+        "a1_type": "melee lightning",
+        "a1_init": 2,
+        "counter": 2500,
+        "a2_power": 17600,
+        "a2_type": "lightning",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 85,
+            "eradication": 85,
+            "nether": 0,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 70,
+            "fire": 30,
+            "poison": 90,
+            "breath": 50,
+            "magic": 80,
+            "melee": 95,
+            "ranged": 70,
+            "lightning": 0,
+            "cold": 80,
+            "paralyse": 90,
+            "psychic": 90,
+            "holy": 30
+        },
+        "abilities": [
+            "marksmanship",
+            "scales"
+        ]
+    },
+    {
+        "name": "Empyrean Inquisitor",
+        "magic": "ascendant",
+        "race": [
+            "astral"
+        ],
+        "power": 2500,
+        "hp": 9000,
+        "a1_power": 13500,
+        "a1_type": "magic",
+        "a1_init": 4,
+        "counter": 1900,
+        "a2_power": 2500,
+        "a2_type": "melee",
+        "a2_init": 1,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 75,
+            "eradication": 30,
+            "nether": 50,
+            "phantasm": 20
+        },
+        "resistances": {
+            "missile": 90,
+            "fire": 75,
+            "poison": 0,
+            "breath": 35,
+            "magic": 75,
+            "melee": 80,
+            "ranged": 80,
+            "lightning": 20,
+            "cold": 10,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 30
+        },
+        "abilities": [
+            "charm",
+            "fear"
+        ]
+    },
+    {
+        "name": "Gorilla",
+        "magic": "verdant",
+        "race": [
+            "animal"
+        ],
+        "power": 34,
+        "hp": 450,
+        "a1_power": 240,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 80,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": []
+    },
+    {
+        "name": "Dryad",
+        "magic": "verdant",
+        "race": [
+            "pixie"
+        ],
+        "power": 23,
+        "hp": 70,
+        "a1_power": 240,
+        "a1_type": "magic ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 30,
+            "fire": 0,
+            "poison": 20,
+            "breath": 0,
+            "magic": 20,
+            "melee": 40,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 30,
+            "psychic": 40,
+            "holy": 0
+        },
+        "abilities": [
+            "beauty",
+            "charm"
+        ]
+    },
+    {
+        "name": "Nymph",
+        "magic": "verdant",
+        "race": [
+            "pixie"
+        ],
+        "power": 62,
+        "hp": 150,
+        "a1_power": 940,
+        "a1_type": "psychic ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 40,
+            "holy": 25
+        },
+        "abilities": [
+            "beauty",
+            "charm"
+        ]
+    },
+    {
+        "name": "Werebear",
+        "magic": "verdant",
+        "race": [
+            "human",
+            "animal"
+        ],
+        "power": 161,
+        "hp": 1500,
+        "a1_power": 2300,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 300,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 0,
+            "poison": 67,
+            "breath": 0,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 75,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "endurance",
+            "piercing"
+        ]
+    },
+    {
+        "name": "Treant",
+        "magic": "verdant",
+        "race": [
+            "treefolk"
+        ],
+        "power": 423,
+        "hp": 4200,
+        "a1_power": 4200,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 1680,
+        "a2_power": 2500,
+        "a2_type": "melee",
+        "a2_init": 1,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 80
+        },
+        "resistances": {
+            "missile": 67,
+            "fire": 0,
+            "poison": 90,
+            "breath": 0,
+            "magic": 50,
+            "melee": 67,
+            "ranged": 67,
+            "lightning": 0,
+            "cold": 80,
+            "paralyse": 75,
+            "psychic": 75,
+            "holy": 50
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Phoenix",
+        "magic": "verdant",
+        "race": [
+            "elemental"
+        ],
+        "power": 36883,
+        "hp": 70000,
+        "a1_power": 200000,
+        "a1_type": "magic",
+        "a1_init": 1,
+        "counter": 40000,
+        "a2_power": 600000,
+        "a2_type": "magic ranged",
+        "a2_init": 5,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 80,
+            "nether": 75,
+            "phantasm": 50
+        },
+        "resistances": {
+            "missile": 90,
+            "fire": 100,
+            "poison": 80,
+            "breath": 80,
+            "magic": 80,
+            "melee": 90,
+            "ranged": 80,
+            "lightning": 80,
+            "cold": 80,
+            "paralyse": 80,
+            "psychic": 80,
+            "holy": 80
+        },
+        "abilities": [
+            "bursting fire 50000",
+            "flying",
+            "regeneration"
+        ]
+    },
+    {
+        "name": "Creeping Vines",
+        "magic": "verdant",
+        "race": [
+            "treefolk"
+        ],
+        "power": 40,
+        "hp": 336,
+        "a1_power": 336,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 118,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "regeneration",
+            "steal life 5%",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Mandrake",
+        "magic": "verdant",
+        "race": [
+            "treefolk"
+        ],
+        "power": 180,
+        "hp": 1344,
+        "a1_power": 1680,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 672,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 0,
+            "poison": 80,
+            "breath": 0,
+            "magic": 40,
+            "melee": 45,
+            "ranged": 35,
+            "lightning": 0,
+            "cold": 40,
+            "paralyse": 50,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "regeneration",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Griffon",
+        "magic": "verdant",
+        "race": [
+            "animal"
+        ],
+        "power": 399,
+        "hp": 3750,
+        "a1_power": 2750,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 500,
+        "a2_power": 3450,
+        "a2_type": "melee",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 20,
+            "nether": 50,
+            "phantasm": 40
+        },
+        "resistances": {
+            "missile": 60,
+            "fire": 30,
+            "poison": 40,
+            "breath": 30,
+            "magic": 20,
+            "melee": 50,
+            "ranged": 45,
+            "lightning": 0,
+            "cold": 30,
+            "paralyse": 0,
+            "psychic": 25,
+            "holy": 0
+        },
+        "abilities": [
+            "endurance",
+            "flying"
+        ]
+    },
+    {
+        "name": "Earth Elemental",
+        "magic": "verdant",
+        "race": [
+            "elemental"
+        ],
+        "power": 22000,
+        "hp": 100000,
+        "a1_power": 100000,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 15000,
+        "a2_power": 550000,
+        "a2_type": "magic ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 40,
+            "eradication": 50,
+            "nether": 60,
+            "phantasm": 40
+        },
+        "resistances": {
+            "missile": 90,
+            "fire": 50,
+            "poison": 100,
+            "breath": 60,
+            "magic": 50,
+            "melee": 90,
+            "ranged": 70,
+            "lightning": 50,
+            "cold": 40,
+            "paralyse": 95,
+            "psychic": 80,
+            "holy": 80
+        },
+        "abilities": [
+            "endurance"
+        ]
+    },
+    {
+        "name": "Venus Flytrap",
+        "magic": "verdant",
+        "race": [
+            "treefolk"
+        ],
+        "power": 380,
+        "hp": 1344,
+        "a1_power": 1754,
+        "a1_type": "ranged poison",
+        "a1_init": 1,
+        "counter": 336,
+        "a2_power": 3000,
+        "a2_type": "ranged poison",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 40,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 40
+        },
+        "resistances": {
+            "missile": 67,
+            "fire": 0,
+            "poison": 90,
+            "breath": 20,
+            "magic": 50,
+            "melee": 67,
+            "ranged": 67,
+            "lightning": 40,
+            "cold": 40,
+            "paralyse": 75,
+            "psychic": 85,
+            "holy": 40
+        },
+        "abilities": [
+            "charm",
+            "regeneration",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "High Elf",
+        "magic": "verdant",
+        "race": [
+            "elf"
+        ],
+        "power": 1542,
+        "hp": 5000,
+        "a1_power": 13000,
+        "a1_type": "paralyse ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 7500,
+        "a2_type": "lightning ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 75,
+            "nether": 50,
+            "phantasm": 40
+        },
+        "resistances": {
+            "missile": 70,
+            "fire": 70,
+            "poison": 20,
+            "breath": 50,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 70,
+            "lightning": 70,
+            "cold": 20,
+            "paralyse": 70,
+            "psychic": 50,
+            "holy": 40
+        },
+        "abilities": [
+            "beauty",
+            "swift"
+        ]
+    },
+    {
+        "name": "Elven Blade Dancer",
+        "magic": "verdant",
+        "race": [
+            "elf"
+        ],
+        "power": 1850,
+        "hp": 6500,
+        "a1_power": 9000,
+        "a1_type": "melee",
+        "a1_init": 4,
+        "counter": 1500,
+        "a2_power": 13500,
+        "a2_type": "paralyse ranged",
+        "a2_init": 1,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 80,
+            "eradication": 80,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 75,
+            "fire": 70,
+            "poison": 0,
+            "breath": 75,
+            "magic": 55,
+            "melee": 100,
+            "ranged": 75,
+            "lightning": 20,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 40,
+            "holy": 20
+        },
+        "abilities": [
+            "additional strike",
+            "beauty",
+            "bursting melee 3000",
+            "swift",
+            "racial enemy angel 50%",
+            "weak to attack type cold"
+        ]
+    },
+    {
+        "name": "Lizard Man",
+        "magic": "eradication",
+        "race": [
+            "reptile"
+        ],
+        "power": 36,
+        "hp": 250,
+        "a1_power": 300,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 60,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "scales"
+        ]
+    },
+    {
+        "name": "Hell Hound",
+        "magic": "eradication",
+        "race": [
+            "demon"
+        ],
+        "power": 159,
+        "hp": 700,
+        "a1_power": 1000,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 300,
+        "a2_power": 1800,
+        "a2_type": "fire breath",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 25,
+            "fire": 100,
+            "poison": 50,
+            "breath": 0,
+            "magic": 25,
+            "melee": 35,
+            "ranged": 25,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 25,
+            "holy": 10
+        },
+        "abilities": [
+            "fear",
+            "weak to attack type cold"
+        ]
+    },
+    {
+        "name": "Salamander",
+        "magic": "eradication",
+        "race": [
+            "elemental"
+        ],
+        "power": 188,
+        "hp": 1000,
+        "a1_power": 3000,
+        "a1_type": "fire",
+        "a1_init": 1,
+        "counter": 500,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 100,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "scales",
+            "weak to attack type cold"
+        ]
+    },
+    {
+        "name": "Hydra",
+        "magic": "eradication",
+        "race": [
+            "reptile"
+        ],
+        "power": 457,
+        "hp": 3000,
+        "a1_power": 3000,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 800,
+        "a2_power": 2500,
+        "a2_type": "poison breath",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 33,
+            "eradication": 50,
+            "nether": 0,
+            "phantasm": 80
+        },
+        "resistances": {
+            "missile": 80,
+            "fire": 50,
+            "poison": 45,
+            "breath": 0,
+            "magic": 45,
+            "melee": 80,
+            "ranged": 45,
+            "lightning": 45,
+            "cold": 0,
+            "paralyse": 45,
+            "psychic": 45,
+            "holy": 50
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "regeneration",
+            "scales",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Chimera",
+        "magic": "eradication",
+        "race": [
+            "dragon"
+        ],
+        "power": 391,
+        "hp": 2200,
+        "a1_power": 2500,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 300,
+        "a2_power": 5000,
+        "a2_type": "fire breath",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 50,
+            "poison": 33,
+            "breath": 33,
+            "magic": 15,
+            "melee": 50,
+            "ranged": 33,
+            "lightning": 15,
+            "cold": 0,
+            "paralyse": 33,
+            "psychic": 0,
+            "holy": 50
+        },
+        "abilities": [
+            "flying",
+            "scales"
+        ]
+    },
+    {
+        "name": "Red Dragon",
+        "magic": "eradication",
+        "race": [
+            "dragon"
+        ],
+        "power": 82378,
+        "hp": 120000,
+        "a1_power": 250000,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 50000,
+        "a2_power": 500000,
+        "a2_type": "fire breath",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 90,
+            "verdant": 90,
+            "eradication": 90,
+            "nether": 90,
+            "phantasm": 90
+        },
+        "resistances": {
+            "missile": 90,
+            "fire": 100,
+            "poison": 90,
+            "breath": 60,
+            "magic": 91,
+            "melee": 95,
+            "ranged": 90,
+            "lightning": 60,
+            "cold": 30,
+            "paralyse": 90,
+            "psychic": 90,
+            "holy": 75
+        },
+        "abilities": [
+            "endurance",
+            "fear",
+            "flying",
+            "scales",
+            "racial enemy elf 50%",
+            "undisbandable",
+            "weak to attack type cold"
+        ]
+    },
+    {
+        "name": "Dwarven Deathseeker",
+        "magic": "eradication",
+        "race": [
+            "dwarf"
+        ],
+        "power": 40,
+        "hp": 250,
+        "a1_power": 275,
+        "a1_type": "poison melee",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 80,
+            "breath": 0,
+            "magic": 0,
+            "melee": 30,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 30,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "bursting poison 30"
+        ]
+    },
+    {
+        "name": "Wyvern",
+        "magic": "eradication",
+        "race": [
+            "dragon"
+        ],
+        "power": 190,
+        "hp": 1000,
+        "a1_power": 800,
+        "a1_type": "melee poison",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 600,
+        "a2_type": "melee",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 20,
+            "nether": 25,
+            "phantasm": 20
+        },
+        "resistances": {
+            "missile": 40,
+            "fire": 40,
+            "poison": 50,
+            "breath": 0,
+            "magic": 0,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 30,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "endurance",
+            "flying",
+            "scales"
+        ]
+    },
+    {
+        "name": "Efreeti",
+        "magic": "eradication",
+        "race": [
+            "elemental"
+        ],
+        "power": 1200,
+        "hp": 3600,
+        "a1_power": 5000,
+        "a1_type": "fire ranged",
+        "a1_init": 4,
+        "counter": 800,
+        "a2_power": 8000,
+        "a2_type": "magic ranged",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 50,
+            "eradication": 50,
+            "nether": 65,
+            "phantasm": 20
+        },
+        "resistances": {
+            "missile": 40,
+            "fire": 30,
+            "poison": 55,
+            "breath": 0,
+            "magic": 50,
+            "melee": 60,
+            "ranged": 75,
+            "lightning": 75,
+            "cold": 75,
+            "paralyse": 45,
+            "psychic": 0,
+            "holy": 50
+        },
+        "abilities": [
+            "fear",
+            "marksmanship",
+            "swift"
+        ]
+    },
+    {
+        "name": "Fire Elemental",
+        "magic": "eradication",
+        "race": [
+            "elemental"
+        ],
+        "power": 21000,
+        "hp": 85000,
+        "a1_power": 100000,
+        "a1_type": "fire",
+        "a1_init": 1,
+        "counter": 9000,
+        "a2_power": 300000,
+        "a2_type": "fire ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 80,
+            "eradication": 80,
+            "nether": 80,
+            "phantasm": 40
+        },
+        "resistances": {
+            "missile": 100,
+            "fire": 100,
+            "poison": 95,
+            "breath": 100,
+            "magic": 50,
+            "melee": 85,
+            "ranged": 75,
+            "lightning": 60,
+            "cold": 20,
+            "paralyse": 100,
+            "psychic": 40,
+            "holy": 80
+        },
+        "abilities": [
+            "endurance",
+            "weak to attack type cold"
+        ]
+    },
+    {
+        "name": "Dwarven Shaman",
+        "magic": "eradication",
+        "race": [
+            "dwarf"
+        ],
+        "power": 1000,
+        "hp": 4500,
+        "a1_power": 5000,
+        "a1_type": "fire",
+        "a1_init": 2,
+        "counter": 300,
+        "a2_power": 8000,
+        "a2_type": "lightning",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 50,
+            "eradication": 50,
+            "nether": 10,
+            "phantasm": 10
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 70,
+            "poison": 30,
+            "breath": 65,
+            "magic": 100,
+            "melee": 85,
+            "ranged": 75,
+            "lightning": 0,
+            "cold": 85,
+            "paralyse": 45,
+            "psychic": 0,
+            "holy": 90
+        },
+        "abilities": [
+            "healing"
+        ]
+    },
+    {
+        "name": "Storm Giant",
+        "magic": "eradication",
+        "race": [
+            "giant"
+        ],
+        "power": 1550,
+        "hp": 5800,
+        "a1_power": 16000,
+        "a1_type": "lightning breath",
+        "a1_init": 3,
+        "counter": 300,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 75,
+            "eradication": 40,
+            "nether": 0,
+            "phantasm": 50
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 70,
+            "poison": 30,
+            "breath": 80,
+            "magic": 0,
+            "melee": 75,
+            "ranged": 70,
+            "lightning": 100,
+            "cold": 85,
+            "paralyse": 45,
+            "psychic": 50,
+            "holy": 70
+        },
+        "abilities": [
+            "endurance",
+            "marksmanship",
+            "siege"
+        ]
+    },
+    {
+        "name": "Goblin",
+        "magic": "eradication",
+        "race": [
+            "orc"
+        ],
+        "power": 13,
+        "hp": 150,
+        "a1_power": 125,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 50,
+        "a2_power": 75,
+        "a2_type": "ranged missile",
+        "a2_init": 1,
+        "spell_resistance": {
+            "ascendant": 25,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 25,
+            "fire": 50,
+            "poison": 0,
+            "breath": 25,
+            "magic": 0,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness",
+            "racial enemy human 100%",
+            "weaken resistance to ranged"
+        ]
+    },
+    {
+        "name": "Skeleton",
+        "magic": "nether",
+        "race": [
+            "undead"
+        ],
+        "power": 10,
+        "hp": 70,
+        "a1_power": 100,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 40,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 0,
+            "poison": 100,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "weaken resistance to holy"
+        ]
+    },
+    {
+        "name": "Zombie",
+        "magic": "nether",
+        "race": [
+            "undead"
+        ],
+        "power": 15,
+        "hp": 170,
+        "a1_power": 210,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 30,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 100,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness",
+            "weaken resistance to holy"
+        ]
+    },
+    {
+        "name": "Ghoul",
+        "magic": "nether",
+        "race": [
+            "undead"
+        ],
+        "power": 35,
+        "hp": 400,
+        "a1_power": 500,
+        "a1_type": "melee paralyse",
+        "a1_init": 1,
+        "counter": 200,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 100,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "steal life 5%",
+            "undisbandable",
+            "weaken resistance to holy"
+        ]
+    },
+    {
+        "name": "Wraith",
+        "magic": "nether",
+        "race": [
+            "undead"
+        ],
+        "power": 160,
+        "hp": 1000,
+        "a1_power": 2400,
+        "a1_type": "magic paralyse",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 40,
+            "fire": 0,
+            "poison": 50,
+            "breath": 0,
+            "magic": 20,
+            "melee": 60,
+            "ranged": 40,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 50,
+            "psychic": 50,
+            "holy": 0
+        },
+        "abilities": [
+            "flying",
+            "steal life 5%",
+            "undisbandable",
+            "weaken resistance to holy"
+        ]
+    },
+    {
+        "name": "Vampire",
+        "magic": "nether",
+        "race": [
+            "undead"
+        ],
+        "power": 2058,
+        "hp": 4500,
+        "a1_power": 9000,
+        "a1_type": "magic paralyse",
+        "a1_init": 2,
+        "counter": 2000,
+        "a2_power": 12000,
+        "a2_type": "magic ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 50,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 95,
+            "fire": 75,
+            "poison": 75,
+            "breath": 50,
+            "magic": 50,
+            "melee": 95,
+            "ranged": 95,
+            "lightning": 50,
+            "cold": 50,
+            "paralyse": 75,
+            "psychic": 75,
+            "holy": 0
+        },
+        "abilities": [
+            "charm",
+            "flying",
+            "marksmanship",
+            "steal life 5%",
+            "swift",
+            "undisbandable",
+            "weaken resistance to holy"
+        ]
+    },
+    {
+        "name": "Lich",
+        "magic": "nether",
+        "race": [
+            "undead"
+        ],
+        "power": 2027,
+        "hp": 7500,
+        "a1_power": 5500,
+        "a1_type": "ranged cold",
+        "a1_init": 1,
+        "counter": 2000,
+        "a2_power": 16000,
+        "a2_type": "magic ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 65,
+            "nether": 65,
+            "phantasm": 40
+        },
+        "resistances": {
+            "missile": 95,
+            "fire": 75,
+            "poison": 50,
+            "breath": 25,
+            "magic": 75,
+            "melee": 95,
+            "ranged": 95,
+            "lightning": 50,
+            "cold": 75,
+            "paralyse": 75,
+            "psychic": 75,
+            "holy": 0
+        },
+        "abilities": [
+            "fear",
+            "undisbandable",
+            "weaken resistance to holy"
+        ]
+    },
+    {
+        "name": "Devil",
+        "magic": "nether",
+        "race": [
+            "demon"
+        ],
+        "power": 18586,
+        "hp": 40000,
+        "a1_power": 100000,
+        "a1_type": "fire",
+        "a1_init": 1,
+        "counter": 14000,
+        "a2_power": 200000,
+        "a2_type": "magic ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 50,
+            "verdant": 50,
+            "eradication": 400,
+            "nether": 400,
+            "phantasm": 400
+        },
+        "resistances": {
+            "missile": 100,
+            "fire": 100,
+            "poison": 50,
+            "breath": 0,
+            "magic": 50,
+            "melee": 100,
+            "ranged": 100,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 50,
+            "holy": 0
+        },
+        "abilities": [
+            "endurance",
+            "flying",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Succubus",
+        "magic": "nether",
+        "race": [
+            "demon"
+        ],
+        "power": 29,
+        "hp": 50,
+        "a1_power": 200,
+        "a1_type": "psychic",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 50,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 80,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "beauty",
+            "charm",
+            "endurance",
+            "flying",
+            "swift"
+        ]
+    },
+    {
+        "name": "Fallen Angel",
+        "magic": "nether",
+        "race": [
+            "angel"
+        ],
+        "power": 193,
+        "hp": 1500,
+        "a1_power": 2400,
+        "a1_type": "magic",
+        "a1_init": 2,
+        "counter": 400,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 50,
+            "verdant": 25,
+            "eradication": 25,
+            "nether": 50,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 50,
+            "poison": 25,
+            "breath": 25,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 55,
+            "cold": 50,
+            "paralyse": 25,
+            "psychic": 50,
+            "holy": 25
+        },
+        "abilities": [
+            "beauty",
+            "flying",
+            "healing",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Fallen Archangel",
+        "magic": "nether",
+        "race": [
+            "angel"
+        ],
+        "power": 750,
+        "hp": 7500,
+        "a1_power": 12000,
+        "a1_type": "magic",
+        "a1_init": 2,
+        "counter": 800,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 70,
+            "verdant": 35,
+            "eradication": 35,
+            "nether": 70,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 75,
+            "fire": 75,
+            "poison": 25,
+            "breath": 25,
+            "magic": 75,
+            "melee": 75,
+            "ranged": 75,
+            "lightning": 80,
+            "cold": 75,
+            "paralyse": 25,
+            "psychic": 75,
+            "holy": 50
+        },
+        "abilities": [
+            "beauty",
+            "flying",
+            "healing",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Fallen Dominion",
+        "magic": "nether",
+        "race": [
+            "angel"
+        ],
+        "power": 59020,
+        "hp": 120000,
+        "a1_power": 600000,
+        "a1_type": "magic",
+        "a1_init": 2,
+        "counter": 60000,
+        "a2_power": 800000,
+        "a2_type": "magic",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 80,
+            "verdant": 50,
+            "eradication": 80,
+            "nether": 80,
+            "phantasm": 50
+        },
+        "resistances": {
+            "missile": 85,
+            "fire": 85,
+            "poison": 85,
+            "breath": 85,
+            "magic": 85,
+            "melee": 85,
+            "ranged": 85,
+            "lightning": 90,
+            "cold": 85,
+            "paralyse": 85,
+            "psychic": 85,
+            "holy": 80
+        },
+        "abilities": [
+            "beauty",
+            "fear",
+            "flying",
+            "healing",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Shadow",
+        "magic": "nether",
+        "race": [
+            "undead"
+        ],
+        "power": 40,
+        "hp": 250,
+        "a1_power": 600,
+        "a1_type": "magic",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 100,
+            "fire": 0,
+            "poison": 40,
+            "breath": 0,
+            "magic": 0,
+            "melee": 100,
+            "ranged": 20,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 25,
+            "holy": 0
+        },
+        "abilities": [
+            "steal life 5%",
+            "weaken resistance to holy"
+        ]
+    },
+    {
+        "name": "Horned Demon",
+        "magic": "nether",
+        "race": [
+            "demon"
+        ],
+        "power": 170,
+        "hp": 950,
+        "a1_power": 2750,
+        "a1_type": "poison melee",
+        "a1_init": 1,
+        "counter": 450,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 50,
+            "poison": 75,
+            "breath": 0,
+            "magic": 25,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 20,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "additional strike",
+            "swift",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Demon Knight",
+        "magic": "nether",
+        "race": [
+            "demon"
+        ],
+        "power": 1850,
+        "hp": 8500,
+        "a1_power": 10000,
+        "a1_type": "cold melee",
+        "a1_init": 2,
+        "counter": 6000,
+        "a2_power": 8000,
+        "a2_type": "poison ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 25,
+            "eradication": 60,
+            "nether": 0,
+            "phantasm": 20
+        },
+        "resistances": {
+            "missile": 70,
+            "fire": 60,
+            "poison": 75,
+            "breath": 0,
+            "magic": 60,
+            "melee": 85,
+            "ranged": 70,
+            "lightning": 70,
+            "cold": 75,
+            "paralyse": 60,
+            "psychic": 50,
+            "holy": 30
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "steal life 5%",
+            "swift",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Unholy Reaver",
+        "magic": "nether",
+        "race": [
+            "demon"
+        ],
+        "power": 50000,
+        "hp": 85000,
+        "a1_power": 210000,
+        "a1_type": "melee paralyse",
+        "a1_init": 2,
+        "counter": 30000,
+        "a2_power": 470000,
+        "a2_type": "psychic ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 80,
+            "verdant": 0,
+            "eradication": 80,
+            "nether": 80,
+            "phantasm": 40
+        },
+        "resistances": {
+            "missile": 95,
+            "fire": 50,
+            "poison": 70,
+            "breath": 70,
+            "magic": 70,
+            "melee": 95,
+            "ranged": 75,
+            "lightning": 70,
+            "cold": 70,
+            "paralyse": 85,
+            "psychic": 85,
+            "holy": 30
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "fear",
+            "marksmanship",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Dark Elf Magician",
+        "magic": "nether",
+        "race": [
+            "elf"
+        ],
+        "power": 666,
+        "hp": 4500,
+        "a1_power": 4500,
+        "a1_type": "fire ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 3000,
+        "a2_type": "ranged lightning",
+        "a2_init": 4,
+        "spell_resistance": {
+            "ascendant": 50,
+            "verdant": 80,
+            "eradication": 80,
+            "nether": 0,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 85,
+            "fire": 70,
+            "poison": 0,
+            "breath": 0,
+            "magic": 90,
+            "melee": 90,
+            "ranged": 75,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 40,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "marksmanship"
+        ]
+    },
+    {
+        "name": "Bulwark Horror",
+        "magic": "nether",
+        "race": [
+            "demon"
+        ],
+        "power": 2018,
+        "hp": 10750,
+        "a1_power": 13600,
+        "a1_type": "melee poison",
+        "a1_init": 1,
+        "counter": 4900,
+        "a2_power": 9000,
+        "a2_type": "cold ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 75,
+            "eradication": 75,
+            "nether": 0,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 40,
+            "fire": 60,
+            "poison": 50,
+            "breath": 70,
+            "magic": 20,
+            "melee": 90,
+            "ranged": 40,
+            "lightning": 30,
+            "cold": 40,
+            "paralyse": 30,
+            "psychic": 30,
+            "holy": 50
+        },
+        "abilities": [
+            "endurance",
+            "large shield",
+            "pike",
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Sprite",
+        "magic": "phantasm",
+        "race": [
+            "pixie"
+        ],
+        "power": 38,
+        "hp": 75,
+        "a1_power": 400,
+        "a1_type": "magic",
+        "a1_init": 5,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 10
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "beauty",
+            "flying",
+            "swift"
+        ]
+    },
+    {
+        "name": "Sylph",
+        "magic": "phantasm",
+        "race": [
+            "elemental"
+        ],
+        "power": 68,
+        "hp": 150,
+        "a1_power": 1000,
+        "a1_type": "magic",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 33,
+            "nether": 33,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "beauty",
+            "flying",
+            "swift"
+        ]
+    },
+    {
+        "name": "Siren",
+        "magic": "phantasm",
+        "race": [
+            "pixie"
+        ],
+        "power": 176,
+        "hp": 600,
+        "a1_power": 3400,
+        "a1_type": "psychic",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 600,
+        "a2_type": "melee",
+        "a2_init": 1,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 25,
+            "melee": 33,
+            "ranged": 33,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 50,
+            "holy": 25
+        },
+        "abilities": [
+            "beauty",
+            "charm"
+        ]
+    },
+    {
+        "name": "Shadow Monster",
+        "magic": "phantasm",
+        "race": [
+            "illusion"
+        ],
+        "power": 6,
+        "hp": 1,
+        "a1_power": 400,
+        "a1_type": "psychic",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": []
+    },
+    {
+        "name": "Mind Ripper",
+        "magic": "phantasm",
+        "race": [
+            "telepath"
+        ],
+        "power": 1154,
+        "hp": 5000,
+        "a1_power": 8000,
+        "a1_type": "magic ranged",
+        "a1_init": 3,
+        "counter": 4000,
+        "a2_power": 16000,
+        "a2_type": "ranged psychic",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 75,
+            "eradication": 75,
+            "nether": 75,
+            "phantasm": 30
+        },
+        "resistances": {
+            "missile": 75,
+            "fire": 50,
+            "poison": 20,
+            "breath": 50,
+            "magic": 75,
+            "melee": 75,
+            "ranged": 75,
+            "lightning": 20,
+            "cold": 30,
+            "paralyse": 50,
+            "psychic": 90,
+            "holy": 50
+        },
+        "abilities": [
+            "undisbandable"
+        ]
+    },
+    {
+        "name": "Air Elemental",
+        "magic": "phantasm",
+        "race": [
+            "elemental"
+        ],
+        "power": 25000,
+        "hp": 60000,
+        "a1_power": 300000,
+        "a1_type": "lightning ranged",
+        "a1_init": 4,
+        "counter": 6500,
+        "a2_power": 200000,
+        "a2_type": "magic",
+        "a2_init": 1,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 80,
+            "nether": 75,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 95,
+            "fire": 50,
+            "poison": 0,
+            "breath": 70,
+            "magic": 55,
+            "melee": 95,
+            "ranged": 95,
+            "lightning": 100,
+            "cold": 0,
+            "paralyse": 20,
+            "psychic": 50,
+            "holy": 80
+        },
+        "abilities": [
+            "flying",
+            "swift"
+        ]
+    },
+    {
+        "name": "Water Elemental",
+        "magic": "phantasm",
+        "race": [
+            "elemental"
+        ],
+        "power": 19406,
+        "hp": 72000,
+        "a1_power": 400000,
+        "a1_type": "poison ranged",
+        "a1_init": 2,
+        "counter": 5000,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 80,
+            "nether": 75,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 100,
+            "fire": 50,
+            "poison": 100,
+            "breath": 0,
+            "magic": 50,
+            "melee": 100,
+            "ranged": 75,
+            "lightning": 100,
+            "cold": 25,
+            "paralyse": 100,
+            "psychic": 50,
+            "holy": 80
+        },
+        "abilities": [
+            "endurance"
+        ]
+    },
+    {
+        "name": "Ice Elemental",
+        "magic": "phantasm",
+        "race": [
+            "elemental"
+        ],
+        "power": 21800,
+        "hp": 90000,
+        "a1_power": 200000,
+        "a1_type": "cold ranged",
+        "a1_init": 1,
+        "counter": 10000,
+        "a2_power": 300000,
+        "a2_type": "cold ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 80,
+            "nether": 75,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 85,
+            "fire": 0,
+            "poison": 100,
+            "breath": 0,
+            "magic": 75,
+            "melee": 85,
+            "ranged": 85,
+            "lightning": 80,
+            "cold": 100,
+            "paralyse": 100,
+            "psychic": 50,
+            "holy": 80
+        },
+        "abilities": [
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Psychic Wisp",
+        "magic": "phantasm",
+        "race": [
+            "elemental"
+        ],
+        "power": 40,
+        "hp": 100,
+        "a1_power": 460,
+        "a1_type": "ranged psychic",
+        "a1_init": 3,
+        "counter": 200,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 80,
+            "holy": 0
+        },
+        "abilities": [
+            "swift"
+        ]
+    },
+    {
+        "name": "Medusa",
+        "magic": "phantasm",
+        "race": [
+            "reptile"
+        ],
+        "power": 200,
+        "hp": 650,
+        "a1_power": 2000,
+        "a1_type": "paralyse",
+        "a1_init": 2,
+        "counter": 300,
+        "a2_power": 1000,
+        "a2_type": "poison ranged",
+        "a2_init": 1,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 30,
+            "nether": 40,
+            "phantasm": 30
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 60,
+            "breath": 0,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 50,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "fear",
+            "scales"
+        ]
+    },
+    {
+        "name": "Djinni",
+        "magic": "phantasm",
+        "race": [
+            "elemental"
+        ],
+        "power": 1700,
+        "hp": 7650,
+        "a1_power": 8000,
+        "a1_type": "magic",
+        "a1_init": 2,
+        "counter": 1200,
+        "a2_power": 12000,
+        "a2_type": "lightning ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 65,
+            "phantasm": 20
+        },
+        "resistances": {
+            "missile": 80,
+            "fire": 60,
+            "poison": 0,
+            "breath": 60,
+            "magic": 50,
+            "melee": 80,
+            "ranged": 95,
+            "lightning": 90,
+            "cold": 50,
+            "paralyse": 40,
+            "psychic": 50,
+            "holy": 50
+        },
+        "abilities": [
+            "flying",
+            "marksmanship"
+        ]
+    },
+    {
+        "name": "Leviathan",
+        "magic": "phantasm",
+        "race": [
+            "giant"
+        ],
+        "power": 49500,
+        "hp": 100000,
+        "a1_power": 200000,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 50000,
+        "a2_power": 300000,
+        "a2_type": "poison ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 50,
+            "verdant": 75,
+            "eradication": 75,
+            "nether": 90,
+            "phantasm": 80
+        },
+        "resistances": {
+            "missile": 95,
+            "fire": 50,
+            "poison": 100,
+            "breath": 80,
+            "magic": 90,
+            "melee": 95,
+            "ranged": 95,
+            "lightning": 70,
+            "cold": 80,
+            "paralyse": 90,
+            "psychic": 70,
+            "holy": 80
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "marksmanship",
+            "scales"
+        ]
+    },
+    {
+        "name": "Yeti",
+        "magic": "phantasm",
+        "race": [
+            "giant"
+        ],
+        "power": 180,
+        "hp": 1000,
+        "a1_power": 500,
+        "a1_type": "cold",
+        "a1_init": 2,
+        "counter": 500,
+        "a2_power": 1400,
+        "a2_type": "breath cold",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 50,
+            "verdant": 0,
+            "eradication": 40,
+            "nether": 0,
+            "phantasm": 80
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 40,
+            "breath": 50,
+            "magic": 60,
+            "melee": 30,
+            "ranged": 65,
+            "lightning": 10,
+            "cold": 80,
+            "paralyse": 10,
+            "psychic": 0,
+            "holy": 85
+        },
+        "abilities": [
+            "marksmanship",
+            "swift",
+            "weak to attack type fire"
+        ]
+    },
+    {
+        "name": "Phantom",
+        "magic": "phantasm",
+        "race": [
+            "illusion"
+        ],
+        "power": 20,
+        "hp": 130,
+        "a1_power": 100,
+        "a1_type": "psychic ranged",
+        "a1_init": 1,
+        "counter": 350,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 75,
+            "breath": 0,
+            "magic": 0,
+            "melee": 100,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 100,
+            "holy": 50
+        },
+        "abilities": [
+            "fear",
+            "recruit speed -15%",
+            "weaken resistance to magic"
+        ]
+    },
+    {
+        "name": "Stone Golem",
+        "magic": "plain",
+        "race": [
+            "golem"
+        ],
+        "power": 1984,
+        "hp": 15000,
+        "a1_power": 20000,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 20000,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 75,
+            "verdant": 75,
+            "eradication": 75,
+            "nether": 75,
+            "phantasm": 75
+        },
+        "resistances": {
+            "missile": 99,
+            "fire": 50,
+            "poison": 100,
+            "breath": 0,
+            "magic": 50,
+            "melee": 99,
+            "ranged": 99,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 100,
+            "holy": 100
+        },
+        "abilities": [
+            "clumsiness",
+            "endurance",
+            "siege"
+        ]
+    },
+    {
+        "name": "Mercenary",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 68,
+        "hp": 300,
+        "a1_power": 600,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 300,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 33,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "additional strike",
+            "marksmanship"
+        ]
+    },
+    {
+        "name": "Renegade Wizard",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 72,
+        "hp": 100,
+        "a1_power": 1600,
+        "a1_type": "magic ranged",
+        "a1_init": 3,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 50,
+            "phantasm": 20
+        },
+        "resistances": {
+            "missile": 80,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 50,
+            "melee": 80,
+            "ranged": 80,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 80,
+            "holy": 30
+        },
+        "abilities": []
+    },
+    {
+        "name": "Venomesse",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 45,
+        "hp": 200,
+        "a1_power": 500,
+        "a1_type": "poison",
+        "a1_init": 2,
+        "counter": 50,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 33,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "marksmanship",
+            "swift"
+        ]
+    },
+    {
+        "name": "Bounty Hunter",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 46,
+        "hp": 250,
+        "a1_power": 200,
+        "a1_type": "missile ranged",
+        "a1_init": 1,
+        "counter": 50,
+        "a2_power": 300,
+        "a2_type": "missile ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 25,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "marksmanship"
+        ]
+    },
+    {
+        "name": "Starving Peasant",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 2,
+        "hp": 20,
+        "a1_power": 50,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness"
+        ]
+    },
+    {
+        "name": "War Hound",
+        "magic": "plain",
+        "race": [
+            "animal"
+        ],
+        "power": 53,
+        "hp": 400,
+        "a1_power": 400,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 200,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": []
+    },
+    {
+        "name": "Falcon",
+        "magic": "plain",
+        "race": [
+            "animal"
+        ],
+        "power": 15,
+        "hp": 50,
+        "a1_power": 200,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "flying"
+        ]
+    },
+    {
+        "name": "Trained Elephant",
+        "magic": "plain",
+        "race": [
+            "animal"
+        ],
+        "power": 107,
+        "hp": 1000,
+        "a1_power": 1000,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 200,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "clumsiness"
+        ]
+    },
+    {
+        "name": "Fanatic",
+        "magic": "plain",
+        "race": [
+            "human"
+        ],
+        "power": 12,
+        "hp": 500,
+        "a1_power": 500,
+        "a1_type": "holy",
+        "a1_init": 1,
+        "counter": 500,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 50,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 50,
+            "poison": 50,
+            "breath": 50,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 50,
+            "cold": 50,
+            "paralyse": 50,
+            "psychic": 50,
+            "holy": 50
+        },
+        "abilities": [
+            "additional strike"
+        ]
+    },
+    {
+        "name": "Capsule Monster",
+        "magic": "plain",
+        "race": [
+            "animal"
+        ],
+        "power": 21,
+        "hp": 1,
+        "a1_power": 500,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "flying"
+        ]
+    },
+    {
+        "name": "Sheep",
+        "magic": "plain",
+        "race": [
+            "animal"
+        ],
+        "power": 1,
+        "hp": 10,
+        "a1_power": 10,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": []
+    },
+    {
+        "name": "Frog",
+        "magic": "plain",
+        "race": [
+            "animal"
+        ],
+        "power": 1,
+        "hp": 10,
+        "a1_power": 10,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": []
+    },
+    {
+        "name": "Squirrel",
+        "magic": "plain",
+        "race": [
+            "animal"
+        ],
+        "power": 1,
+        "hp": 10,
+        "a1_power": 10,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "flying"
+        ]
+    },
+    {
+        "name": "Werewolf",
+        "magic": "plain",
+        "race": [
+            "human",
+            "animal"
+        ],
+        "power": 190,
+        "hp": 1000,
+        "a1_power": 2300,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 400,
+        "a2_power": 2300,
+        "a2_type": "melee",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 0,
+            "poison": 67,
+            "breath": 0,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 0,
+            "cold": 75,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "additional strike",
+            "endurance",
+            "regeneration"
+        ]
     }
-  },
-  {
-    "name": "Archangel",
-    "magic": "ascendant",
-    "race": ["angel"],
-    "power": 750,
-    "a1_power": 4000,
-    "a1_type": "holy",
-    "a1_init": 2,
-    "counter": 400,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 5000,
-    "abilities": ["beauty", "flying", "healing"],
-    "resistances": {
-      "missile":70,
-      "fire":	70,
-      "poison":	0,
-      "breath":	0,
-      "magic": 70,
-      "melee":70,
-      "ranged":	70,
-      "lightning":70,
-      "cold":	70,
-      "paralyse":	0,
-      "psychic":70,
-      "holy":	50
-    }
-  },
-  {
-    "name": "Astral Magician",
-    "magic": "ascendant",
-    "race": ["astral"],
-    "power": 170,
-    "a1_power": 1200,
-    "a1_type": "ranged magic",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 1200,
-    "a2_type": "ranged lightning",
-    "a2_init": 4,
-    "hp": 750,
-    "abilities": ["swift"],
-    "resistances": {
-      "missile":50,
-      "fire":	50,
-      "poison":	0,
-      "breath":	0,
-      "magic":	50,
-      "melee":	50,
-      "ranged":	50,
-      "lightning":	50,
-      "cold":	50,
-      "paralyse":	0,
-      "psychic":	50,
-      "holy":	25
-    }
-  },
-  {
-    "name": "Catapult",
-    "magic": "ascendant",
-    "race": ["human"],
-    "power": 70,
-    "a1_power": 600,
-    "a1_type": "missile ranged",
-    "a1_init": 4,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 450,
-    "abilities": ["siege", "weakness fire"],
-    "resistances": {
-      "missile": 0,
-      "fire":	0,
-      "poison":	0,
-      "breath":	0,
-      "magic":	0,
-      "melee":	0,
-      "ranged":	0,
-      "lightning":	0,
-      "cold":	0,
-      "paralyse":	60,
-      "psychic":	60,
-      "holy":	0
-    }
-  },
-  {
-    "name": "Crusader",
-    "magic": "ascendant",
-    "race": ["human"],
-    "power": 14,
-    "a1_power": 160,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 40,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 130,
-    "abilities": ["large shield"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Dominion",
-    "magic": "ascendant",
-    "race": ["angel"],
-    "power": 39013,
-    "a1_power": 200000,
-    "a1_type": "holy",
-    "a1_init": 2,
-    "counter": 30000,
-    "a2_power": 250000,
-    "a2_type": "holy",
-    "a2_init": 3,
-    "hp": 80000,
-    "abilities": ["flying", "healing"],
-    "resistances": {
-      "missile": 85,
-      "fire": 85,
-      "poison": 85,
-      "breath": 85,
-      "magic": 85,
-      "melee": 85,
-      "ranged": 85,
-      "lightning": 85,
-      "cold": 85,
-      "paralyse": 85,
-      "psychic": 85,
-      "holy": 80
-    }
-  },
-  {
-    "name": "Empyrean Inquisitor",
-    "magic": "ascendant",
-    "race": ["astral"],
-    "power": 2500,
-    "a1_power": 13500,
-    "a1_type": "magic",
-    "a1_init": 4,
-    "counter": 1500,
-    "a2_power": 2500,
-    "a2_type": "melee",
-    "a2_init": 1,
-    "hp": 9000,
-    "abilities": ["charm", "fear"],
-    "resistances": {
-      "missile": 90,
-      "fire": 75,
-      "poison": 0,
-      "breath": 35,
-      "magic": 75,
-      "melee": 80,
-      "ranged": 80,
-      "lightning": 20,
-      "cold": 10,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 30
-    }
-  },
-  {
-    "name": "High Priest",
-    "magic": "ascendant",
-    "race": ["human"],
-    "power": 21,
-    "a1_power": 200,
-    "a1_type": "ranged holy",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 130,
-    "abilities": ["healing"],
-    "resistances": {
-      "missile": 50,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 25,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 50,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Knight",
-    "magic": "ascendant",
-    "race": ["human"],
-    "power": 23,
-    "a1_power": 250,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 50,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 200,
-    "abilities": ["large shield"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Knight Templar",
-    "magic": "ascendant",
-    "race": ["human"],
-    "power": 60,
-    "a1_power": 400,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 75,
-    "a2_power": 150,
-    "a2_type": "ranged holy",
-    "a2_init": 3,
-    "hp": 375,
-    "abilities": ["healing", "large shield"],
-    "resistances": {
-      "missile": 25,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 25,
-      "melee": 75,
-      "ranged": 25,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 50,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Naga Queen",
-    "magic": "ascendant",
-    "race": ["reptile"],
-    "power": 2700,
-    "a1_power": 13000,
-    "a1_type": "melee lightning",
-    "a1_init": 2,
-    "counter": 2500,
-    "a2_power": 17600,
-    "a2_type": "lightning",
-    "a2_init": 2,
-    "hp": 10500,
-    "abilities": ["scales", "marksmanship"],
-    "resistances": {
-      "missile": 70,
-      "fire":	30,
-      "poison": 90,
-      "breath":	50,
-      "magic":	80,
-      "melee":	95,
-      "ranged":	70,
-      "lightning": 0,
-      "cold": 80,
-      "paralyse":	90,
-      "psychic": 90,
-      "holy": 30
-    }
-  },
-  {
-    "name": "Paladin",
-    "magic": "ascendant",
-    "race": ["human"],
-    "power": 32,
-    "a1_power": 300,
-    "a1_type": "melee holy",
-    "a1_init": 2,
-    "counter": 60,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 240,
-    "abilities": ["large shield"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 33,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Pegasus",
-    "magic": "ascendant",
-    "race": ["animal"],
-    "power": 40,
-    "a1_power": 300,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 290,
-    "abilities": ["flying"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Preacher",
-    "magic": "ascendant",
-    "race": ["human"],
-    "power": 16,
-    "a1_power": 10,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 133,
-    "abilities": ["healing"],
-    "resistances": {
-      "missile": 75,
-      "fire": 75,
-      "poison": 75,
-      "breath": 75,
-      "magic": 75,
-      "melee": 75,
-      "ranged": 75,
-      "lightning": 75,
-      "cold": 75,
-      "paralyse": 75,
-      "psychic": 100,
-      "holy": 75
-    }
-  },
-  {
-    "name": "Soul Speaker",
-    "magic": "ascendant",
-    "race": ["astral"],
-    "power": 27,
-    "a1_power": 260,
-    "a1_type": "ranged psychic",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 75,
-    "abilities": ["beauty", "healing"],
-    "resistances": {
-      "missile": 35,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 20,
-      "melee": 40,
-      "ranged": 0,
-      "lightning": 40,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 30,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Spirit Warrior",
-    "magic": "ascendant",
-    "race": ["astral"],
-    "power": 475,
-    "a1_power": 2900,
-    "a1_type": "melee holy",
-    "a1_init": 2,
-    "counter": 600,
-    "a2_power": 2300,
-    "a2_type": "holy",
-    "a2_init": 2,
-    "hp": 2600,
-    "abilities": ["beauty", "charm", "endurance"],
-    "resistances": {
-      "missile": 60,
-      "fire": 50,
-      "poison": 0,
-      "breath": 40,
-      "magic": 50,
-      "melee": 35,
-      "ranged": 25,
-      "lightning": 70,
-      "cold": 0,
-      "paralyse": 45,
-      "psychic": 40,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Titan",
-    "magic": "ascendant",
-    "race": ["giant"],
-    "power": 50000,
-    "a1_power": 200000,
-    "a1_type": "melee holy",
-    "a1_init": 1,
-    "counter": 50000,
-    "a2_power": 250000,
-    "a2_type": "ranged lightning",
-    "a2_init": 3,
-    "hp": 85000,
-    "abilities": ["additional strike", "endurance", "marksmanship", "siege"],
-    "resistances": {
-      "missile": 85,
-      "fire": 75,
-      "poison": 85,
-      "breath": 80,
-      "magic": 80,
-      "melee": 90,
-      "ranged": 95,
-      "lightning": 100,
-      "cold": 85,
-      "paralyse": 85,
-      "psychic": 95,
-      "holy": 75
-    }
-  },
-  {
-    "name": "Unicorn",
-    "magic": "ascendant",
-    "race": ["elemental"],
-    "power": 375,
-    "a1_power": 4000,
-    "a1_type": "magic",
-    "a1_init": 2,
-    "counter": 800,
-    "a2_power": 1000,
-    "a2_type": "melee",
-    "a2_init": 3,
-    "hp": 2500,
-    "abilities": ["beauty", "swift"],
-    "resistances": {
-      "missile": 50,
-      "fire": 60,
-      "poison": 100,
-      "breath": 0,
-      "magic": 50,
-      "melee": 30,
-      "ranged": 30,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 60,
-      "psychic": 60,
-      "holy": 30
-    }
-  },
-
-  
-  {
-    "name": "Creeping Vines",
-    "magic": "verdant",
-    "race": ["treefolk"],
-    "power": 40,
-    "a1_power": 336,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 118,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 336,
-    "abilities": ["regeneration", "steal life", "weakness fire"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Druid",
-    "magic": "verdant",
-    "race": ["elf"],
-    "power": 40,
-    "a1_power": 440,
-    "a1_type": "magic ranged",
-    "a1_init": 3,
-    "counter": 60,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 180,
-    "abilities": [],
-    "resistances": {
-      "missile": 50,
-      "fire": 25,
-      "poison": 90,
-      "breath": 0,
-      "magic": 50,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 25,
-      "cold": 25,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Dryad",
-    "magic": "verdant",
-    "race": ["pixie"],
-    "power": 23,
-    "a1_power": 240,
-    "a1_type": "magic ranged",
-    "a1_init": 3,
-    "counter": 60,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 70,
-    "abilities": ["beauty", "charm"],
-    "resistances": {
-      "missile": 30,
-      "fire": 0,
-      "poison": 20,
-      "breath": 0,
-      "magic": 20,
-      "melee": 40,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 30,
-      "psychic": 40,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Earth Elemental",
-    "magic": "verdant",
-    "race": ["elemental"],
-    "power": 22000,
-    "a1_power": 100000,
-    "a1_type": "melee",
-    "a1_init": 3,
-    "counter": 15000,
-    "a2_power": 550000,
-    "a2_type": "magic ranged",
-    "a2_init": 3,
-    "hp": 100000,
-    "abilities": ["endurance"],
-    "resistances": {
-      "missile": 90,
-      "fire": 50,
-      "poison": 100,
-      "breath": 60,
-      "magic": 50,
-      "melee": 90,
-      "ranged": 70,
-      "lightning": 50,
-      "cold": 40,
-      "paralyse": 95,
-      "psychic": 80,
-      "holy": 80
-    }
-  },
-  {
-    "name": "Elven Archer",
-    "magic": "verdant",
-    "race": ["elf"],
-    "power": 20,
-    "a1_power": 120,
-    "a1_type": "missile ranged",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 100,
-    "abilities": ["marksmanship", "swift"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 90,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Elven Blade Dancer",
-    "magic": "verdant",
-    "race": ["elf"],
-    "power": 1850,
-    "a1_power": 9000,
-    "a1_type": "melee",
-    "a1_init": 4,
-    "counter": 1500,
-    "a2_power": 13500,
-    "a2_type": "paralyse ranged",
-    "a2_init": 1,
-    "hp": 6500,
-    "abilities": ["race angel 50", "beauty", "swift", "additional strike", "weakness cold", "bursting melee 3000"],
-    "resistances": {
-      "missile": 75,
-      "fire": 70,
-      "poison": 0,
-      "breath": 75,
-      "magic": 55,
-      "melee": 100,
-      "ranged": 75,
-      "lightning": 20,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 40,
-      "holy": 20
-    }
-  },
-  {
-    "name": "Elven Magician",
-    "magic": "verdant",
-    "race": ["elf"],
-    "power": 41,
-    "a1_power": 500,
-    "a1_type": "magic ranged",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 100,
-    "abilities": ["marksmanship", "swift"],
-    "resistances": {
-      "missile": 80,
-      "fire": 50,
-      "poison": 0,
-      "breath": 0,
-      "magic": 80,
-      "melee": 80,
-      "ranged": 80,
-      "lightning": 50,
-      "cold": 0,
-      "paralyse": 80,
-      "psychic": 90,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Faerie Dragon",
-    "magic": "verdant",
-    "race": ["dragon"],
-    "power": 34,
-    "a1_power": 300,
-    "a1_type": "magic breath",
-    "a1_init": 5,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 60,
-    "abilities": ["flying", "swift"],
-    "resistances": {
-      "missile": 90,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 90,
-      "melee": 90,
-      "ranged": 90,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Gorilla",
-    "magic": "verdant",
-    "race": ["animal"],
-    "power": 34,
-    "a1_power": 240,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 80,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 450,
-    "abilities": [],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Griffon",
-    "magic": "verdant",
-    "race": ["animal"],
-    "power": 399,
-    "a1_power": 2750,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 500,
-    "a2_power": 3450,
-    "a2_type": "melee",
-    "a2_init": 3,
-    "hp": 3750,
-    "abilities": ["flying", "endurance"],
-    "resistances": {
-      "missile": 60,
-      "fire": 30,
-      "poison": 40,
-      "breath": 30,
-      "magic": 20,
-      "melee": 50,
-      "ranged": 45,
-      "lightning": 0,
-      "cold": 30,
-      "paralyse": 0,
-      "psychic": 25,
-      "holy": 0
-    }
-  },
-  {
-    "name": "High Elf",
-    "magic": "verdant",
-    "race": ["elf"],
-    "power": 1542,
-    "a1_power": 13000,
-    "a1_type": "paralyse ranged",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 7500,
-    "a2_type": "lightning ranged",
-    "a2_init": 3,
-    "hp": 5000,
-    "abilities": ["beauty", "swift"],
-    "resistances": {
-      "missile":70,
-      "fire":	70,
-      "poison":	20,
-      "breath":	50,
-      "magic": 50,
-      "melee": 50,
-      "ranged":	70,
-      "lightning": 70,
-      "cold":	20,
-      "paralyse":	70,
-      "psychic":50,
-      "holy":	40
-    }
-  },
-  {
-    "name": "Mandrake",
-    "magic": "verdant",
-    "race": ["treefolk"],
-    "power": 180,
-    "a1_power": 1680,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 672,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 1344,
-    "abilities": ["additional strike", "endurance", "regeneration", "weakness fire"],
-    "resistances": {
-      "missile": 50,
-      "fire": 0,
-      "poison": 80,
-      "breath": 0,
-      "magic": 40,
-      "melee": 45,
-      "ranged": 35,
-      "lightning": 0,
-      "cold": 40,
-      "paralyse": 50,
-      "psychic": 0,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Nymph",
-    "magic": "verdant",
-    "race": ["pixie"],
-    "power": 62,
-    "a1_power": 940,
-    "a1_type": "psychic ranged",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 150,
-    "abilities": ["beauty", "charm"],
-    "resistances": {
-      "missile": 50,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 50,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 40,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Phoenix",
-    "magic": "verdant",
-    "race": ["elemental"],
-    "power": 36883,
-    "a1_power": 200000,
-    "a1_type": "magic",
-    "a1_init": 1,
-    "counter": 40000,
-    "a2_power": 600000,
-    "a2_type": "magic ranged",
-    "a2_init": 5,
-    "hp": 70000,
-    "abilities": ["flying", "regeneration", "bursting fire 50000"],
-    "resistances": {
-      "missile": 90,
-      "fire": 100,
-      "poison": 80,
-      "breath": 80,
-      "magic": 80,
-      "melee": 90,
-      "ranged": 80,
-      "lightning": 80,
-      "cold": 80,
-      "paralyse": 80,
-      "psychic": 80,
-      "holy": 80
-    }
-  },
-  {
-    "name": "Swanmy",
-    "magic": "verdant",
-    "race": ["human", "animal"],
-    "power": 35,
-    "a1_power": 220,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 60,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 255,
-    "abilities": ["beauty", "swift", "marksmanship"],
-    "resistances": {
-      "missile": 15,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 15,
-      "melee": 15,
-      "ranged": 15,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Treant",
-    "magic": "verdant",
-    "race": ["treefolk"],
-    "power": 423,
-    "a1_power": 4200,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 1680,
-    "a2_power": 2500,
-    "a2_type": "melee",
-    "a2_init": 1,
-    "hp": 4200,
-    "abilities": ["additional strike", "endurance", "weakness fire"],
-    "resistances": {
-      "missile": 67,
-      "fire": 0,
-      "poison": 90,
-      "breath": 0,
-      "magic": 50,
-      "melee": 67,
-      "ranged": 67,
-      "lightning": 0,
-      "cold": 80,
-      "paralyse": 75,
-      "psychic": 75,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Venus Flytrap",
-    "magic": "verdant",
-    "race": ["treefolk"],
-    "power": 380,
-    "a1_power": 1754,
-    "a1_type": "ranged poison",
-    "a1_init": 1,
-    "counter": 336,
-    "a2_power": 3000,
-    "a2_type": "ranged poison",
-    "a2_init": 3,
-    "hp": 1344,
-    "abilities": ["charm", "regeneration", "weakness fire"],
-    "resistances": {
-      "missile": 67,
-      "fire": 0,
-      "poison": 90,
-      "breath": 20,
-      "magic": 50,
-      "melee": 67,
-      "ranged": 67,
-      "lightning": 40,
-      "cold": 40,
-      "paralyse": 75,
-      "psychic": 85,
-      "holy": 40
-    }
-  },
-  {
-    "name": "Werebear",
-    "magic": "verdant",
-    "race": ["human", "animal"],
-    "power": 161,
-    "a1_power": 2300,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 300,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 1500,
-    "abilities": ["endurance", "piercing"],
-    "resistances": {
-      "missile": 50,
-      "fire": 0,
-      "poison": 67,
-      "breath": 0,
-      "magic": 50,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 75,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 25
-    }
-  },
-
-
-  {
-    "name": "Chimera",
-    "magic": "eradication",
-    "race": ["dragon"],
-    "power": 391,
-    "a1_power": 2500,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 300,
-    "a2_power": 5000,
-    "a2_type": "fire breath",
-    "a2_init": 3,
-    "hp": 2200,
-    "abilities": ["flying", "scales"],
-    "resistances": {
-      "missile": 50,
-      "fire": 50,
-      "poison": 33,
-      "breath": 33,
-      "magic": 15,
-      "melee": 50,
-      "ranged": 33,
-      "lightning": 15,
-      "cold": 0,
-      "paralyse": 33,
-      "psychic": 0,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Dwarven Deathseeker",
-    "magic": "eradication",
-    "race": ["dwarf"],
-    "power": 40,
-    "a1_power": 275,
-    "a1_type": "poison melee",
-    "a1_init": 1,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 250,
-    "abilities": ["bursting poison 30"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 80,
-      "breath": 0,
-      "magic": 0,
-      "melee": 30,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 30,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Dwarven Elite",
-    "magic": "eradication",
-    "race": ["dwarf"],
-    "power": 27,
-    "a1_power": 300,
-    "a1_type": "poison melee",
-    "a1_init": 1,
-    "counter": 70,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 220,
-    "abilities": ["endurance", "race orc 50"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 50,
-      "breath": 0,
-      "magic": 30,
-      "melee": 33,
-      "ranged": 30,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 15
-    }
-  },
-  {
-    "name": "Dwarven Shaman",
-    "magic": "eradication",
-    "race": ["dwarf"],
-    "power": 1000,
-    "a1_power": 5000,
-    "a1_type": "fire",
-    "a1_init": 2,
-    "counter": 300,
-    "a2_power": 8000,
-    "a2_type": "lightning",
-    "a2_init": 3,
-    "hp": 4500,
-    "abilities": ["healing"],
-    "resistances": {
-      "missile": 0,
-      "fire":	70,
-      "poison":	30,
-      "breath":	65,
-      "magic": 100,
-      "melee": 85,
-      "ranged":	75,
-      "lightning": 0,
-      "cold": 85,
-      "paralyse": 45,
-      "psychic": 0,
-      "holy":	90
-    }
-  },
-  {
-    "name": "Dwarven Warrior",
-    "magic": "eradication",
-    "race": ["dwarf"],
-    "power": 20,
-    "a1_power": 200,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 50,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 160,
-    "abilities": ["endurance", "race orc 50"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 25,
-      "breath": 0,
-      "magic": 15,
-      "melee": 25,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 10
-    }
-  },
-  {
-    "name": "Efreeti",
-    "magic": "eradication",
-    "race": ["elemental"],
-    "power": 1200,
-    "a1_power": 5000,
-    "a1_type": "fire ranged",
-    "a1_init": 4,
-    "counter": 800,
-    "a2_power": 8000,
-    "a2_type": "magic ranged",
-    "a2_init": 2,
-    "hp": 3600,
-    "abilities": ["fear", "marksmanship", "swift"],
-    "resistances": {
-      "missile": 40,
-      "fire": 30,
-      "poison": 55,
-      "breath": 0,
-      "magic": 50,
-      "melee": 60,
-      "ranged": 75,
-      "lightning": 75,
-      "cold": 75,
-      "paralyse": 45,
-      "psychic": 0,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Fire Elemental",
-    "magic": "eradication",
-    "race": ["elemental"],
-    "power": 21000,
-    "a1_power": 100000,
-    "a1_type": "fire",
-    "a1_init": 1,
-    "counter": 9000,
-    "a2_power": 300000,
-    "a2_type": "fire ranged",
-    "a2_init": 3,
-    "hp": 85000,
-    "abilities": ["endurance", "weakness cold"],
-    "resistances": {
-      "missile": 100,
-      "fire": 100,
-      "poison": 95,
-      "breath": 100,
-      "magic": 50,
-      "melee": 85,
-      "ranged": 75,
-      "lightning": 60,
-      "cold": 20,
-      "paralyse": 100,
-      "psychic": 40,
-      "holy": 80
-    }
-  },
-  {
-    "name": "Fire Giant",
-    "magic": "eradication",
-    "race": ["giant"],
-    "power": 92,
-    "a1_power": 1100,
-    "a1_type": "fire ranged",
-    "a1_init": 3,
-    "counter": 200,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 700,
-    "abilities": ["endurance", "weakness cold"],
-    "resistances": {
-      "missile": 25,
-      "fire": 100,
-      "poison": 0,
-      "breath": 25,
-      "magic": 25,
-      "melee": 25,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Goblin",
-    "magic": "eradication",
-    "race": ["orc"],
-    "power": 13,
-    "a1_power": 125,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 50,
-    "a2_power": 75,
-    "a2_type": "missile ranged",
-    "a2_init": 1,
-    "hp": 150,
-    "abilities": ["clumsiness", "weakness psychic", "race human 100"],
-    "resistances": {
-      "missile": 25,
-      "fire": 50,
-      "poison": 50,
-      "breath": 0,
-      "magic": 0,
-      "melee": 50,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Hell Hound",
-    "magic": "eradication",
-    "race": ["demon"],
-    "power": 159,
-    "a1_power": 1000,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 300,
-    "a2_power": 1800,
-    "a2_type": "fire breath",
-    "a2_init": 3,
-    "hp": 700,
-    "abilities": ["fear", "weakness cold"],
-    "resistances": {
-      "missile": 25,
-      "fire": 100,
-      "poison": 50,
-      "breath": 0,
-      "magic": 25,
-      "melee": 35,
-      "ranged": 25,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 25,
-      "holy": 10
-    }
-  },
-  {
-    "name": "Hydra",
-    "magic": "eradication",
-    "race": ["reptile"],
-    "power": 457,
-    "a1_power": 3000,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 800,
-    "a2_power": 2500,
-    "a2_type": "poison breath",
-    "a2_init": 2,
-    "hp": 3000,
-    "abilities": ["scales", "regeneration", "weakness fire", "additional strike"],
-    "resistances": {
-      "missile": 80,
-      "fire": 50,
-      "poison": 45,
-      "breath": 0,
-      "magic": 45,
-      "melee": 80,
-      "ranged": 45,
-      "lightning": 45,
-      "cold": 0,
-      "paralyse": 45,
-      "psychic": 80,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Lizard Man",
-    "magic": "eradication",
-    "race": ["reptile"],
-    "power": 36,
-    "a1_power": 300,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 60,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 250,
-    "abilities": ["scales"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Ogre",
-    "magic": "eradication",
-    "race": ["giant"],
-    "power": 34,
-    "a1_power": 400,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 100,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 300,
-    "abilities": ["endurance"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Red Dragon",
-    "magic": "eradication",
-    "race": ["dragon"],
-    "power": 82378,
-    "a1_power": 250000,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 50000,
-    "a2_power": 500000,
-    "a2_type": "fire breath",
-    "a2_init": 3,
-    "hp": 120000,
-    "abilities": ["race elf 50", "endurance", "fear", "flying", "scales", "weakness cold"],
-    "resistances": {
-      "missile": 90,
-      "fire": 100,
-      "poison": 90,
-      "breath": 60,
-      "magic": 91,
-      "melee": 95,
-      "ranged": 90,
-      "lightning": 60,
-      "cold": 30,
-      "paralyse": 90,
-      "psychic": 90,
-      "holy": 75
-    }
-  },
-  {
-    "name": "Salamander",
-    "magic": "eradication",
-    "race": ["elemental"],
-    "power": 188,
-    "a1_power": 3000,
-    "a1_type": "fire",
-    "a1_init": 1,
-    "counter": 500,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 1000,
-    "abilities": ["race treefolk 50", "scales", "weakness cold"],
-    "resistances": {
-      "missile": 50,
-      "fire": 100,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Storm Giant",
-    "magic": "eradication",
-    "race": ["giant"],
-    "power": 1550,
-    "a1_power": 16000,
-    "a1_type": "lightning breath",
-    "a1_init": 3,
-    "counter": 300,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 5800,
-    "abilities": ["endurance", "marksmanship", "siege"],
-    "resistances": {
-      "missile": 0,
-      "fire": 70,
-      "poison": 30,
-      "breath": 80,
-      "magic": 0,
-      "melee": 75,
-      "ranged": 70,
-      "lightning": 100,
-      "cold": 85,
-      "paralyse": 0,
-      "psychic": 50,
-      "holy": 70
-    }
-  },
-  {
-    "name": "Troglodyte",
-    "magic": "eradication",
-    "race": ["reptile"],
-    "power": 22,
-    "a1_power": 200,
-    "a1_type": "poison",
-    "a1_init": 1,
-    "counter": 35,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 160,
-    "abilities": ["scales"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Wyvern",
-    "magic": "eradication",
-    "race": ["dragon"],
-    "power": 150,
-    "a1_power": 800,
-    "a1_type": "melee poison",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 600,
-    "a2_type": "melee",
-    "a2_init": 2,
-    "hp": 1000,
-    "abilities": ["endurance", "flying", "scales"],
-    "resistances": {
-      "missile": 40,
-      "fire": 40,
-      "poison": 50,
-      "breath": 0,
-      "magic": 0,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 30,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 25
-    }
-  },
-
-
-  {
-    "name": "Bulwark Horror",
-    "magic": "nether",
-    "race": ["demon"],
-    "power": 2018,
-    "a1_power": 13600,
-    "a1_type": "melee poison",
-    "a1_init": 1,
-    "counter": 4500,
-    "a2_power": 9000,
-    "a2_type": "cold ranged",
-    "a2_init": 3,
-    "hp": 10750,
-    "abilities": ["endurance", "pike", "large shield"],
-    "resistances": {
-      "missile": 40,
-      "fire": 60,
-      "poison": 50,
-      "breath": 70,
-      "magic": 20,
-      "melee": 90,
-      "ranged": 40,
-      "lightning": 30,
-      "cold": 40,
-      "paralyse": 0,
-      "psychic": 30,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Cave Troll",
-    "magic": "nether",
-    "race": ["troll"],
-    "power": 49,
-    "a1_power": 400,
-    "a1_type": "poison",
-    "a1_init": 1,
-    "counter": 100,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 400,
-    "abilities": ["regeneration", "weakness fire"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Dark Apprentice",
-    "magic": "nether",
-    "race": ["human"],
-    "power": 51,
-    "a1_power": 700,
-    "a1_type": "magic ranged",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 100,
-    "abilities": ["marksmanship", "swift"],
-    "resistances": {
-      "missile": 80,
-      "fire": 50,
-      "poison": 0,
-      "breath": 0,
-      "magic": 80,
-      "melee": 80,
-      "ranged": 80,
-      "lightning": 50,
-      "cold": 0,
-      "paralyse": 80,
-      "psychic": 80,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Dark Elf Magician",
-    "magic": "nether",
-    "race": ["elf"],
-    "power": 666,
-    "a1_power": 4500,
-    "a1_type": "fire ranged",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 3000,
-    "a2_type": "ranged lightning",
-    "a2_init": 4,
-    "hp": 4500,
-    "abilities": ["marksmanship"],
-    "resistances": {
-      "missile": 85,
-      "fire": 70,
-      "poison": 0,
-      "breath": 0,
-      "magic": 90,
-      "melee": 90,
-      "ranged": 75,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 40,
-      "psychic": 0,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Demon Knight",
-    "magic": "nether",
-    "race": ["demon"],
-    "power": 1850,
-    "a1_power": 10000,
-    "a1_type": "cold melee",
-    "a1_init": 2,
-    "counter": 6000,
-    "a2_power": 8000,
-    "a2_type": "poison ranged",
-    "a2_init": 3,
-    "hp": 8500,
-    "abilities": ["additional strike", "endurance", "steal life 5", "swift"],
-    "resistances": {
-      "missile": 70,
-      "fire": 60,
-      "poison": 75,
-      "breath": 0,
-      "magic": 60,
-      "melee": 85,
-      "ranged": 70,
-      "lightning": 70,
-      "cold": 75,
-      "paralyse": 60,
-      "psychic": 50,
-      "holy": 30
-    }
-  },
-  {
-    "name": "Devil",
-    "magic": "nether",
-    "race": ["demon"],
-    "power": 18586,
-    "a1_power": 100000,
-    "a1_type": "fire",
-    "a1_init": 1,
-    "counter": 14000,
-    "a2_power": 200000,
-    "a2_type": "magic ranged",
-    "a2_init": 3,
-    "hp": 40000,
-    "abilities": ["endurance", "flying"],
-    "resistances": {
-      "missile": 100,
-      "fire": 100,
-      "poison": 50,
-      "breath": 0,
-      "magic": 50,
-      "melee": 100,
-      "ranged": 100,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 50,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Fallen Angel",
-    "magic": "nether",
-    "race": ["angel"],
-    "power": 193,
-    "a1_power": 2400,
-    "a1_type": "magic",
-    "a1_init": 2,
-    "counter": 400,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 1500,
-    "abilities": ["flying", "beauty", "healing"],
-    "resistances": {
-      "missile": 50,
-      "fire": 50,
-      "poison": 25,
-      "breath": 25,
-      "magic": 50,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 55,
-      "cold": 50,
-      "paralyse": 25,
-      "psychic": 50,
-      "holy": 25
-    }
-  },
-  {
-    "name": "Fallen Archangel",
-    "magic": "nether",
-    "race": ["angel"],
-    "power": 750,
-    "a1_power": 12000,
-    "a1_type": "magic",
-    "a1_init": 2,
-    "counter": 800,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 7500,
-    "abilities": ["flying", "beauty", "healing"],
-    "resistances": {
-      "missile": 75,
-      "fire": 75,
-      "poison": 25,
-      "breath": 25,
-      "magic": 75,
-      "melee": 75,
-      "ranged": 75,
-      "lightning": 80,
-      "cold": 75,
-      "paralyse": 25,
-      "psychic": 75,
-      "holy": 50
-    }
-  },
-  {
-    "name": "Fallen Dominion",
-    "magic": "nether",
-    "race": ["angel"],
-    "power": 59020,
-    "a1_power": 600000,
-    "a1_type": "magic",
-    "a1_init": 2,
-    "counter": 800,
-    "a2_power": 800000,
-    "a2_type": "magic",
-    "a2_init": 3,
-    "hp": 120000,
-    "abilities": ["flying", "beauty", "healing", "fear"],
-    "resistances": {
-      "missile": 85,
-      "fire": 85,
-      "poison": 85,
-      "breath": 85,
-      "magic": 85,
-      "melee": 85,
-      "ranged": 85,
-      "lightning": 90,
-      "cold": 85,
-      "paralyse": 85,
-      "psychic": 85,
-      "holy": 80
-    }
-  },
-  {
-    "name": "Gargoyle",
-    "magic": "nether",
-    "race": ["golem"],
-    "power": 64,
-    "a1_power": 400,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 300,
-    "abilities": ["flying"],
-    "resistances": {
-      "missile": 25,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 25,
-      "melee": 25,
-      "ranged": 25,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 100,
-      "psychic": 100,
-      "holy": 0
-    }
-  },
-  {
-    "name": "Ghoul",
-    "magic": "nether",
-    "race": ["undead"],
-    "power": 35,
-    "a1_power": 500,
-    "a1_type": "melee paralyse",
-    "a1_init": 1,
-    "counter": 200,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 400,
-    "abilities": ["steal life 5", "weakness holy"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 100,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 100,
-      "psychic": 100,
-      "holy": 0
-    }
- },
- {
-    "name": "Horned Demon",
-    "magic": "nether",
-    "race": ["demon"],
-    "power": 170,
-    "a1_power": 2750,
-    "a1_type": "poison melee",
-    "a1_init": 1,
-    "counter": 450,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 950,
-    "abilities": ["additional strike", "swift"],
-    "resistances": {
-      "missile": 50,
-      "fire": 50,
-      "poison": 75,
-      "breath": 0,
-      "magic": 25,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 20,
-      "psychic": 0,
-      "holy": 25
-    }
- },
- {
-    "name": "Imp",
-    "magic": "nether",
-    "race": ["demon"],
-    "power": 19,
-    "a1_power": 150,
-    "a1_type": "poison",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 80,
-    "abilities": ["flying"],
-    "resistances": {
-      "missile": 30,
-      "fire": 0,
-      "poison": 30,
-      "breath": 0,
-      "magic": 30,
-      "melee": 30,
-      "ranged": 30,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 30,
-      "holy": 0
-    }
- },
- {
-    "name": "Lich",
-    "magic": "nether",
-    "race": ["undead"],
-    "power": 2027,
-    "a1_power": 5500,
-    "a1_type": "ranged cold",
-    "a1_init": 1,
-    "counter": 2000,
-    "a2_power": 16000,
-    "a2_type": "ranged magic",
-    "a2_init": 3,
-    "hp": 7500,
-    "abilities": ["fear", "weakness holy"],
-    "resistances": {
-      "missile": 95,
-      "fire": 75,
-      "poison": 50,
-      "breath": 25,
-      "magic": 75,
-      "melee": 95,
-      "ranged": 95,
-      "lightning": 50,
-      "cold": 75,
-      "paralyse": 75,
-      "psychic": 75,
-      "holy": 0
-    }
- },
- {
-    "name": "Orc Raider",
-    "magic": "nether",
-    "race": ["orc"],
-    "power": 12,
-    "a1_power": 100,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 20,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 110,
-    "abilities": ["clumsiness"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
- },
- {
-    "name": "Orcish Archer ",
-    "magic": "nether",
-    "race": ["orc"],
-    "power": 12,
-    "a1_power": 80,
-    "a1_type": "missile ranged",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 100,
-    "abilities": ["clumsiness"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
- },
- {
-    "name": "Shadow",
-    "magic": "nether",
-    "race": ["undead"],
-    "power": 40,
-    "a1_power": 600,
-    "a1_type": "magic",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 250,
-    "abilities": ["steal life 5", "weakness holy"],
-    "resistances": {
-      "missile": 100,
-      "fire": 0,
-      "poison": 40,
-      "breath": 0,
-      "magic": 0,
-      "melee": 100,
-      "ranged": 20,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 100,
-      "psychic": 25,
-      "holy": 0
-    }
- },
- {
-    "name": "Skeleton",
-    "magic": "nether",
-    "race": ["undead"],
-    "power": 10,
-    "a1_power": 100,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 40,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 70,
-    "abilities": ["weakness holy"],
-    "resistances": {
-      "missile": 50,
-      "fire": 0,
-      "poison": 100,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 100,
-      "psychic": 100,
-      "holy": 0
-    }
- },
- {
-    "name": "Succubus",
-    "magic": "nether",
-    "race": ["demon"],
-    "power": 29,
-    "a1_power": 200,
-    "a1_type": "psychic",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 50,
-    "abilities": ["beauty", "charm", "endurance", "flying", "swift"],
-    "resistances": {
-      "missile": 50,
-      "fire": 80,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 50,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 100,
-      "holy": 0
-    }
- },
- {
-    "name": "Unholy Reaver",
-    "magic": "nether",
-    "race": ["demon"],
-    "power": 50000,
-    "a1_power": 210000,
-    "a1_type": "melee paralyse",
-    "a1_init": 2,
-    "counter": 30000,
-    "a2_power": 470000,
-    "a2_type": "psychic ranged",
-    "a2_init": 3,
-    "hp": 85000,
-    "abilities": ["additional strike", "endurance", "fear", "marksmanship"],
-    "resistances": {
-      "missile": 95,
-      "fire": 50,
-      "poison": 70,
-      "breath": 70,
-      "magic": 70,
-      "melee": 95,
-      "ranged": 75,
-      "lightning": 70,
-      "cold": 70,
-      "paralyse": 85,
-      "psychic": 85,
-      "holy": 30
-    }
- },
- {
-    "name": "Vampire",
-    "magic": "nether",
-    "race": ["undead"],
-    "power": 2058,
-    "a1_power": 9000,
-    "a1_type": "magic paralyse",
-    "a1_init": 2,
-    "counter": 2000,
-    "a2_power": 12000,
-    "a2_type": "magic ranged",
-    "a2_init": 3,
-    "hp": 4500,
-    "abilities": ["charm", "flying", "marksmanship", "steal life 5", "swift", "weakness holy"],
-    "resistances": {
-      "missile": 95,
-      "fire": 75,
-      "poison": 75,
-      "breath": 50,
-      "magic": 50,
-      "melee": 95,
-      "ranged": 95,
-      "lightning": 50,
-      "cold": 50,
-      "paralyse": 75,
-      "psychic": 75,
-      "holy": 0
-    }
- },
- {
-    "name": "Wolf Raider",
-    "magic": "nether",
-    "race": ["orc"],
-    "power": 25,
-    "a1_power": 200,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 150,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 550,
-    "abilities": ["clumsiness"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
- },
- {
-    "name": "Wraith",
-    "magic": "nether",
-    "race": ["undead"],
-    "power": 160,
-    "a1_power": 2400,
-    "a1_type": "magic paralyse",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 1000,
-    "abilities": ["flying", "steal life 5", "weakness holy"],
-    "resistances": {
-      "missile": 40,
-      "fire": 0,
-      "poison": 50,
-      "breath": 0,
-      "magic": 20,
-      "melee": 60,
-      "ranged": 40,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 50,
-      "psychic": 50,
-      "holy": 0
-    }
- },
- {
-    "name": "Zombie",
-    "magic": "nether",
-    "race": ["undead"],
-    "power": 15,
-    "a1_power": 210,
-    "a1_type": "melee",
-    "a1_init": 1,
-    "counter": 30,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 170,
-    "abilities": ["clumsiness", "weakness holy"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 100,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 100,
-      "psychic": 100,
-      "holy": 0
-    }
- },
-
-
- {
-    "name": "Air Elemental",
-    "magic": "phantasm",
-    "race": ["elemental"],
-    "power": 25000,
-    "a1_power": 300000,
-    "a1_type": "lightning ranged",
-    "a1_init": 4,
-    "counter": 6500,
-    "a2_power": 200000,
-    "a2_type": "magic",
-    "a2_init": 1,
-    "hp": 60000,
-    "abilities": ["flying", "swift"],
-    "resistances": {
-      "missile": 95,
-      "fire": 50,
-      "poison": 0,
-      "breath": 70,
-      "magic": 55,
-      "melee": 95,
-      "ranged": 95,
-      "lightning": 100,
-      "cold": 0,
-      "paralyse": 20,
-      "psychic": 50,
-      "holy": 80
-    }
- },
- {
-    "name": "Djinni",
-    "magic": "phantasm",
-    "race": ["elemental"],
-    "power": 1700,
-    "a1_power": 8000,
-    "a1_type": "magic",
-    "a1_init": 2,
-    "counter": 1200,
-    "a2_power": 12000,
-    "a2_type": "lightning ranged",
-    "a2_init": 3,
-    "hp": 7650,
-    "abilities": ["flying", "marksmanship"],
-    "resistances": {
-      "missile": 80,
-      "fire": 60,
-      "poison": 0,
-      "breath": 60,
-      "magic": 50,
-      "melee": 80,
-      "ranged": 95,
-      "lightning": 90,
-      "cold": 50,
-      "paralyse": 40,
-      "psychic": 50,
-      "holy": 50
-    }
- },
- {
-    "name": "Ice Elemental",
-    "magic": "phantasm",
-    "race": ["elemental"],
-    "power": 21800,
-    "a1_power": 200000,
-    "a1_type": "cold ranged",
-    "a1_init": 1,
-    "counter": 10000,
-    "a2_power": 300000,
-    "a2_type": "cold ranged",
-    "a2_init": 3,
-    "hp": 90000,
-    "abilities": ["weakness fire"],
-    "resistances": {
-      "missile": 85,
-      "fire": 0,
-      "poison": 100,
-      "breath": 0,
-      "magic": 75,
-      "melee": 85,
-      "ranged": 85,
-      "lightning": 80,
-      "cold": 100,
-      "paralyse": 100,
-      "psychic": 50,
-      "holy": 80
-    }
- },
- {
-    "name": "Leviathan",
-    "magic": "phantasm",
-    "race": ["giant"],
-    "power": 49500,
-    "a1_power": 200000,
-    "a1_type": "melee",
-    "a1_init": 2,
-    "counter": 50000,
-    "a2_power": 300000,
-    "a2_type": "poison ranged",
-    "a2_init": 3,
-    "hp": 100000,
-    "abilities": ["additional strike", "endurance", "marksmanship", "scales"],
-    "resistances": {
-      "missile": 95,
-      "fire": 50,
-      "poison": 100,
-      "breath": 80,
-      "magic": 90,
-      "melee": 95,
-      "ranged": 95,
-      "lightning": 70,
-      "cold": 80,
-      "paralyse": 90,
-      "psychic": 70,
-      "holy": 80
-    }
- },
- {
-    "name": "Medusa",
-    "magic": "phantasm",
-    "race": ["reptile"],
-    "power": 200,
-    "a1_power": 2000,
-    "a1_type": "paralyse",
-    "a1_init": 2,
-    "counter": 300,
-    "a2_power": 1000,
-    "a2_type": "poison ranged",
-    "a2_init": 1,
-    "hp": 650,
-    "abilities": ["fear", "scales"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 60,
-      "breath": 0,
-      "magic": 50,
-      "melee": 50,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 50,
-      "psychic": 0,
-      "holy": 0
-    }
- },
- {
-    "name": "Mind Ripper",
-    "magic": "phantasm",
-    "race": ["telepath"],
-    "power": 1154,
-    "a1_power": 8000,
-    "a1_type": "magic ranged",
-    "a1_init": 3,
-    "counter": 4000,
-    "a2_power": 16000,
-    "a2_type": "ranged psychic",
-    "a2_init": 3,
-    "hp": 5000,
-    "abilities": [],
-    "resistances": {
-      "missile": 75,
-      "fire": 50,
-      "poison": 20,
-      "breath": 50,
-      "magic": 75,
-      "melee": 75,
-      "ranged": 75,
-      "lightning": 20,
-      "cold": 30,
-      "paralyse": 50,
-      "psychic": 90,
-      "holy": 50
-    }
- },
- {
-    "name": "Phantom",
-    "magic": "phantasm",
-    "race": ["illusion"],
-    "power": 20,
-    "a1_power": 100,
-    "a1_type": "psychic ranged",
-    "a1_init": 1,
-    "counter": 350,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 130,
-    "abilities": ["fear"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 75,
-      "breath": 0,
-      "magic": 0,
-      "melee": 100,
-      "ranged": 50,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 100,
-      "holy": 50
-    }
- },
- {
-    "name": "Psychic Wisp",
-    "magic": "phantasm",
-    "race": ["elemental"],
-    "power": 40,
-    "a1_power": 460,
-    "a1_type": "ranged psychic",
-    "a1_init": 3,
-    "counter": 200,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 100,
-    "abilities": ["swift"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 80,
-      "holy": 0
-    }
- },
- {
-    "name": "Shadow Monster",
-    "magic": "phantasm",
-    "race": ["illusion"],
-    "power": 6,
-    "a1_power": 400,
-    "a1_type": "psychic",
-    "a1_init": 1,
-    "counter": 200,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 1,
-    "abilities": ["swift"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
- },
- {
-    "name": "Siren",
-    "magic": "phantasm",
-    "race": ["pixie"],
-    "power": 176,
-    "a1_power": 3400,
-    "a1_type": "psychic",
-    "a1_init": 2,
-    "counter": 0,
-    "a2_power": 600,
-    "a2_type": "melee",
-    "a2_init": 1,
-    "hp": 600,
-    "abilities": ["beauty", "charm"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 25,
-      "melee": 33,
-      "ranged": 33,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 50,
-      "holy": 25
-    }
- },
- {
-    "name": "Sprite",
-    "magic": "phantasm",
-    "race": ["pixie"],
-    "power": 38,
-    "a1_power": 400,
-    "a1_type": "magic",
-    "a1_init": 5,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 75,
-    "abilities": ["beauty", "flying", "swift"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
- },
- {
-    "name": "Sylph",
-    "magic": "phantasm",
-    "race": ["elemental"],
-    "power": 68,
-    "a1_power": 1000,
-    "a1_type": "magic",
-    "a1_init": 3,
-    "counter": 0,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 150,
-    "abilities": ["beauty", "flying", "swift"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 0,
-      "breath": 0,
-      "magic": 0,
-      "melee": 0,
-      "ranged": 0,
-      "lightning": 0,
-      "cold": 0,
-      "paralyse": 0,
-      "psychic": 0,
-      "holy": 0
-    }
- },
- {
-    "name": "Water Elemental",
-    "magic": "phantasm",
-    "race": ["elemental"],
-    "power": 19406,
-    "a1_power": 400000,
-    "a1_type": "poison ranged",
-    "a1_init": 2,
-    "counter": 5000,
-    "a2_power": 0,
-    "a2_type": "",
-    "a2_init": 0,
-    "hp": 72000,
-    "abilities": ["endurance"],
-    "resistances": {
-      "missile": 100,
-      "fire": 50,
-      "poison": 100,
-      "breath": 0,
-      "magic": 50,
-      "melee": 100,
-      "ranged": 75,
-      "lightning": 100,
-      "cold": 25,
-      "paralyse": 100,
-      "psychic": 50,
-      "holy": 80
-    }
- },
- {
-    "name": "Yeti",
-    "magic": "phantasm",
-    "race": ["giant"],
-    "power": 180,
-    "a1_power": 500,
-    "a1_type": "cold",
-    "a1_init": 2,
-    "counter": 500,
-    "a2_power": 1400,
-    "a2_type": "breath cold",
-    "a2_init": 2,
-    "hp": 1000,
-    "abilities": ["marksmanship", "swift", "weakness fire"],
-    "resistances": {
-      "missile": 0,
-      "fire": 0,
-      "poison": 40,
-      "breath": 50,
-      "magic": 60,
-      "melee": 30,
-      "ranged": 65,
-      "lightning": 10,
-      "cold": 80,
-      "paralyse": 10,
-      "psychic": 0,
-      "holy": 85
-    }
- }
 ]
