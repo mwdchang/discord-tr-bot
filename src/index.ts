@@ -167,24 +167,26 @@ server = ${userPref.serverName}
 
     if (!r) return;
 
-    const topAttackerAscendant = _.take(r.attackers.filter(d => d.magic === 'ascendant'), 3);
-    const topAttackerVerdant = _.take(r.attackers.filter(d => d.magic === 'verdant'), 3);
-    const topAttackerEradication = _.take(r.attackers.filter(d => d.magic === 'eradication'), 3);
-    const topAttackerNether = _.take(r.attackers.filter(d => d.magic === 'nether'), 3);
-    const topAttackerPhantasm = _.take(r.attackers.filter(d => d.magic === 'phantasm'), 3);
+    const TOP = 5;
 
-    const topViableAscendant = _.take(r.viables.filter(d => d.magic === 'ascendant'), 3);
-    const topViableVerdant = _.take(r.viables.filter(d => d.magic === 'verdant'), 3);
-    const topViableEradication = _.take(r.viables.filter(d => d.magic === 'eradication'), 3);
-    const topViableNether = _.take(r.viables.filter(d => d.magic === 'nether'), 3);
-    const topViablePhantasm = _.take(r.viables.filter(d => d.magic === 'phantasm'), 3);
+    const topAttackerAscendant = _.take(r.attackers.filter(d => d.magic === 'ascendant'), TOP);
+    const topAttackerVerdant = _.take(r.attackers.filter(d => d.magic === 'verdant'), TOP);
+    const topAttackerEradication = _.take(r.attackers.filter(d => d.magic === 'eradication'), TOP);
+    const topAttackerNether = _.take(r.attackers.filter(d => d.magic === 'nether'), TOP);
+    const topAttackerPhantasm = _.take(r.attackers.filter(d => d.magic === 'phantasm'), TOP);
+
+    const topViableAscendant = _.take(r.viables.filter(d => d.magic === 'ascendant'), TOP);
+    const topViableVerdant = _.take(r.viables.filter(d => d.magic === 'verdant'), TOP);
+    const topViableEradication = _.take(r.viables.filter(d => d.magic === 'eradication'), TOP);
+    const topViableNether = _.take(r.viables.filter(d => d.magic === 'nether'), TOP);
+    const topViablePhantasm = _.take(r.viables.filter(d => d.magic === 'phantasm'), TOP);
 
 
-    const topDefenderAscendant = _.take(r.defenders.filter(d => d.magic === 'ascendant'), 3);
-    const topDefenderVerdant = _.take(r.defenders.filter(d => d.magic === 'verdant'), 3);
-    const topDefenderEradication = _.take(r.defenders.filter(d => d.magic === 'eradication'), 3);
-    const topDefenderNether = _.take(r.defenders.filter(d => d.magic === 'nether'), 3);
-    const topDefenderPhantasm = _.take(r.defenders.filter(d => d.magic === 'phantasm'), 3);
+    const topDefenderAscendant = _.take(r.defenders.filter(d => d.magic === 'ascendant'), TOP);
+    const topDefenderVerdant = _.take(r.defenders.filter(d => d.magic === 'verdant'), TOP);
+    const topDefenderEradication = _.take(r.defenders.filter(d => d.magic === 'eradication'), TOP);
+    const topDefenderNether = _.take(r.defenders.filter(d => d.magic === 'nether'), TOP);
+    const topDefenderPhantasm = _.take(r.defenders.filter(d => d.magic === 'phantasm'), TOP);
 
 
     const T_attack = 2000000 * 0.15;
