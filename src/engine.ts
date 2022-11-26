@@ -1,6 +1,9 @@
 import _ from 'lodash';
 import fs from 'fs';
 import { randomBM, levenshteinDistance } from './util';
+import { calcAccuracy } from './calc-accuracy';
+import { calcResistance } from './calc-resistance';
+
 import { Unit, Ref, SimResult } from './types';
 
 // TODO
@@ -82,7 +85,6 @@ export const Engine = class {
     }
     return null;
   }
-
 
   _applyEnchantment(enchant: any, ref: Ref) {
     enchant.effects.forEach((effect: any) => {
@@ -183,26 +185,6 @@ export const Engine = class {
     }
   }
 
-  _calcAccuracy(attackRef: Ref, defendRef: Ref) {
-    let accuracy = attackRef.accuracy;
-    if (defendRef.abilities.includes('swift')) {
-      accuracy -= 0.10;
-    }
-    if (defendRef.abilities.includes('beauty')) {
-      accuracy -= 0.05;
-    }
-    if (defendRef.abilities.includes('fear') && !attackRef.abilities.includes('fear')) {
-      accuracy -= 0.15;
-    }
-    if (attackRef.abilities.includes('marksmanship')) {
-      accuracy += 0.10;
-    }
-    if (attackRef.abilities.includes('clumsiness')) {
-      accuracy -= 0.10;
-    }
-    return accuracy;
-  }
-
   _burst(attackRef: Ref, defendRef: Ref, battleLog: string[]) {
     const burst = defendRef.abilities.find(d => d.startsWith('bursting'))
     if (attackRef.primaryTypes.includes('ranged') || attackRef.primaryTypes.includes('magic') || attackRef.primaryTypes.includes('psychic')) {
@@ -218,14 +200,14 @@ export const Engine = class {
 
     // attacker
     const attackRes = attackRef.resistances[burstType];
-    const attackWeakness = attackRef.abilities.filter(d => d.startsWith('weakness'));
+    const attackWeakness = attackRef.abilities.filter(d => d.startsWith('weak'));
     damage = +burstValue *
       defendRef.numUnits *
       (defendRef.efficiency / 100)*
       (100 - attackRes) / 100;
 
     for (const weakness of attackWeakness) {
-      const weakType = weakness.split(' ')[1];
+      const weakType = _.last(weakness.split(' ')) as string;
       if (weakType === burstType) {
         damage *= 2;
       }
@@ -239,14 +221,14 @@ export const Engine = class {
 
     // defender
     const defendRes = defendRef.resistances[burstType];
-    const defendWeakness = defendRef.abilities.filter(d => d.startsWith('weakness'));
+    const defendWeakness = defendRef.abilities.filter(d => d.startsWith('weak'));
     damage = +burstValue *
       defendRef.numUnits *
       (defendRef.efficiency / 100) *
       (100 - defendRes) / 100;
 
     for (const weakness of defendWeakness) {
-      const weakType = weakness.split(' ')[1];
+      const weakType = _.last(weakness.split(' ')) as string;
       if (weakType === burstType) {
         damage *= 2;
       }
@@ -261,26 +243,11 @@ export const Engine = class {
     const defenderFlying = defendRef.abilities.includes('flying') ? true : false;
     const attackerFlying = attackRef.abilities.includes('flying') ? true : false;
 
-    let accuracy = this._calcAccuracy(attackRef, defendRef);
-    let resist = 0;
-    let magicPsychic = false;
-    let ranged = false;
-    for (const type of attackRef.primaryTypes) {
-      if (type === 'magic' || type === 'psychic') magicPsychic = true;
-      if (type === 'ranged') ranged = true; 
-      resist += defendRef.resistances[type];
-    }
-    resist /= attackRef.primaryTypes.length;
+    let magicPsychic = attackRef.primaryTypes.includes('magic') || attackRef.primaryTypes.includes('psychic');
+    let ranged = attackRef.primaryTypes.includes('ranged');
 
-    if (attackRef.primaryTypes.includes('ranged') && defendRef.abilities.includes('large shield')) {
-      resist += 50;
-      resist = Math.min(100, resist);
-    }
-
-    if (attackRef.abilities.includes('piercing')) {
-      resist -= 10;
-      resist = Math.max(0, resist);
-    }
+    const resist = calcResistance(attackRef, defendRef, 'primary');
+    const accuracy = calcAccuracy(attackRef, defendRef);
 
 
     if (defenderFlying) {
@@ -297,9 +264,9 @@ export const Engine = class {
       (magicPsychic === true ? 0.5 : randomBM());
 
     // weakness
-    let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
+    let weaknesses = defendRef.abilities.filter(d => d.startsWith('weak'));
     for (const weakness of weaknesses) {
-      const weakType = weakness.split(' ')[1];
+      const weakType = _.last(weakness.split(' ')) as string;
       if (attackRef.primaryTypes.includes(weakType)) {
         damage *= 2;
       }
@@ -333,25 +300,9 @@ export const Engine = class {
 
 
   _counter(attackRef: Ref, defendRef: Ref, battleLog: string[]) {
-    let counterAccuracy = this._calcAccuracy(defendRef, attackRef);
-    let resist = 0;
-    let magicPsychic = false;
-    for (const type of defendRef.primaryTypes) {
-      if (type === 'magic' || type === 'psychic') magicPsychic = true;
-      resist += attackRef.resistances[type];
-    }
-    resist /= defendRef.primaryTypes.length;
-
-    if (defendRef.primaryTypes.includes('ranged') && attackRef.abilities.includes('large shield')) {
-      resist += 50;
-      resist = Math.min(100, resist);
-    }
-
-    if (defendRef.abilities.includes('piercing')) {
-      resist -= 10;
-      resist = Math.max(0, resist);
-    }
-
+    const counterAccuracy = calcAccuracy(defendRef, attackRef);
+    const resist = calcResistance(defendRef, attackRef, 'primary');
+    const magicPsychic = defendRef.primaryTypes.includes('magic') || defendRef.primaryTypes.includes('psychic');
 
     let damageTypePCT = 100 - resist; 
     let damage = 
@@ -362,9 +313,9 @@ export const Engine = class {
       defendRef.counterPower *
       (magicPsychic === true ? 0.5 : randomBM());
 
-    let weaknesses = attackRef.abilities.filter(d => d.startsWith('weakness'));
+    let weaknesses = attackRef.abilities.filter(d => d.startsWith('weak'));
     for (const weakness of weaknesses) {
-      const weakType = weakness.split(' ')[1];
+      const weakType = _.last(weakness.split(' ')) as string;
       if (defendRef.primaryTypes.includes(weakType)) {
         damage *= 2;
       }
@@ -403,27 +354,10 @@ export const Engine = class {
     const defenderFlying = defendRef.abilities.includes('flying') ? true : false;
     const attackerFlying = attackRef.abilities.includes('flying') ? true : false;
 
-    let accuracy = this._calcAccuracy(attackRef, defendRef);
-    let resist = 0;
-    let magicPsychic = false;
-    let ranged = false;
-    for (const type of attackRef.secondaryTypes) {
-      if (type === 'magic' || type === 'psychic') magicPsychic = true;
-      if (type === 'ranged') ranged = true;
-      resist += defendRef.resistances[type];
-    }
-    resist /= attackRef.secondaryTypes.length;
-
-    if (attackRef.secondaryTypes.includes('ranged') && defendRef.abilities.includes('large shield')) {
-      resist += 50;
-      resist = Math.min(100, resist);
-    }
-
-    if (attackRef.abilities.includes('piercing')) {
-      resist -= 10;
-      resist = Math.max(0, resist);
-    }
-
+    const accuracy = calcAccuracy(attackRef, defendRef);
+    const resist = calcResistance(attackRef, defendRef, 'secondary');
+    const magicPsychic = attackRef.secondaryTypes.includes('magic') || attackRef.secondaryTypes.includes('psychic');
+    const ranged = attackRef.secondaryTypes.includes('ranged');
 
     if (defenderFlying) {
       if (attackerFlying === false && ranged === false) return;
@@ -437,9 +371,9 @@ export const Engine = class {
       attackRef.secondaryPower *
       (magicPsychic === true ? 0.5 : randomBM());
 
-    let weaknesses = defendRef.abilities.filter(d => d.startsWith('weakness'));
+    let weaknesses = defendRef.abilities.filter(d => d.startsWith('weak'));
     for (const weakness of weaknesses) {
-      const weakType = weakness.split(' ')[1];
+      const weakType = _.last(weakness.split(' ')) as string;
       if (attackRef.secondaryTypes.includes(weakType)) {
         damage *= 2;
       }
