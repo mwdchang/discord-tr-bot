@@ -1,14 +1,19 @@
 import { Ref } from './types';
+import { ActionType } from './types';
 
-type AType = 'primary' | 'secondary';
 
 /**
  * Calculate defender's resistances
  */
-export const calcResistance = (attackRef: Ref, defendRef: Ref, type: AType) => {
+export const calcResistance = (attackRef: Ref, defendRef: Ref, type: ActionType) => {
   let resist = 0;
+  let attackTypes: string[] = [];
 
-  const attackTypes = type === 'primary' ? attackRef.primaryTypes : attackRef.secondaryTypes;
+  if (type === 'primary' || type === 'counter') {
+    attackTypes = attackRef.primaryTypes;
+  } else {
+    attackTypes = attackRef.secondaryTypes;
+  }
 
   for (const type of attackTypes) {
     resist += defendRef.resistances[type];

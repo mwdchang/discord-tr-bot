@@ -4,6 +4,8 @@ type Race = "angel" | "animal" | "astral" | "demon" | "dragon" | "dwarf" | "elem
 
 type Magic = "ascendant" | "verdant" | "eradication" | "nether" | "phantasm"
 
+export type ActionType = 'primary' | 'secondary' | 'counter';
+
 // export enum Abilities {
 //   FLYING = 'flying',
 //   SWIFT = 'swfit',

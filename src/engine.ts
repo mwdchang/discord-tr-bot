@@ -3,16 +3,16 @@ import fs from 'fs';
 import { randomBM, levenshteinDistance } from './util';
 import { calcAccuracy } from './calc-accuracy';
 import { calcResistance } from './calc-resistance';
-
+import { calcDamageModifiers } from './calc-damage-modifiers';
 import { Unit, Ref, SimResult } from './types';
 
 // TODO
-// - abilities: att def against, steal life
+// - Abilities: steal life
+// - Enchant: hallu
 export const Engine = class {
   // class vars
   unitMap: Map<string, Map<string, Unit>>
   enchantmentMap: Map<string, Map<string, any>>
-
   slangMap: Map<string, string>
 
   constructor() {
@@ -42,7 +42,6 @@ export const Engine = class {
     });
 
     // Loop over server-listing
-
     for (const server of serverListing) {
       const uMap: Map<string, Unit> = new Map();
       const eMap: Map<string, any> = new Map();
@@ -141,7 +140,6 @@ export const Engine = class {
       }
     });
   }
-
 
   _calcEnchantments(attackRef: Ref, defendRef: Ref, serverName: string, attackerEnchants: any, defenderEnchants: any) {
     let attackEnchant: string[] = [];
@@ -249,11 +247,11 @@ export const Engine = class {
     const resist = calcResistance(attackRef, defendRef, 'primary');
     const accuracy = calcAccuracy(attackRef, defendRef);
 
-
     if (defenderFlying) {
       if (attackerFlying === false && ranged === false) return false;
     }
 
+    // Raw damage
     let damageTypePCT = 100 - resist; 
     let damage = 
       accuracy * 
@@ -263,23 +261,8 @@ export const Engine = class {
       attackRef.primaryPower *
       (magicPsychic === true ? 0.5 : randomBM());
 
-    // weakness
-    let weaknesses = defendRef.abilities.filter(d => d.startsWith('weak'));
-    for (const weakness of weaknesses) {
-      const weakType = _.last(weakness.split(' ')) as string;
-      if (attackRef.primaryTypes.includes(weakType)) {
-        damage *= 2;
-      }
-    }
-
-    // charm
-    if (defendRef.abilities.includes('charm')) {
-      damage /= 2;
-    }
-
-    if (defendRef.abilities.includes('scales')) {
-      damage *= 0.75;
-    }
+    // Damage modifier
+    damage *= calcDamageModifiers(attackRef, defendRef, 'primary');
 
     // efficiency
     if (attackRef.abilities.includes('endurance')) {
@@ -304,6 +287,7 @@ export const Engine = class {
     const resist = calcResistance(defendRef, attackRef, 'primary');
     const magicPsychic = defendRef.primaryTypes.includes('magic') || defendRef.primaryTypes.includes('psychic');
 
+    // Raw damage
     let damageTypePCT = 100 - resist; 
     let damage = 
       counterAccuracy * 
@@ -313,22 +297,8 @@ export const Engine = class {
       defendRef.counterPower *
       (magicPsychic === true ? 0.5 : randomBM());
 
-    let weaknesses = attackRef.abilities.filter(d => d.startsWith('weak'));
-    for (const weakness of weaknesses) {
-      const weakType = _.last(weakness.split(' ')) as string;
-      if (defendRef.primaryTypes.includes(weakType)) {
-        damage *= 2;
-      }
-    }
-
-    // charm
-    if (attackRef.abilities.includes('charm')) {
-      damage /= 2;
-    }
-
-    if (attackRef.abilities.includes('scales')) {
-      damage *= 0.75;
-    }
+    // Damage modifiers
+    damage *= calcDamageModifiers(defendRef, attackRef, 'counter');
 
     // ranged
     if (attackRef.primaryTypes.includes('ranged')) {
@@ -363,6 +333,7 @@ export const Engine = class {
       if (attackerFlying === false && ranged === false) return;
     }
 
+    // Raw damage
     let damageTypePCT = 100 - resist; 
     let damage = 
       accuracy * 
@@ -371,17 +342,8 @@ export const Engine = class {
       attackRef.secondaryPower *
       (magicPsychic === true ? 0.5 : randomBM());
 
-    let weaknesses = defendRef.abilities.filter(d => d.startsWith('weak'));
-    for (const weakness of weaknesses) {
-      const weakType = _.last(weakness.split(' ')) as string;
-      if (attackRef.secondaryTypes.includes(weakType)) {
-        damage *= 2;
-      }
-    }
-
-    if (defendRef.abilities.includes('scales')) {
-      damage *= 0.75;
-    }
+    // Damage modifiers
+    damage *= calcDamageModifiers(attackRef, defendRef, 'secondary');
 
     let unitLoss = Math.floor(damage / defendRef.hp);
     defendRef.numUnits -= unitLoss;
@@ -480,7 +442,6 @@ export const Engine = class {
       battleLog.push(`${ref.name}=${ref.numUnits} power=${ref.primaryPower}/${ref.secondaryPower}/${ref.counterPower}, hp=${ref.hp}, acc=${ref.accuracy}, enchants=${ref.activeEnchantments}`);
     });
     battleLog.push("");
-
 
     for (const hit of initOrder) {
       if (hit.role === 'attacker') {
@@ -617,8 +578,7 @@ export const Engine = class {
     };
   }
 
-
-  reisitanceReport(serverName: string, blackList: string[]) {
+  resistanceReport(serverName: string, blackList: string[]) {
     const unitMap = this.unitMap.get(serverName) || new Map<string, Unit>();
     let c = 0;
 
@@ -658,14 +618,5 @@ export const Engine = class {
     Object.entries(resist).sort((a, b) => b[1] - a[1]).forEach(k => {
       console.log(k[0], +(k[1]/c).toFixed(2));
     });
-
   }
-
-
-  // ratios() {
-  //   const unitMap = this.unitMap;
-  //   for (const unit of unitMap.values()) {
-  //     console.log(unit.hp / unit.power, unit.name);
-  //   }
-  // }
 }

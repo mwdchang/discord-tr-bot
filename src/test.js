@@ -2,22 +2,71 @@ import _ from 'lodash';
 import { Engine }  from './engine';
 
 const engine = new Engine();
-engine.init('data/beta/units.json', 'data/slangs.json', 'data/beta/enchantments.json');
+engine.init('./data');
 
 // console.log(engine.bestAgainst(
 //   engine.findUnit('phoenix')
 // ));
 
-console.log(engine.simulate(
-  engine.findUnit('phantom'),
-  engine.findUnit('dark elemental')
-).battleLog);
-
-
 // console.log(engine.simulate(
-//   engine.findUnit('venus flytrap'),
-//   engine.findUnit('aa')
-// ).battleLog.join('\n'));
+//   engine.findUnit('phantom'),
+//   engine.findUnit('dark elemental')
+// ).battleLog);
+
+const ignoreList = [
+  'Devil',
+  'Succubus',
+  'Militia',
+  'Pikeman',
+  'Phalanx',
+  'Cavalry',
+  'Archer',
+
+  'Crusader',
+  'Paladin',
+  'Knight',
+
+  'Druid',
+  'Elven Archer',
+
+  'Troglodyte',
+  'Lizard Man',
+  'Dwarven Warrior',
+  'Dwarven Elite',
+  'Ogre',
+
+  'Cave Troll',
+  'Imp',
+  'Gargoyle',
+  'Orc Raider',
+  'Orcish Archer',
+  
+  'Fanatic',
+  'War Hound',
+  'Trained Elephant',
+  'Capsule Monster',
+  'Sheep',
+  'Frog',
+  'Squirrel',
+  'Werewolf',
+  'Stone Golem',
+  'Mercenary',
+  'Bounty Hunter',
+  'Renegade Wizard',
+  'Venomesse',
+  'Starving Peasant',
+  'Falcon'
+];
+// engine.resistanceReport('blitz', ignoreList);
+
+
+console.log(engine.simulate(
+  engine.findUnit('Goblin', 'blitz'),
+  engine.findUnit('Kt', 'blitz'),
+  'blitz',
+  [],
+  []
+).battleLog.join('\n'));
 
 
 // engine.ratios();
