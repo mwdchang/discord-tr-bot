@@ -347,6 +347,8 @@ ${battleLog.join('\n')}
       return;
     }
 
+    const noNeg = (v: number) => Math.max(1, v);
+
     if (u1 && u2) {
       logUsage(u1.name, u2.name);
 
@@ -368,9 +370,9 @@ ${battleLog.join('\n')}
         defenderloss += r.defenderLoss;
         defenderunit += r.defenderUnitLoss;
 
-        if (r.defenderLoss / r.attackerLoss > 1.1) {
+        if (noNeg(r.defenderLoss) / noNeg(r.attackerLoss) > 1.1) {
           wins ++;
-        } else if (r.attackerLoss / r.defenderLoss > 1.1) {
+        } else if (noNeg(r.attackerLoss) / noNeg(r.defenderLoss) > 1.1) {
           losses ++;
         }
       }
