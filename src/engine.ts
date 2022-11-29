@@ -7,7 +7,6 @@ import { calcDamageModifiers } from './calc-damage-modifiers';
 import { Unit, Ref, SimResult } from './types';
 
 // TODO
-// - Abilities: steal life
 // - Enchant: hallu
 export const Engine = class {
   // class vars
@@ -278,6 +277,13 @@ export const Engine = class {
     defendRef.unitLoss += unitLoss;
     battleLog.push(`${attackRef.name} slew ${unitLoss} ${defendRef.name} > Primary attack (acc ${accuracy.toFixed(2)})`);
 
+    // Steal life
+    if (attackRef.abilities.includes('steal life 5%')) {
+      const newUnits = Math.floor(0.05 * damage / attackRef.hp);
+      attackRef.numUnits += newUnits;
+      attackRef.unitLoss -= newUnits;
+      battleLog.push(`${newUnits} ${attackRef.name} created`);
+    }
     return true;
   }
 
@@ -317,6 +323,14 @@ export const Engine = class {
     attackRef.numUnits -= unitLoss;
     attackRef.unitLoss += unitLoss;
     battleLog.push(`  counter: ${defendRef.name} slew ${unitLoss} ${attackRef.name}`);
+
+    // Steal life
+    if (defendRef.abilities.includes('steal life 5%')) {
+      const newUnits = Math.floor(0.05 * damage / defendRef.hp);
+      defendRef.numUnits += newUnits;
+      defendRef.unitLoss -= newUnits;
+      battleLog.push(`  ${newUnits} ${defendRef.name} created`);
+    }
   }
 
 
