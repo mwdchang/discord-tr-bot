@@ -262,6 +262,7 @@ export const Engine = class {
 
     // Damage modifier
     damage *= calcDamageModifiers(attackRef, defendRef, 'primary');
+    if (damage < 1) damage = 0;
 
     // efficiency
     if (attackRef.abilities.includes('endurance')) {
@@ -305,11 +306,7 @@ export const Engine = class {
 
     // Damage modifiers
     damage *= calcDamageModifiers(defendRef, attackRef, 'counter');
-
-    // ranged
-    if (attackRef.primaryTypes.includes('ranged')) {
-      damage = 0;
-    }
+    if (damage < 0) damage = 0;
 
     // efficiency
     if (defendRef.abilities.includes('endurance')) {
@@ -358,6 +355,7 @@ export const Engine = class {
 
     // Damage modifiers
     damage *= calcDamageModifiers(attackRef, defendRef, 'secondary');
+    if (damage < 1) damage = 0;
 
     let unitLoss = Math.floor(damage / defendRef.hp);
     defendRef.numUnits -= unitLoss;
@@ -471,18 +469,17 @@ export const Engine = class {
         if (burst) {
           this._burst(attackRef, defendRef, battleLog)
         } 
-        const canCounter = this._primaryAttack(attackRef, defendRef, battleLog);
+        this._primaryAttack(attackRef, defendRef, battleLog);
 
         if (attackRef.abilities.includes('additional strike')) {
           this._primaryAttack(attackRef, defendRef, battleLog);
         }
 
-        if (canCounter) {
-          if (attackRef.primaryTypes.includes('ranged') || attackRef.primaryTypes.includes('paralyse')) {
-            continue;
-          }
-          this._counter(attackRef, defendRef, battleLog);
+        // Check counter condition
+        if (attackRef.primaryTypes.includes('ranged') || attackRef.primaryTypes.includes('paralyse')) {
+          continue;
         }
+        this._counter(attackRef, defendRef, battleLog);
       }
 
       if (hit.type === 'secondary') {
