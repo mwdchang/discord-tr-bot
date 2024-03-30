@@ -123,7 +123,7 @@ ${usageText}
     const tokens = content.replace('set enchant', '').split('vs');
 
     // Use default enchantments
-    if (!tokens || tokens.length == 1 && tokens[0].includes('default')) {
+    if (!tokens || (tokens.length === 1 && tokens[0].includes('default'))) {
       userPrefMap.get(username).attackerEnchants = ['default'];
       userPrefMap.get(username).defenderEnchants = ['default'];
       channel.send(`${username} using default enchantments`); 
@@ -141,22 +141,12 @@ ${usageText}
     // Set custom enchantments
     const attackerEnchants = tokens[0].split(/[\s,]/).filter(d => d != '');
     const defenderEnchants = tokens[1].split(/[\s,]/).filter(d => d != '');
-    const filteredAttackerEnchants: string[] = [];
-    const filteredDefenderEnchants: string[] = [];
-
+    
     // Filter out any enchantments that don't exist
-    for (const s of attackerEnchants) {
-      let element = s.toLowerCase();
-      if (allowedEnchantIds.includes(element)) {
-        filteredAttackerEnchants.push(element);
-      }
-    }
-    for (const s of defenderEnchants) {
-      let element = s.toLowerCase();
-      if (allowedEnchantIds.includes(element)) {
-        filteredDefenderEnchants.push(element);
-      }
-    }
+    const filteredAttackerEnchants: string[] = attackerEnchants
+      .filter(element => allowedEnchantIds.includes(element.toLowerCase()));
+    const filteredDefenderEnchants: string[] = defenderEnchants
+      .filter(element => allowedEnchantIds.includes(element.toLowerCase()));
 
     userPrefMap.get(username).attackerEnchants = filteredAttackerEnchants;
     userPrefMap.get(username).defenderEnchants = filteredDefenderEnchants;
