@@ -3,6 +3,7 @@
   "hd": "horned demon",
   "dk": "demon knight",
   "bulwark": "bulwark horror",
+  "bh": "bulwark horror",
   "wr": "wolf raider",
   "ur": "unholy reaver",
 
@@ -10,6 +11,7 @@
   "chim": "chimera",
   "fe": "fire elemental",
   "shaman": "dwarven shaman",
+  "ds": "dwarven shaman",
   "sg": "storm giant",
 
   "aa": "archangel",
@@ -26,7 +28,6 @@
   "mr": "mind ripper",
   "lev": "leviathan",
   "dj": "djinni",
-
 
   "ee": "earth elemental",
   "he": "high elf",
