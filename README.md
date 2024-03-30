@@ -11,14 +11,15 @@ We also need to grab the access `TOKEN` that will allow the bot to sign-on.
 
 ## Run the Bot
 This depends on node-16/18 and `discord.js`. 
-- Put the TOKEN into the `.env` file
+- Create a `.env` file and put the discord developer app [TOKEN](https://discordjs.guide/preparations/setting-up-a-bot-application.html#what-is-a-token-anyway) into it
 
 ```
 TOKEN=<access token>
 ```
 
 - Install dependencies: `npm install`
-- Install and run the bot: `node index.js`
+- Build project: `npm run build`
+- Run the bot: `npm start`
 
 ## Features
 - Match up smulation to both prognose and diagnose 
