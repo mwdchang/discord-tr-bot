@@ -22,6 +22,8 @@ const client = new Client({
 // Assume default
 const DEFAULT_SERVER = 'blitz';
 
+// Allowed enchantments
+const allowedEnchantIds = ['bc', 'bs', 'ea', 'hallu', 'lnp', 'lore', 'pg', 'thl'];
 
 let botId = '';
 // annel.send('```' + text + '```');
@@ -75,12 +77,15 @@ client.on('message', msg => {
 
     const helpText = `
 ### Anansi commands
+show config - Shows your configuration
+set enchant [<e1> <e2> vs <e1> <e2>] - Set enchantments
+  default: set enchant default
+  specify: set enchant none vs <enchant> <enchant>
+  clear all: set enchant
+set server <server> - Select server, e.g. blitz, beta
 show match <unit1> vs <unit2> - Evaluate head-to-head match up
 show pairing <unit> - Evaluate top pairings
 show battle <uni1> vs <unit2> - Single battle with logs
-set enchants [<e1> <e2> vs <e1> <e2>] - Set enchantments
-set server <server> - Select server, e.g. blitz, beta
-show config - Shows your configuration
 
 
 if you'd like to contribute or access to the source, see https://github.com/mwdchang/discord-tr-bot
@@ -117,23 +122,36 @@ ${usageText}
   if (content.startsWith('set enchant')) {
     const tokens = content.replace('set enchant', '').split('vs');
 
-    // Reset
-    if (!tokens || tokens.length !== 2) {
-      userPrefMap.get(username).attackerEnchants = [];
-      userPrefMap.get(username).defenderEnchants = [];
-      channel.send(`${username} reset enchantments to default`); 
+    // Use default enchantments
+    if (!tokens || (tokens.length === 1 && tokens[0].includes('default'))) {
+      userPrefMap.get(username).attackerEnchants = ['default'];
+      userPrefMap.get(username).defenderEnchants = ['default'];
+      channel.send(`${username} using default enchantments`); 
       return;
     }
 
-    // Set enchants
+    // Clear enchantments
+    if (tokens.length !== 2) {
+      userPrefMap.get(username).attackerEnchants = [];
+      userPrefMap.get(username).defenderEnchants = [];
+      channel.send(`${username} cleared enchantments`); 
+      return;
+    }
+
+    // Set custom enchantments
     const attackerEnchants = tokens[0].split(/[\s,]/).filter(d => d != '');
     const defenderEnchants = tokens[1].split(/[\s,]/).filter(d => d != '');
+    
+    // Filter out any enchantments that don't exist
+    const filteredAttackerEnchants: string[] = attackerEnchants
+      .filter(element => allowedEnchantIds.includes(element.toLowerCase()));
+    const filteredDefenderEnchants: string[] = defenderEnchants
+      .filter(element => allowedEnchantIds.includes(element.toLowerCase()));
 
+    userPrefMap.get(username).attackerEnchants = filteredAttackerEnchants;
+    userPrefMap.get(username).defenderEnchants = filteredDefenderEnchants;
 
-    userPrefMap.get(username).attackerEnchants = attackerEnchants;
-    userPrefMap.get(username).defenderEnchants = defenderEnchants;
-
-    channel.send(`${username}: attacker=${attackerEnchants.join(' ')} defender=${defenderEnchants.join(' ')}`);
+    channel.send(`${username}: attacker=${filteredAttackerEnchants.join(' ')} defender=${filteredDefenderEnchants.join(' ')}`);
     return;
   }
 

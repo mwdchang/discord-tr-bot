@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Engine }  from './engine';
+import { Engine }  from '../src/engine';
 
 const engine = new Engine();
 engine.init('./data');
