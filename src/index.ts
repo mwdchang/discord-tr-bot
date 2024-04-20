@@ -106,6 +106,28 @@ ${usageText}
     channel.send('```' + usageReport+ '```');
     return;
   }
+  
+  if (content.startsWith('show eq')) {
+    const tokens = content.replace('show eq', '').split(' ');
+    if (tokens.length !== 3) {
+      return;
+    }
+    const targetNP = +tokens[0];
+    const targetMana = +tokens[1];
+    const casterNP = +tokens[2];
+    const r = engine.calculateEQ(targetNP, targetMana, casterNP);
+
+    const reportText = `
+### Report - ${serverName}
+Earthquake calculation
+
+On-colour: ${r.onColour}
+Adjacent: ${r.adjacent}
+Opposite: ${r.opposite}
+   `;
+    channel.send("```" + 'md\n' + reportText + "```");
+    return;
+  }
 
   if (content.startsWith('set server')) {
     const server = content.replace('set server', '').trim();

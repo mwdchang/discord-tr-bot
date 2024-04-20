@@ -4,6 +4,7 @@ import { randomBM, levenshteinDistance } from './util';
 import { calcAccuracy } from './calc-accuracy';
 import { calcResistance } from './calc-resistance';
 import { calcDamageModifiers } from './calc-damage-modifiers';
+import { calcEQ } from './calc-eq';
 import { Unit, Ref, SimResult } from './types';
 
 // TODO
@@ -18,6 +19,10 @@ export const Engine = class {
     this.unitMap = new Map();
     this.slangMap = new Map();
     this.enchantmentMap = new Map();
+  }
+
+  calculateEQ(targetNP: number, targetMana: number, casterNP: number) {
+    return calcEQ(targetNP, targetMana, casterNP);
   }
 
   /**
