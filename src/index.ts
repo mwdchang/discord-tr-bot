@@ -108,7 +108,9 @@ ${usageText}
   }
   
   if (content.startsWith('show eq')) {
-    const tokens = content.replace('show eq', '').split(' ');
+    console.log('hi');
+    const tokens = content.replace('show eq', '').trim().split(' ');
+    console.log('hi', tokens);
     if (tokens.length !== 3) {
       return;
     }
@@ -117,13 +119,16 @@ ${usageText}
     const casterNP = +tokens[2];
     const r = engine.calculateEQ(targetNP, targetMana, casterNP);
 
+    // round to 1000s, easer to read
+    const round1000 = (v: number) => Math.round(v / 1000) * 1000;
+
     const reportText = `
 ### Report - ${serverName}
 Earthquake calculation
 
-On-colour: ${r.onColour}
-Adjacent: ${r.adjacent}
-Opposite: ${r.opposite}
+On-colour: ${round1000(r.onColour)}
+Adjacent: ${round1000(r.adjacent)}
+Opposite: ${round1000(r.opposite)}
    `;
     channel.send("```" + 'md\n' + reportText + "```");
     return;
