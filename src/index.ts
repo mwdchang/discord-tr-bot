@@ -108,9 +108,7 @@ ${usageText}
   }
   
   if (content.startsWith('show eq')) {
-    console.log('hi');
     const tokens = content.replace('show eq', '').trim().split(' ');
-    console.log('hi', tokens);
     if (tokens.length !== 3) {
       return;
     }
