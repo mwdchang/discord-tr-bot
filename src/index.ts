@@ -86,7 +86,7 @@ set server <server> - Select server, e.g. blitz, beta
 show match <unit1> vs <unit2> - Evaluate head-to-head match up
 show pairing <unit> - Evaluate top pairings
 show battle <uni1> vs <unit2> - Single battle with logs
-
+show eq <targetNP> <targetMP> <casterNP>
 
 if you'd like to contribute or access to the source, see https://github.com/mwdchang/discord-tr-bot
     `;
@@ -112,9 +112,36 @@ ${usageText}
     if (tokens.length !== 3) {
       return;
     }
-    const targetNP = +tokens[0];
-    const targetMana = +tokens[1];
-    const casterNP = +tokens[2];
+    // const targetNP = +tokens[0];
+    // const targetMana = +tokens[1];
+    // const casterNP = +tokens[2];
+
+    let targetNP = +tokens[0];
+    let targetMana = +tokens[1];
+    let casterNP = +tokens[2];
+    let temp = '';
+    
+    temp = tokens[0].toLowerCase();
+    if (temp.endsWith('m')) {
+      targetNP = parseFloat(tokens[0]) * 1000000;
+    } else if (temp.endsWith('k')) {
+      targetNP = parseFloat(tokens[0]) * 1000;
+    }
+
+    temp = tokens[1].toLowerCase();
+    if (temp.endsWith('m')) {
+      targetMana  = parseFloat(tokens[1]) * 1000000;
+    } else if (temp.endsWith('k')) {
+      targetMana = parseFloat(tokens[1]) * 1000;
+    }
+
+    temp = tokens[2].toLowerCase();
+    if (temp.endsWith('m')) {
+      casterNP = parseFloat(tokens[2]) * 1000000;
+    } else if (temp.endsWith('k')) {
+      casterNP = parseFloat(tokens[2]) * 1000;
+    }
+
     const r = engine.calculateEQ(targetNP, targetMana, casterNP);
 
     // round to 1000s, easer to read
@@ -122,7 +149,11 @@ ${usageText}
 
     const reportText = `
 ### Report - ${serverName}
-Earthquake calculation
+Earthquake calculation (includes casting)
+
+Target NP: ${targetNP}
+Target Mana: ${targetMana}
+Caster NP: ${casterNP}
 
 On-colour: ${round1000(r.onColour)}
 Adjacent: ${round1000(r.adjacent)}
