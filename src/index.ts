@@ -149,12 +149,13 @@ ${usageText}
 
     const reportText = `
 ### Report - ${serverName}
-Earthquake calculation (includes casting)
+Earthquake calculation (includes casting cost)
 
 Target NP: ${targetNP}
 Target Mana: ${targetMana}
 Caster NP: ${casterNP}
 
+Mana required (rounded to closest 1000's)
 On-colour: ${round1000(r.onColour)}
 Adjacent: ${round1000(r.adjacent)}
 Opposite: ${round1000(r.opposite)}

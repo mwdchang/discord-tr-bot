@@ -10,10 +10,11 @@ export const calcEQ = (
   } else {
     rangeMultiplier = (targetNP / casterNP) * 2;
   }
+  rangeMultiplier = Math.min(1.0, rangeMultiplier);
 
   const castCost = 100000;
   const onColour = castCost + targetMana * rangeMultiplier;
-  const adjacent = (castCost * 1.5) + (1/0.8) * targetMana * rangeMultiplier;
-  const opposite = (castCost * 2.0) + (1/0.7) * targetMana * rangeMultiplier;
+  const adjacent = (castCost * 1.5) + 0.8 * targetMana * rangeMultiplier;
+  const opposite = (castCost * 2.0) + 0.7 * targetMana * rangeMultiplier;
   return { onColour, adjacent, opposite };
 }
