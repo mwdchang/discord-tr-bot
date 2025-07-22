@@ -6,6 +6,8 @@ import _ from 'lodash';
 import { Client, Intents } from 'discord.js';
 import { Engine } from './engine';
 import { Unit } from './types';
+import OpenAI from "openai";
+
 
 const engine = new Engine();
 engine.init('./data');
@@ -18,6 +20,9 @@ const client = new Client({
     Intents.FLAGS.DIRECT_MESSAGES
   ]
 });
+
+
+
 
 // Assume default
 const DEFAULT_SERVER = 'blitz';
@@ -49,6 +54,16 @@ const logUsage = (...args: string[]) => {
   }
 }
 
+const yyyymmdd = () => {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  const dd = String(today.getDate()).padStart(2, '0');
+  const formattedDate = `${yyyy}-${mm}-${dd}`;
+  return formattedDate;
+}
+const dailyLimitMap: Map<string, number> = new Map<string, number>();
+
 // Grammar
 // - show unit <unit>
 // - show matchup <unit1> vs <unit2>
@@ -72,6 +87,44 @@ client.on('message', msg => {
   }
 
   const serverName = userPrefMap.get(username).serverName || DEFAULT_SERVER;
+
+  if (content.startsWith('ask')) {
+    const q = content.replace('ask', '').trim();
+    const openAIClient = new OpenAI({ 
+      baseURL: 'https://models.github.ai/inference',
+      apiKey: process.env["GITHUB_TOKEN"]
+    });
+
+    const dayKey = yyyymmdd();
+    if (dailyLimitMap.has(dayKey) === false) {
+      dailyLimitMap.set(dayKey, 0);
+    } 
+
+    if ((dailyLimitMap.get(dayKey) as number) >= 30) {
+      const limitText = 'Exceed daily limit of 30 questions';
+      channel.send("```" + 'md\n' + limitText + "```");
+      return;
+    }
+
+    dailyLimitMap.set(dayKey, (dailyLimitMap.get(dayKey) as number) + 1);
+
+
+    openAIClient.chat.completions.create({
+      messages: [
+        { role:"system", content: "You are a helpful assistant." },
+        { role:"user", content: `Answer the following question in 100 words or less.\n ${q}` }
+      ],
+      temperature: 1.0,
+      top_p: 1.0,
+      max_tokens: 800,
+      model: 'openai/gpt-4o' 
+    }).then(response => {
+      const answer = response.choices[0].message.content;
+      channel.send("```" + 'md\n' + answer + "```");
+    });
+
+    return;
+  }
 
   if (content.startsWith('help')) {
 

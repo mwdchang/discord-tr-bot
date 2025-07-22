@@ -13,6 +13,7 @@
     "discord.js": "^13.7.0",
     "dotenv": "^16.0.1",
     "lodash": "^4.17.21",
+    "openai": "^5.10.1",
     "tsx": "^4.19.1"
   },
   "devDependencies": {
