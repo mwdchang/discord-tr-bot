@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 import _ from 'lodash';
-import { Client, Intents } from 'discord.js';
+import { Client, GatewayIntentBits, Partials } from 'discord.js';
 import { Engine } from './engine';
 import { Unit } from './types';
 import OpenAI from "openai";
@@ -15,14 +15,16 @@ engine.init('./data');
 
 const client = new Client({
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGES
-  ]
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.MessageContent
+  ],
+  partials: [Partials.Channel] // Needed for DMs
 });
 
 
-
+const vsVariantsRegex = /(vs|versus)/i;
 
 // Assume default
 const DEFAULT_SERVER = 'blitz';
@@ -67,9 +69,8 @@ const dailyLimitMap: Map<string, number> = new Map<string, number>();
 // Grammar
 // - show unit <unit>
 // - show matchup <unit1> vs <unit2>
-client.on('message', msg => {
-  const users = msg.mentions.users;
-  if (users.size !== 1 || !users.has(botId)) return; 
+client.on('messageCreate', msg => {
+  if (!msg.mentions.has(client.user as any)) return;
 
   let content = msg.content;
   content = content.replace(/\<.*\>/, '');
@@ -80,8 +81,8 @@ client.on('message', msg => {
 
   if (userPrefMap.has(username) === false) {
     userPrefMap.set(username, {
-      attackerEnchants: [],
-      defenderEnchants: [],
+      attackerEnchants: ['default'],
+      defenderEnchants: ['default'],
       serverName: DEFAULT_SERVER
     });
   }
@@ -90,7 +91,7 @@ client.on('message', msg => {
 
   if (content.startsWith('ask')) {
     const q = content.replace('ask', '').trim();
-    const openAIClient = new OpenAI({ 
+    const openAIClient = new OpenAI({
       baseURL: 'https://models.github.ai/inference',
       apiKey: process.env["GITHUB_TOKEN"]
     });
@@ -98,7 +99,7 @@ client.on('message', msg => {
     const dayKey = yyyymmdd();
     if (dailyLimitMap.has(dayKey) === false) {
       dailyLimitMap.set(dayKey, 0);
-    } 
+    }
 
     if ((dailyLimitMap.get(dayKey) as number) >= 30) {
       const limitText = 'Exceed daily limit of 30 questions';
@@ -111,13 +112,13 @@ client.on('message', msg => {
 
     openAIClient.chat.completions.create({
       messages: [
-        { role:"system", content: "You are a helpful assistant." },
-        { role:"user", content: `Answer the following question in 100 words or less.\n ${q}` }
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: `Answer the following question in 100 words or less.\n ${q}` }
       ],
       temperature: 1.0,
       top_p: 1.0,
       max_tokens: 800,
-      model: 'openai/gpt-4o' 
+      model: 'openai/gpt-4o'
     }).then(response => {
       const answer = response.choices[0].message.content;
       channel.send("```" + 'md\n' + answer + "```");
@@ -156,10 +157,10 @@ if you'd like to contribute or access to the source, see https://github.com/mwdc
 ${usageText}
     `;
 
-    channel.send('```' + usageReport+ '```');
+    channel.send('```' + usageReport + '```');
     return;
   }
-  
+
   if (content.startsWith('show eq')) {
     const tokens = content.replace('show eq', '').trim().split(' ');
     if (tokens.length !== 3) {
@@ -173,7 +174,7 @@ ${usageText}
     let targetMana = +tokens[1];
     let casterNP = +tokens[2];
     let temp = '';
-    
+
     temp = tokens[0].toLowerCase();
     if (temp.endsWith('m')) {
       targetNP = parseFloat(tokens[0]) * 1000000;
@@ -183,7 +184,7 @@ ${usageText}
 
     temp = tokens[1].toLowerCase();
     if (temp.endsWith('m')) {
-      targetMana  = parseFloat(tokens[1]) * 1000000;
+      targetMana = parseFloat(tokens[1]) * 1000000;
     } else if (temp.endsWith('k')) {
       targetMana = parseFloat(tokens[1]) * 1000;
     }
@@ -230,13 +231,13 @@ Opposite: ${round1000(r.opposite)}
   }
 
   if (content.startsWith('set enchant')) {
-    const tokens = content.replace('set enchant', '').split('vs');
+    const tokens = content.replace('set enchant', '').split(vsVariantsRegex);
 
     // Use default enchantments
     if (!tokens || (tokens.length === 1 && tokens[0].includes('default'))) {
       userPrefMap.get(username).attackerEnchants = ['default'];
       userPrefMap.get(username).defenderEnchants = ['default'];
-      channel.send(`${username} using default enchantments`); 
+      channel.send(`${username} using default enchantments`);
       return;
     }
 
@@ -244,14 +245,14 @@ Opposite: ${round1000(r.opposite)}
     if (tokens.length !== 2) {
       userPrefMap.get(username).attackerEnchants = [];
       userPrefMap.get(username).defenderEnchants = [];
-      channel.send(`${username} cleared enchantments`); 
+      channel.send(`${username} cleared enchantments`);
       return;
     }
 
     // Set custom enchantments
     const attackerEnchants = tokens[0].split(/[\s,]/).filter(d => d != '');
     const defenderEnchants = tokens[1].split(/[\s,]/).filter(d => d != '');
-    
+
     // Filter out any enchantments that don't exist
     const filteredAttackerEnchants: string[] = attackerEnchants
       .filter(element => allowedEnchantIds.includes(element.toLowerCase()));
@@ -322,7 +323,7 @@ server = ${userPref.serverName}
     const T_viable = 2000000 * 0.05;
 
     [
-      topAttackerAscendant, 
+      topAttackerAscendant,
       topAttackerVerdant,
       topAttackerEradication,
       topAttackerNether,
@@ -335,7 +336,7 @@ server = ${userPref.serverName}
 
 
     [
-      topViableAscendant, 
+      topViableAscendant,
       topViableVerdant,
       topViableEradication,
       topViableNether,
@@ -347,7 +348,7 @@ server = ${userPref.serverName}
     });
 
     [
-      topDefenderAscendant, 
+      topDefenderAscendant,
       topDefenderVerdant,
       topDefenderEradication,
       topDefenderNether,
@@ -398,7 +399,7 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
 
 
   if (content.startsWith('show battle')) {
-    const tokens = content.replace('show battle', '').split('vs');
+    const tokens = content.replace('show battle', '').split(vsVariantsRegex);
 
     let u1str = '';
     let u2str = '';
@@ -448,7 +449,7 @@ ${battleLog.join('\n')}
   }
 
   if (content.startsWith('show match')) {
-    const tokens = content.replace('show match', '').split('vs');
+    const tokens = content.replace('show match', '').split(vsVariantsRegex);
 
     let u1str = '';
     let u2str = '';
@@ -499,9 +500,9 @@ ${battleLog.join('\n')}
         defenderunit += r.defenderUnitLoss;
 
         if (noNeg(r.defenderLoss) / noNeg(r.attackerLoss) > 1.1) {
-          wins ++;
+          wins++;
         } else if (noNeg(r.attackerLoss) / noNeg(r.defenderLoss) > 1.1) {
-          losses ++;
+          losses++;
         }
       }
       let ties = N - wins - losses;
@@ -510,7 +511,7 @@ ${battleLog.join('\n')}
       attackerunit /= N;
       defenderloss /= N;
       defenderunit /= N;
-      
+
       let attackercount = results[0].attackerUnitCount;
       let defendercount = results[0].defenderUnitCount;
       const attacker = results[0].attacker;
