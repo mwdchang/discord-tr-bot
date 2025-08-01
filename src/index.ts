@@ -24,7 +24,7 @@ const client = new Client({
 });
 
 
-const vsVariantsRegex = /(vs|versus)/i;
+const vsVariantsRegex = /(?:vs|versus)/i;
 
 // Assume default
 const DEFAULT_SERVER = 'blitz';
