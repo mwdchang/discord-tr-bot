@@ -1,4 +1,4 @@
-// https://discord.com/developers/applications
+// See: https://discord.com/developers/applications
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -32,14 +32,9 @@ const DEFAULT_SERVER = 'blitz';
 // Allowed enchantments
 const allowedEnchantIds = ['bc', 'bs', 'ea', 'hallu', 'lnp', 'lore', 'pg', 'thl'];
 
-let botId = '';
-// annel.send('```' + text + '```');
-// et botTag = '';
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user?.tag}!`)
-  botId = client.user?.id as string;
-  // botTag = client.user.tag;
 });
 
 const userPrefMap = new Map();
@@ -66,6 +61,12 @@ const yyyymmdd = () => {
 }
 const dailyLimitMap: Map<string, number> = new Map<string, number>();
 
+
+const DISCORD_SERVERS = process.env['DISCORD_SERVERS'] ?
+  process.env['DISCORD_SERVERS'].split(',') :
+  [];
+
+
 // Grammar
 // - show unit <unit>
 // - show matchup <unit1> vs <unit2>
@@ -90,11 +91,18 @@ client.on('messageCreate', msg => {
   const serverName = userPrefMap.get(username).serverName || DEFAULT_SERVER;
 
   if (content.startsWith('ask')) {
+
+    if (!msg.guild || DISCORD_SERVERS.includes(msg.guild.id)) {
+      channel.send("```AI/LLM not enabled for this server```");
+      return;
+    }
+
     const q = content.replace('ask', '').trim();
     const openAIClient = new OpenAI({
-      baseURL: 'https://models.github.ai/inference',
-      apiKey: process.env["GITHUB_TOKEN"]
+      baseURL: process.env['AI_URL'], // 'https://models.github.ai/inference',
+      apiKey: process.env['AI_TOKEN']
     });
+    const model = process.env['AI_MODEL'] || 'openai/gpt-4o';
 
     const dayKey = yyyymmdd();
     if (dailyLimitMap.has(dayKey) === false) {
@@ -118,7 +126,7 @@ client.on('messageCreate', msg => {
       temperature: 1.0,
       top_p: 1.0,
       max_tokens: 800,
-      model: 'openai/gpt-4o'
+      model: model
     }).then(response => {
       const answer = response.choices[0].message.content;
       channel.send("```" + 'md\n' + answer + "```");

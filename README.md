@@ -10,11 +10,16 @@ The bot will need privilege to access guild messages and reply to messages. Once
 We also need to grab the access `TOKEN` that will allow the bot to sign-on.
 
 ## Run the Bot
-This depends on node-16/18 and `discord.js`. 
+This depends on node-22/24 and `discord.js`. 
 - Create a `.env` file and put the discord developer app [TOKEN](https://discordjs.guide/preparations/setting-up-a-bot-application.html#what-is-a-token-anyway) into it
 
 ```
 TOKEN=<access token>
+
+# optionally to have AI/LLM
+AI_TOKEN=<ai_token>
+AI_URL=<url>
+AI_SERVERS=<list of discord server ids, comma delimited>
 ```
 
 - Install dependencies: `npm install`
@@ -36,6 +41,11 @@ The follow analysis directives are supported
 The following configurations directives are available
 - show config
 - set server
+
+## Misc.
+Get short answers from AI/LLM
+- ask {prompt} 
+
 
 
 ### Head-to-head match up
