@@ -92,7 +92,7 @@ client.on('messageCreate', msg => {
 
   if (content.startsWith('ask')) {
 
-    if (!msg.guild || DISCORD_SERVERS.includes(msg.guild.id)) {
+    if (!msg.guild || DISCORD_SERVERS.includes(msg.guild.id) === false) {
       channel.send("```AI/LLM not enabled for this server```");
       return;
     }
