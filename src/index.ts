@@ -218,9 +218,9 @@ Target Mana: ${targetMana}
 Caster NP: ${casterNP}
 
 Mana required (rounded to closest 1000's)
-On-colour: ${round1000(r.onColour)}
-Adjacent: ${round1000(r.adjacent)}
-Opposite: ${round1000(r.opposite)}
+Eradication: ${round1000(r.eradication)}
+Verdant/Nether: ${round1000(r.verdant)}
+Ascendant/Phantasm: ${round1000(r.ascendant)}
    `;
     channel.send("```" + 'md\n' + reportText + "```");
     return;

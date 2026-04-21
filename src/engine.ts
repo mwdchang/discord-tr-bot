@@ -22,7 +22,7 @@ export const Engine = class {
   }
 
   calculateEQ(targetNP: number, targetMana: number, casterNP: number) {
-    return calcEQ(targetNP, targetMana, casterNP);
+    return calcEQ(casterNP, targetNP, targetMana);
   }
 
   /**
