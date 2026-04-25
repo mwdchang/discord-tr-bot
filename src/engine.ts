@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import fs from 'fs';
-import { randomBM, levenshteinDistance } from './util';
-import { calcAccuracy } from './calc-accuracy';
-import { calcResistance } from './calc-resistance';
-import { calcDamageModifiers } from './calc-damage-modifiers';
-import { calcEQ } from './calc-eq';
-import { Unit, Ref, SimResult } from './types';
+import { randomBM, levenshteinDistance } from './util.js';
+import { calcAccuracy } from './calc-accuracy.js';
+import { calcResistance } from './calc-resistance.js';
+import { calcDamageModifiers } from './calc-damage-modifiers.js';
+import { calcEQ } from './calc-eq.js';
+import { Unit, Ref, SimResult } from './types.js';
 
 // TODO
 // - Enchant: hallu
@@ -21,7 +21,19 @@ export const Engine = class {
     this.enchantmentMap = new Map();
   }
 
-  calculateEQ(targetNP: number, targetMana: number, casterNP: number) {
+  _getDefaultEnchantsByMagic(magic: string, defaultEnchantments: any) {
+    if (defaultEnchantments && defaultEnchantments[magic]) {
+      return defaultEnchantments[magic];
+    }
+    if (magic === 'ascendant') return ['lnp', 'thl'];
+    if (magic === 'verdant') return ['pg', 'lore', 'ea'];
+    if (magic === 'eradication') return ['bc'];
+    if (magic === 'nether') return ['bs', 'sod'];
+    if (magic === 'phantasm') return ['hallu'];
+    return [];
+  }
+
+  calculateEQ(casterNP: number, targetNP: number, targetMana: number) {
     return calcEQ(casterNP, targetNP, targetMana);
   }
 
@@ -145,18 +157,14 @@ export const Engine = class {
     });
   }
 
-  _calcEnchantments(attackRef: Ref, defendRef: Ref, serverName: string, attackerEnchants: any, defenderEnchants: any) {
+  _calcEnchantments(attackRef: Ref, defendRef: Ref, serverName: string, attackerEnchants: any, defenderEnchants: any, defaultEnchantments: any) {
     let attackEnchant: string[] = [];
     let defendEnchant: string[] = [];
 
     if (!attackerEnchants || attackerEnchants.length === 0) {
       // Leave the attackEnchant array empty
     } else if (attackerEnchants[0] === 'default') {
-      if (attackRef.magic === 'ascendant') attackEnchant = ['thl', 'lnp'];
-      if (attackRef.magic === 'verdant') attackEnchant = ['ea', 'pg', 'lore'];
-      if (attackRef.magic === 'eradication') attackEnchant = ['bc'];
-      if (attackRef.magic === 'nether') attackEnchant = ['bs'];
-      if (attackRef.magic === 'phantasm') attackEnchant = ['hallu'];
+      attackEnchant = this._getDefaultEnchantsByMagic(attackRef.magic, defaultEnchantments);
     } else {
       attackEnchant = attackerEnchants;
     }
@@ -164,11 +172,7 @@ export const Engine = class {
     if (!defenderEnchants || defenderEnchants.length === 0) {
       // Leave the defendEnchant array empty
     } else if (defenderEnchants[0] === 'default') {
-      if (defendRef.magic === 'ascendant') defendEnchant = ['thl', 'lnp'];
-      if (defendRef.magic === 'verdant') defendEnchant = ['ea', 'pg', 'lore'];
-      if (defendRef.magic === 'eradication') defendEnchant = ['bc'];
-      if (defendRef.magic === 'nether') defendEnchant = ['bs'];
-      if (defendRef.magic === 'phantasm') defendEnchant = ['hallu'];
+      defendEnchant = this._getDefaultEnchantsByMagic(defendRef.magic, defaultEnchantments);
     } else {
       defendEnchant = defenderEnchants; 
     }
@@ -177,6 +181,9 @@ export const Engine = class {
     if (!enchantmentMap) {
       throw `Cannot find enchantment for ${serverName}`;
     }
+
+    attackEnchant = attackEnchant.filter(e => enchantmentMap.has(e));
+    defendEnchant = defendEnchant.filter(e => enchantmentMap.has(e));
 
     for (const e of attackEnchant) {
       this._applyEnchantment(enchantmentMap.get(e), attackRef);
@@ -375,7 +382,7 @@ export const Engine = class {
 
 
   // Main method
-  simulate(attacker: Unit, defender: Unit, serverName: string, attackerEnchants: any , defenderEnchants: any) {
+  simulate(attacker: Unit, defender: Unit, serverName: string, attackerEnchants: any , defenderEnchants: any, defaultEnchantments: any = null) {
     // Allocate approximate number of units at equal net power
     const TOTAL_NP = 2000000;
 
@@ -422,7 +429,7 @@ export const Engine = class {
       if (attackerRef.secondaryInit === 2) attackerRef.secondaryInit = 1;
     }
 
-    this._calcEnchantments(attackerRef, defenderRef, serverName, attackerEnchants, defenderEnchants);
+    this._calcEnchantments(attackerRef, defenderRef, serverName, attackerEnchants, defenderEnchants, defaultEnchantments);
 
     // temp
     let attackRef: Ref | null = null;
@@ -539,17 +546,17 @@ export const Engine = class {
   }
 
   // Run a series of simulations
-  simulateX(attacker: Unit, defender: Unit, serverName: string, attackerEnchants: any, defenderEnchants: any, n: number) {
+  simulateX(attacker: Unit, defender: Unit, serverName: string, attackerEnchants: any, defenderEnchants: any, n: number, defaultEnchantments: any = null) {
     const r: SimResult[] = [];
     for (let i = 0; i < n; i++) {
       r.push(
-        this.simulate(attacker, defender, serverName, attackerEnchants, defenderEnchants)
+        this.simulate(attacker, defender, serverName, attackerEnchants, defenderEnchants, defaultEnchantments)
       );
     }
     return r;
   }
 
-  findPairings(unit: Unit, serverName: string, attackerEnchants: any, defenderEnchants: any) {
+  findPairings(unit: Unit, serverName: string, attackerEnchants: any, defenderEnchants: any, defaultEnchantments: any = null, excludedUnits: string[] = []) {
     const skipList = ['Devil', 'Shadow Monster', 'Succubus'];
 
     const bestAttackers: any[] = [];
@@ -562,8 +569,9 @@ export const Engine = class {
 
     for (const candidate of unitMap.values()) {
       if (skipList.includes(candidate.name)) continue;
+      if (excludedUnits.includes(candidate.name)) continue;
 
-      const results = this.simulateX(candidate, unit, serverName, attackerEnchants, defenderEnchants, N);
+      const results = this.simulateX(candidate, unit, serverName, attackerEnchants, defenderEnchants, N, defaultEnchantments);
       let attackerLoss = 0;
       let defenderLoss = 0;
       for (const r of results) {

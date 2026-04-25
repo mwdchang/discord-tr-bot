@@ -1,0 +1,234 @@
+[
+  {
+    "id": "thl",
+    "name": "The holy light",
+    "magic": "ascendant",
+    "effects": [
+      {
+        "filters": [
+          { "magic": "ascendant" }
+        ],
+        "action": {
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
+          "type": "change value",
+          "base": null, 
+          "value": 0.1263
+        }
+      },
+      {
+        "filters": [
+          { "magic": "ascendant" }
+        ],
+        "action": {
+          "attributes": ["accuracy"],
+          "type": "change value",
+          "base": 1,
+          "value": 0.06315
+        }
+      },
+      {
+        "filters": [
+          {
+            "magic": "ascendant",
+            "primaryTypes": ["melee"]
+          },
+          {
+            "magic": "ascendant",
+            "secondaryTypes": ["melee"]
+          }
+        ],
+        "action": {
+          "attributes": ["primaryTypes"],
+          "type": "add attack type",
+          "value": "holy"
+        }
+      }
+    ]
+  },
+  {
+    "id": "lnp",
+    "name": "Love and Peace",
+    "magic": "ascendant",
+    "effects": [
+      {
+        "filters": [
+          { "magic": "ascendant" }
+        ],
+        "action": {
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
+          "type": "change value",
+          "base": null,
+          "value": -0.2
+        }
+      },
+      {
+        "filters": [
+          { "magic": "ascendant" }
+        ],
+        "action": {
+          "attributes": ["hp"],
+          "type": "change value",
+          "base": null,
+          "value": 0.25
+        }
+      }
+    ]
+  },
+  {
+    "id": "lore",
+    "name": "Nature's Lore",
+    "magic": "verdant",
+    "effects": [
+      {
+        "filters": [
+          { "race": ["elf"] }
+        ],
+        "action": {
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
+          "type": "change value",
+          "base": null,
+          "value": 0.13
+        }
+      },
+      {
+        "filters": [
+          { "race": ["elf"] }
+        ],
+        "action": {
+          "attributes": ["accuracy"],
+          "type": "change value",
+          "base": 1,
+          "value": 0.07
+        }
+      },
+      {
+        "filters": [
+          { "race": ["animal"] }
+        ],
+        "action": {
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
+          "type": "change value",
+          "base": null,
+          "value": 0.25
+        }
+      },
+      {
+        "filters": [
+          { "race": ["animal"] }
+        ],
+        "action": {
+          "attributes": ["hp"],
+          "type": "change value",
+          "base": null,
+          "value": 0.20
+        }
+      }
+    ]
+  },
+  {
+    "id": "pg",
+    "name": "Plant Growth",
+    "magic": "verdant",
+    "effects": [
+      {
+        "filters": [
+          { "race": ["treefolk"] }
+        ],
+        "action": {
+          "attributes": ["primaryPower", "counterPower", "hp"],
+          "type": "change value",
+          "base": null,
+          "value": 0.9524
+        }
+      }
+    ]
+  },
+  {
+    "id": "ea",
+    "name": "Enlarge Animal",
+    "magic": "verdant",
+    "effects": [
+      {
+        "filters": [
+          { "race": ["animal"] }
+        ],
+        "action": {
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
+          "type": "change value",
+          "base": null,
+          "value": 0.47
+        }
+      }
+    ]
+  },
+  {
+    "id": "bc",
+    "name": "Battle Chant",
+    "magic": "eradication",
+    "effects": [
+      {
+        "filters": null,
+        "action": {
+          "attributes": ["primaryPower", "secondaryPower", "counterPower"],
+          "type": "change value",
+          "base": null,
+          "value": 0.2
+        }
+      },
+      {
+        "filters": null,
+        "action": {
+          "attributes": ["hp"],
+          "type": "change value",
+          "base": null,
+          "value": -0.1
+        }
+      }
+    ]
+  },
+  {
+    "id": "bs",
+    "name": "Black Sabbath",
+    "magic": "nether",
+    "effects": [
+      {
+        "filters": [
+          { "race": ["demon"] }
+        ],
+        "action": {
+          "attributes": ["resistances.holy"],
+          "type": "change value",
+          "base": 100,
+          "value": 0.329
+        }
+      },
+      {
+        "filters": [
+          { "race": ["undead"] }
+        ],
+        "action": {
+          "attributes": ["resistances.holy"],
+          "type": "change value",
+          "base": 100,
+          "value": 0.329
+        }
+      }
+    ]
+  },
+  {
+    "id": "hallu",
+    "name": "Hallucination",
+    "magic": "phantasm",
+    "effects": [
+      {
+        "filters": null,
+        "action": {
+          "attributes": ["efficiency"],
+          "type": "change value",
+          "base": 100,
+          "value": -0.1
+        }
+      }
+    ]
+  }
+]

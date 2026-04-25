@@ -1,13 +1,11 @@
-// See: https://discord.com/developers/applications
+// https://discord.com/developers/applications
 import * as dotenv from 'dotenv'
 dotenv.config()
 
 import _ from 'lodash';
-import { Client, GatewayIntentBits, Partials } from 'discord.js';
-import { Engine } from './engine';
-import { Unit } from './types';
-import OpenAI from "openai";
-
+import { Client, Intents } from 'discord.js';
+import { Engine } from './engine.js';
+import { Unit } from './types.js';
 
 const engine = new Engine();
 engine.init('./data');
@@ -15,26 +13,44 @@ engine.init('./data');
 
 const client = new Client({
   intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.MessageContent
-  ],
-  partials: [Partials.Channel] // Needed for DMs
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGES
+  ]
 });
-
-
-const vsVariantsRegex = /(?:vs|versus)/i;
 
 // Assume default
 const DEFAULT_SERVER = 'blitz';
 
 // Allowed enchantments
-const allowedEnchantIds = ['bc', 'bs', 'ea', 'hallu', 'lnp', 'lore', 'pg', 'thl'];
+const allowedEnchantIds = ['bc', 'bs', 'ea', 'hallu', 'lnp', 'lore', 'pg', 'sod', 'thl'];
+const allowedMagicSpecialties = ['ascendant', 'verdant', 'eradication', 'nether', 'phantasm'];
 
+const buildDefaultEnchantments = () => ({
+  ascendant: ['lnp', 'thl'],
+  verdant: ['pg', 'lore', 'ea'],
+  eradication: ['bc'],
+  nether: ['bs', 'sod'],
+  phantasm: ['hallu']
+});
+
+const disabledUnitsByServer = new Map<string, string[]>([
+  ['lightning', ['Duke', 'Dwarven Defender', 'Minor Elemental', 'Shadow Elemental', 'Treemaster']]
+]);
+
+const getDisabledUnitsForServer = (serverName: string) => disabledUnitsByServer.get(serverName) || [];
+const isDisabledUnit = (serverName: string, unitName: string) => {
+  return getDisabledUnitsForServer(serverName).includes(unitName);
+};
+
+let botId = '';
+// annel.send('```' + text + '```');
+// et botTag = '';
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user?.tag}!`)
+  botId = client.user?.id as string;
+  // botTag = client.user.tag;
 });
 
 const userPrefMap = new Map();
@@ -51,109 +67,63 @@ const logUsage = (...args: string[]) => {
   }
 }
 
-const yyyymmdd = () => {
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-  const dd = String(today.getDate()).padStart(2, '0');
-  const formattedDate = `${yyyy}-${mm}-${dd}`;
-  return formattedDate;
-}
-const dailyLimitMap: Map<string, number> = new Map<string, number>();
-
-
-const DISCORD_SERVERS = process.env['DISCORD_SERVERS'] ?
-  process.env['DISCORD_SERVERS'].split(',') :
-  [];
-
-
 // Grammar
 // - show unit <unit>
 // - show matchup <unit1> vs <unit2>
-client.on('messageCreate', msg => {
-  if (!msg.mentions.has(client.user as any)) return;
+client.on('message', msg => {
+  const users = msg.mentions.users;
+  if (users.size !== 1 || !users.has(botId)) return; 
 
-  let content = msg.content;
-  content = content.replace(/\<.*\>/, '');
-  content = content.toLowerCase().trim();
+  // Strip only this bot's mention(s). A greedy /<.*>/ removes from first "<" to last ">"
+  // in the whole message and can wipe valid text when Discord adds <#channel>, <:emoji:>, etc.
+  let content = msg.content.toLowerCase().trim();
+  content = content.replace(new RegExp(`<@!?${botId}>`, 'g'), '').trim();
 
   const channel = msg.channel;
   const username = msg.author.username;
+  const userId = msg.author.id;
 
-  if (userPrefMap.has(username) === false) {
-    userPrefMap.set(username, {
-      attackerEnchants: ['default'],
-      defenderEnchants: ['default'],
-      serverName: DEFAULT_SERVER
+  if (userPrefMap.has(userId) === false) {
+    userPrefMap.set(userId, {
+      attackerEnchants: [],
+      defenderEnchants: [],
+      serverName: DEFAULT_SERVER,
+      defaultEnchantments: buildDefaultEnchantments(),
+      allowDisabledUnits: false
     });
   }
 
-  const serverName = userPrefMap.get(username).serverName || DEFAULT_SERVER;
-
-  if (content.startsWith('ask')) {
-
-    if (!msg.guild || DISCORD_SERVERS.includes(msg.guild.id) === false) {
-      channel.send("```AI/LLM not enabled for this server```");
-      return;
-    }
-
-    const q = content.replace('ask', '').trim();
-    const openAIClient = new OpenAI({
-      baseURL: process.env['AI_URL'], // 'https://models.github.ai/inference',
-      apiKey: process.env['AI_TOKEN']
-    });
-    const model = process.env['AI_MODEL'] || 'openai/gpt-4o';
-
-    const dayKey = yyyymmdd();
-    if (dailyLimitMap.has(dayKey) === false) {
-      dailyLimitMap.set(dayKey, 0);
-    }
-
-    if ((dailyLimitMap.get(dayKey) as number) >= 30) {
-      const limitText = 'Exceed daily limit of 30 questions';
-      channel.send("```" + 'md\n' + limitText + "```");
-      return;
-    }
-
-    dailyLimitMap.set(dayKey, (dailyLimitMap.get(dayKey) as number) + 1);
-
-
-    openAIClient.chat.completions.create({
-      messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: `Answer the following question in 100 words or less.\n ${q}` }
-      ],
-      temperature: 1.0,
-      top_p: 1.0,
-      max_tokens: 800,
-      model: model
-    }).then(response => {
-      const answer = response.choices[0].message.content;
-      channel.send("```" + 'md\n' + answer + "```");
-    });
-
-    return;
-  }
+  const userPref = userPrefMap.get(userId);
+  const serverName = userPref.serverName || DEFAULT_SERVER;
 
   if (content.startsWith('help')) {
+    const cmd = (text: string) => `\u001b[0;33m${text}\u001b[0m`;
+    const arg = (text: string) => `\u001b[0;36m${text}\u001b[0m`;
 
     const helpText = `
 ### Anansi commands
-show config - Shows your configuration
-set enchant [<e1> <e2> vs <e1> <e2>] - Set enchantments
-  default: set enchant default
-  specify: set enchant none vs <enchant> <enchant>
-  clear all: set enchant
-set server <server> - Select server, e.g. blitz, beta
-show match <unit1> vs <unit2> - Evaluate head-to-head match up
-show pairing <unit> - Evaluate top pairings
-show battle <uni1> vs <unit2> - Single battle with logs
-show eq <targetNP> <targetMP> <casterNP>
 
-if you'd like to contribute or access to the source, see https://github.com/mwdchang/discord-tr-bot
+${cmd('show config')} - Shows your configuration
+${cmd('set enchant')} [${arg('<e1>')} ${arg('<e2>')} ${cmd('vs')} ${arg('<e1>')} ${arg('<e2>')}] - Set enchantments
+${cmd('set default enchant')} ${arg('<specialty>')} ${arg('<e1>')} ${arg('<e2>')} - Set default enchants for magic specialty
+${cmd('show default enchant')} - Show default enchants per specialty
+${cmd('set disabled units')} ${cmd('on|off')} - Include units disabled on selected server (default off)
+  default: set enchant default
+  specify: set enchant none vs ${arg('<enchant>')} ${arg('<enchant>')}
+  clear all: set enchant
+${cmd('set server')} ${arg('<server>')} - Select server, e.g. blitz, guild, beta, arch, lightning
+${cmd('show match')} ${arg('<unit1>')} ${cmd('vs')} ${arg('<unit2>')} - Evaluate head-to-head match up
+${cmd('show pairing')} ${arg('<unit>')} ${cmd('-v')} - Evaluate top pairings (default: head-to-head only, ${cmd('-v')}: full report)
+${cmd('show battle')} ${arg('<uni1>')} ${cmd('vs')} ${arg('<unit2>')} - Single battle with logs
+${cmd('show eq')} ${arg('<casterNP>')} ${arg('<targetNP>')} ${arg('<targetMana>')} - Earthquake: how much mana you need to zero the target
+  ${arg('<casterNP>')} your net power, ${arg('<targetNP>')} their net power, ${arg('<targetMana>')} their current mana (three integers, in that order)
+  reply lists mana by your magic line: eradication, verdant, nether, ascendant, phantasm (pick the line that matches your caster)
+  example: ${cmd('show eq')} 50000 60000 120000
+
+
     `;
 
-    channel.send("```md" + helpText + "```");
+    channel.send("```ansi" + helpText + "```");
     return;
   }
 
@@ -165,62 +135,29 @@ if you'd like to contribute or access to the source, see https://github.com/mwdc
 ${usageText}
     `;
 
-    channel.send('```' + usageReport + '```');
+    channel.send('```' + usageReport+ '```');
     return;
   }
-
+  
   if (content.startsWith('show eq')) {
     const tokens = content.replace('show eq', '').trim().split(' ');
     if (tokens.length !== 3) {
       return;
     }
-    // const targetNP = +tokens[0];
-    // const targetMana = +tokens[1];
-    // const casterNP = +tokens[2];
-
-    let targetNP = +tokens[0];
-    let targetMana = +tokens[1];
-    let casterNP = +tokens[2];
-    let temp = '';
-
-    temp = tokens[0].toLowerCase();
-    if (temp.endsWith('m')) {
-      targetNP = parseFloat(tokens[0]) * 1000000;
-    } else if (temp.endsWith('k')) {
-      targetNP = parseFloat(tokens[0]) * 1000;
-    }
-
-    temp = tokens[1].toLowerCase();
-    if (temp.endsWith('m')) {
-      targetMana = parseFloat(tokens[1]) * 1000000;
-    } else if (temp.endsWith('k')) {
-      targetMana = parseFloat(tokens[1]) * 1000;
-    }
-
-    temp = tokens[2].toLowerCase();
-    if (temp.endsWith('m')) {
-      casterNP = parseFloat(tokens[2]) * 1000000;
-    } else if (temp.endsWith('k')) {
-      casterNP = parseFloat(tokens[2]) * 1000;
-    }
-
-    const r = engine.calculateEQ(targetNP, targetMana, casterNP);
-
-    // round to 1000s, easer to read
-    const round1000 = (v: number) => Math.round(v / 1000) * 1000;
+    const casterNP = +tokens[0];
+    const targetNP = +tokens[1];
+    const targetMana = +tokens[2];
+    const r = engine.calculateEQ(casterNP, targetNP, targetMana);
 
     const reportText = `
 ### Report - ${serverName}
-Earthquake calculation (includes casting cost)
+Earthquake calculation
 
-Target NP: ${targetNP}
-Target Mana: ${targetMana}
-Caster NP: ${casterNP}
-
-Mana required (rounded to closest 1000's)
-Eradication: ${round1000(r.eradication)}
-Verdant/Nether: ${round1000(r.verdant)}
-Ascendant/Phantasm: ${round1000(r.ascendant)}
+Eradication: ${r.eradication}
+Verdant: ${r.verdant}
+Nether: ${r.nether}
+Ascendant: ${r.ascendant}
+Phantasm: ${r.phantasm}
    `;
     channel.send("```" + 'md\n' + reportText + "```");
     return;
@@ -228,66 +165,121 @@ Ascendant/Phantasm: ${round1000(r.ascendant)}
 
   if (content.startsWith('set server')) {
     const server = content.replace('set server', '').trim();
-    if (server !== 'blitz' && server !== 'beta') {
+    if (server !== 'blitz' && server !== 'guild' && server !== 'beta' && server !== 'arch' && server !== 'lightning') {
       channel.send(`Server ${server} is not currently supported`);
       return;
     }
-    userPrefMap.get(username).serverName = server;
+    userPrefMap.get(userId).serverName = server;
     const text = `Set server to ${server} for ${username}`;
     channel.send('```' + text + '```');
     return;
   }
 
   if (content.startsWith('set enchant')) {
-    const tokens = content.replace('set enchant', '').split(vsVariantsRegex);
+    const tokens = content.replace('set enchant', '').split('vs');
 
     // Use default enchantments
     if (!tokens || (tokens.length === 1 && tokens[0].includes('default'))) {
-      userPrefMap.get(username).attackerEnchants = ['default'];
-      userPrefMap.get(username).defenderEnchants = ['default'];
-      channel.send(`${username} using default enchantments`);
+      userPrefMap.get(userId).attackerEnchants = ['default'];
+      userPrefMap.get(userId).defenderEnchants = ['default'];
+      channel.send(`${username} using default enchantments`); 
       return;
     }
 
     // Clear enchantments
     if (tokens.length !== 2) {
-      userPrefMap.get(username).attackerEnchants = [];
-      userPrefMap.get(username).defenderEnchants = [];
-      channel.send(`${username} cleared enchantments`);
+      userPrefMap.get(userId).attackerEnchants = [];
+      userPrefMap.get(userId).defenderEnchants = [];
+      channel.send(`${username} cleared enchantments`); 
       return;
     }
 
     // Set custom enchantments
     const attackerEnchants = tokens[0].split(/[\s,]/).filter(d => d != '');
     const defenderEnchants = tokens[1].split(/[\s,]/).filter(d => d != '');
-
+    
     // Filter out any enchantments that don't exist
     const filteredAttackerEnchants: string[] = attackerEnchants
       .filter(element => allowedEnchantIds.includes(element.toLowerCase()));
     const filteredDefenderEnchants: string[] = defenderEnchants
       .filter(element => allowedEnchantIds.includes(element.toLowerCase()));
 
-    userPrefMap.get(username).attackerEnchants = filteredAttackerEnchants;
-    userPrefMap.get(username).defenderEnchants = filteredDefenderEnchants;
+    userPrefMap.get(userId).attackerEnchants = filteredAttackerEnchants;
+    userPrefMap.get(userId).defenderEnchants = filteredDefenderEnchants;
 
     channel.send(`${username}: attacker=${filteredAttackerEnchants.join(' ')} defender=${filteredDefenderEnchants.join(' ')}`);
     return;
   }
 
+  if (content.startsWith('set disabled units')) {
+    const value = content.replace('set disabled units', '').trim();
+    if (value !== 'on' && value !== 'off') {
+      channel.send('Usage: set disabled units <on|off>');
+      return;
+    }
+    userPrefMap.get(userId).allowDisabledUnits = value === 'on';
+    channel.send(`${username}: disabled units ${value === 'on' ? 'enabled' : 'disabled'}`);
+    return;
+  }
+
+  if (content.startsWith('show default enchant')) {
+    const defaults = userPrefMap.get(userId).defaultEnchantments;
+    const text = `
+### Default enchantments (${username})
+ascendant = ${defaults.ascendant.join(' ')}
+verdant = ${defaults.verdant.join(' ')}
+eradication = ${defaults.eradication.join(' ')}
+nether = ${defaults.nether.join(' ')}
+phantasm = ${defaults.phantasm.join(' ')}
+    `;
+    channel.send('```' + text + '```');
+    return;
+  }
+
+  if (content.startsWith('set default enchant')) {
+    const rest = content.replace('set default enchant', '').trim();
+    const tokens = rest.split(/[\s,]+/).filter(t => t !== '');
+    const specialty = tokens[0];
+    if (!specialty || !allowedMagicSpecialties.includes(specialty)) {
+      channel.send(`Usage: set default enchant <${allowedMagicSpecialties.join('|')}> <none|default|${allowedEnchantIds.join('|')}>...`);
+      return;
+    }
+
+    const defaults = userPrefMap.get(userId).defaultEnchantments;
+    const values = tokens.slice(1).map(t => t.toLowerCase());
+    if (values.length === 0 || values.includes('none')) {
+      defaults[specialty] = [];
+      channel.send(`${username}: default ${specialty} enchantments cleared`);
+      return;
+    }
+    if (values.includes('default')) {
+      defaults[specialty] = buildDefaultEnchantments()[specialty];
+      channel.send(`${username}: default ${specialty} enchantments reset to system default (${defaults[specialty].join(' ')})`);
+      return;
+    }
+
+    const filtered = values.filter(element => allowedEnchantIds.includes(element));
+    defaults[specialty] = [...new Set(filtered)];
+    channel.send(`${username}: default ${specialty} enchantments=${defaults[specialty].join(' ')}`);
+    return;
+  }
+
   if (content.startsWith('show config')) {
-    const userPref = userPrefMap.get(username);
     const configText = `
 ### Configuration for ${username}
 attacker enchantments = ${userPref.attackerEnchants.join(', ')}
 defender enchantments = ${userPref.defenderEnchants.join(', ')}
 server = ${userPref.serverName}
+include disabled units = ${userPref.allowDisabledUnits ? 'on' : 'off'}
     `;
     channel.send('```' + configText + '```');
     return;
   }
 
   if (content.startsWith('show pairing')) {
-    const uStr = content.replace('show pairing', '').trim();
+    const rawPairingArg = content.replace('show pairing', '').trim();
+    const verbose = rawPairingArg.includes(' -v');
+    const uStr = rawPairingArg.replace(' -v', '').trim();
     const u = engine.findUnit(uStr, serverName);
 
 
@@ -295,12 +287,18 @@ server = ${userPref.serverName}
       channel.send(`I cannot find "${uStr}"`);
       return;
     }
+    if (!userPref.allowDisabledUnits && isDisabledUnit(serverName, u.name)) {
+      channel.send(`"${u.name}" is disabled on ${serverName}. Use "set disabled units on" to include disabled units.`);
+      return;
+    }
 
     logUsage(u.name);
 
-    const attackerEnchants = userPrefMap.get(username).attackerEnchants;
-    const defenderEnchants = userPrefMap.get(username).defenderEnchants;
-    const r = engine.findPairings(u, serverName, attackerEnchants, defenderEnchants);
+    const attackerEnchants = userPrefMap.get(userId).attackerEnchants;
+    const defenderEnchants = userPrefMap.get(userId).defenderEnchants;
+    const defaultEnchantments = userPrefMap.get(userId).defaultEnchantments;
+    const excludedUnits = userPref.allowDisabledUnits ? [] : getDisabledUnitsForServer(serverName);
+    const r = engine.findPairings(u, serverName, attackerEnchants, defenderEnchants, defaultEnchantments, excludedUnits);
 
     if (!r) return;
 
@@ -331,7 +329,7 @@ server = ${userPref.serverName}
     const T_viable = 2000000 * 0.05;
 
     [
-      topAttackerAscendant,
+      topAttackerAscendant, 
       topAttackerVerdant,
       topAttackerEradication,
       topAttackerNether,
@@ -344,7 +342,7 @@ server = ${userPref.serverName}
 
 
     [
-      topViableAscendant,
+      topViableAscendant, 
       topViableVerdant,
       topViableEradication,
       topViableNether,
@@ -356,7 +354,7 @@ server = ${userPref.serverName}
     });
 
     [
-      topDefenderAscendant,
+      topDefenderAscendant, 
       topDefenderVerdant,
       topDefenderEradication,
       topDefenderNether,
@@ -400,14 +398,27 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
 ^ Deals 5% or more damage than it receives (good head-to-head)
     `;
 
+    const conciseReportText = `
+### Report - ${serverName}
+
+#### Top head-to-head viable units:
+Ascendant: ${topViableAscendant.map(d => d.name).join(', ')}
+Verdant: ${topViableVerdant.map(d => d.name).join(', ')}
+Eradication: ${topViableEradication.map(d => d.name).join(', ')}
+Nether: ${topViableNether.map(d => d.name).join(', ')}
+Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
+
+^ Deals 5% or more damage than it receives (good head-to-head)
+    `;
+
     const header = `Pairing against ${u.name} - **${serverName}**`;
-    channel.send(header + "```" + 'md\n' + reportText + "```");
+    channel.send(header + "```" + 'md\n' + (verbose ? reportText : conciseReportText) + "```");
     return;
   }
 
 
   if (content.startsWith('show battle')) {
-    const tokens = content.replace('show battle', '').split(vsVariantsRegex);
+    const tokens = content.replace('show battle', '').split('vs');
 
     let u1str = '';
     let u2str = '';
@@ -428,18 +439,27 @@ Phantasm: ${topViablePhantasm.map(d => d.name).join(', ')}
       channel.send(`I cannot find "${tokens[0]}"`);
       return;
     }
+    if (!userPref.allowDisabledUnits && isDisabledUnit(serverName, u1.name)) {
+      channel.send(`"${u1.name}" is disabled on ${serverName}. Use "set disabled units on" to include disabled units.`);
+      return;
+    }
     if (!u2) {
       channel.send(`I cannot find "${tokens[1]}"`);
+      return;
+    }
+    if (!userPref.allowDisabledUnits && isDisabledUnit(serverName, u2.name)) {
+      channel.send(`"${u2.name}" is disabled on ${serverName}. Use "set disabled units on" to include disabled units.`);
       return;
     }
 
     if (u1 && u2) {
       logUsage(u1.name, u2.name);
 
-      const attackerEnchants = userPrefMap.get(username).attackerEnchants;
-      const defenderEnchants = userPrefMap.get(username).defenderEnchants;
+      const attackerEnchants = userPrefMap.get(userId).attackerEnchants;
+      const defenderEnchants = userPrefMap.get(userId).defenderEnchants;
+      const defaultEnchantments = userPrefMap.get(userId).defaultEnchantments;
 
-      const r = engine.simulate(u1, u2, serverName, attackerEnchants, defenderEnchants);
+      const r = engine.simulate(u1, u2, serverName, attackerEnchants, defenderEnchants, defaultEnchantments);
       const battleLog = r.battleLog;
 
       let attackercount = r.attackerUnitCount;
@@ -457,7 +477,7 @@ ${battleLog.join('\n')}
   }
 
   if (content.startsWith('show match')) {
-    const tokens = content.replace('show match', '').split(vsVariantsRegex);
+    const tokens = content.replace('show match', '').split('vs');
 
     let u1str = '';
     let u2str = '';
@@ -479,8 +499,16 @@ ${battleLog.join('\n')}
       channel.send(`I cannot find "${tokens[0]}"`);
       return;
     }
+    if (!userPref.allowDisabledUnits && isDisabledUnit(serverName, u1.name)) {
+      channel.send(`"${u1.name}" is disabled on ${serverName}. Use "set disabled units on" to include disabled units.`);
+      return;
+    }
     if (!u2) {
       channel.send(`I cannot find "${tokens[1]}"`);
+      return;
+    }
+    if (!userPref.allowDisabledUnits && isDisabledUnit(serverName, u2.name)) {
+      channel.send(`"${u2.name}" is disabled on ${serverName}. Use "set disabled units on" to include disabled units.`);
       return;
     }
 
@@ -489,10 +517,11 @@ ${battleLog.join('\n')}
     if (u1 && u2) {
       logUsage(u1.name, u2.name);
 
-      const attackerEnchants = userPrefMap.get(username).attackerEnchants;
-      const defenderEnchants = userPrefMap.get(username).defenderEnchants;
+      const attackerEnchants = userPrefMap.get(userId).attackerEnchants;
+      const defenderEnchants = userPrefMap.get(userId).defenderEnchants;
+      const defaultEnchantments = userPrefMap.get(userId).defaultEnchantments;
 
-      const results = engine.simulateX(u1, u2, serverName, attackerEnchants, defenderEnchants, N);
+      const results = engine.simulateX(u1, u2, serverName, attackerEnchants, defenderEnchants, N, defaultEnchantments);
       let attackerloss = 0;
       let attackerunit = 0;
       let defenderloss = 0;
@@ -508,9 +537,9 @@ ${battleLog.join('\n')}
         defenderunit += r.defenderUnitLoss;
 
         if (noNeg(r.defenderLoss) / noNeg(r.attackerLoss) > 1.1) {
-          wins++;
+          wins ++;
         } else if (noNeg(r.attackerLoss) / noNeg(r.defenderLoss) > 1.1) {
-          losses++;
+          losses ++;
         }
       }
       let ties = N - wins - losses;
@@ -519,7 +548,7 @@ ${battleLog.join('\n')}
       attackerunit /= N;
       defenderloss /= N;
       defenderunit /= N;
-
+      
       let attackercount = results[0].attackerUnitCount;
       let defendercount = results[0].defenderUnitCount;
       const attacker = results[0].attacker;

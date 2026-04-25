@@ -1,8 +1,9 @@
 # Discord TR Bot
+
 This is a chat-bot for analyzing the game [The Reincarnation](https://www.the-reincarnation.com/about.php), an online game where one plays the role of an ancient mage. The bot here is used to analyze unit pairings, their strengths/weakness, and other statistical shenanigans.
 
-
 ## Creating a Bot
+
 You need to first apply for a bot-application on Discord [here](https://discord.com/developers/applications)
 
 The bot will need privilege to access guild messages and reply to messages. Once the privileges are enabled the bot will need to be authorized onto specific server(s) via the generated OAuth URL.
@@ -10,16 +11,13 @@ The bot will need privilege to access guild messages and reply to messages. Once
 We also need to grab the access `TOKEN` that will allow the bot to sign-on.
 
 ## Run the Bot
-This depends on node-22/24 and `discord.js`. 
+
+This depends on node-16/18 and `discord.js`. 
+
 - Create a `.env` file and put the discord developer app [TOKEN](https://discordjs.guide/preparations/setting-up-a-bot-application.html#what-is-a-token-anyway) into it
 
 ```
 TOKEN=<access token>
-
-# optionally to have AI/LLM
-AI_TOKEN=<ai_token>
-AI_URL=<url>
-AI_SERVERS=<list of discord server ids, comma delimited>
 ```
 
 - Install dependencies: `npm install`
@@ -27,28 +25,26 @@ AI_SERVERS=<list of discord server ids, comma delimited>
 - Run the bot: `npm start`
 
 ## Features
+
 - Match up smulation to both prognose and diagnose 
 - Pairwise analysis for finding best offensive and defensive pairings
 - Language features to allow for short names, spelling variations and mistakes
 
-
 ## Interacting with the Bot
+
 The follow analysis directives are supported
+
 - show match {unit1} vs {unit2}
 - show battle {unit1} vs {unit2}
 - show pairing {unit}
 
 The following configurations directives are available
+
 - show config
 - set server
 
-## Misc.
-Get short answers from AI/LLM
-- ask {prompt} 
-
-
-
 ### Head-to-head match up
+
 Runs head-to-head simulation match up between two units
 
 ```
@@ -69,8 +65,8 @@ Lich loss 44.7% = 441/986 (893299 np)
 Dominion loss 5.9% = 3/51 (117039 np)
 ```
 
-
 ### Best unit
+
 Run pairwise simulations to determine the best offensive and defensive units.
 
 ```
@@ -110,8 +106,8 @@ Phantasm: ^Yeti, Leviathan, Ice Elemental
 ^ Deals 5% or more damage than it receives (good head-to-head)
 ```
 
-
 ### Show single battle
+
 Runs a single battle with detailed logs
 
 ```
@@ -140,3 +136,4 @@ Defender lost 463 Dwarven Shaman
 Attacker loss np 464400
 Defender loss np 463000
 ```
+
