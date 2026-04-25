@@ -408,6 +408,47 @@
         ]
     },
     {
+        "name": "Cave Troll",
+        "magic": "nether",
+        "race": [
+            "troll"
+        ],
+        "power": 49,
+        "hp": 400,
+        "a1_power": 400,
+        "a1_type": "poison",
+        "a1_init": 1,
+        "counter": 100,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "regeneration",
+            "weakness to attacktype fire"
+        ]
+    },
+    {
         "name": "Chimera",
         "magic": "eradication",
         "race": [
@@ -491,6 +532,47 @@
         ]
     },
     {
+        "name": "Crusader",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 14,
+        "hp": 130,
+        "a1_power": 160,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 40,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "large shield",
+            "recruit speed 50%"
+        ]
+    },
+    {
         "name": "Dark Apprentice",
         "magic": "nether",
         "race": [
@@ -530,47 +612,6 @@
             "marksmanship",
             "recruit speed -10%",
             "swift"
-        ]
-    },
-    {
-        "name": "Dark Elemental",
-        "magic": "nether",
-        "race": [
-            "demon"
-        ],
-        "power": 20586,
-        "hp": 80000,
-        "a1_power": 100000,
-        "a1_type": "paralyse",
-        "a1_init": 1,
-        "counter": 15000,
-        "a2_power": 300000,
-        "a2_type": "paralyse ranged",
-        "a2_init": 3,
-        "spell_resistance": {
-            "ascendant": 50,
-            "verdant": 0,
-            "eradication": 40,
-            "nether": 80,
-            "phantasm": 80
-        },
-        "resistances": {
-            "missile": 90,
-            "fire": 60,
-            "poison": 90,
-            "breath": 50,
-            "magic": 60,
-            "melee": 100,
-            "ranged": 85,
-            "lightning": 50,
-            "cold": 50,
-            "paralyse": 100,
-            "psychic": 50,
-            "holy": 20
-        },
-        "abilities": [
-            "endurance",
-            "steal life 5%"
         ]
     },
     {
@@ -703,7 +744,7 @@
         "race": [
             "elemental"
         ],
-        "power": 1550,
+        "power": 1700,
         "hp": 7650,
         "a1_power": 8000,
         "a1_type": "magic",
@@ -780,6 +821,46 @@
         ]
     },
     {
+        "name": "Druid",
+        "magic": "verdant",
+        "race": [
+            "elf"
+        ],
+        "power": 40,
+        "hp": 180,
+        "a1_power": 440,
+        "a1_type": "magic ranged",
+        "a1_init": 3,
+        "counter": 60,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 50,
+            "nether": 50,
+            "phantasm": 25
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 25,
+            "poison": 90,
+            "breath": 0,
+            "magic": 50,
+            "melee": 50,
+            "ranged": 50,
+            "lightning": 25,
+            "cold": 25,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 25
+        },
+        "abilities": [
+            "recruit speed -15%"
+        ]
+    },
+    {
         "name": "Dryad",
         "magic": "verdant",
         "race": [
@@ -821,43 +902,44 @@
         ]
     },
     {
-        "name": "Dwarven Batrider",
-        "magic": "eradication",
+        "name": "Duke",
+        "magic": "ascendant",
         "race": [
-            "dwarf"
+            "human"
         ],
-        "power": 24,
-        "hp": 180,
-        "a1_power": 120,
-        "a1_type": "melee",
+        "power": 125,
+        "hp": 575,
+        "a1_power": 600,
+        "a1_type": "holy melee",
         "a1_init": 1,
-        "counter": 0,
-        "a2_power": 0,
-        "a2_type": "",
-        "a2_init": 0,
+        "counter": 175,
+        "a2_power": 650,
+        "a2_type": "ranged fire",
+        "a2_init": 3,
         "spell_resistance": {
-            "ascendant": 0,
+            "ascendant": 50,
             "verdant": 0,
             "eradication": 0,
             "nether": 0,
             "phantasm": 0
         },
         "resistances": {
-            "missile": 0,
-            "fire": 0,
+            "missile": 25,
+            "fire": 55,
             "poison": 0,
             "breath": 0,
-            "magic": 0,
-            "melee": 0,
-            "ranged": 0,
+            "magic": 45,
+            "melee": 75,
+            "ranged": 25,
             "lightning": 0,
             "cold": 0,
             "paralyse": 0,
-            "psychic": 0,
-            "holy": 0
+            "psychic": 50,
+            "holy": 45
         },
         "abilities": [
-            "flying"
+            "racial enemy against human 50%",
+            "large shield"
         ]
     },
     {
@@ -898,6 +980,46 @@
         },
         "abilities": [
             "bursting poison 30"
+        ]
+    },
+    {
+        "name": "Dwarven Defender",
+        "magic": "eradication",
+        "race": [
+            "dwarf"
+        ],
+        "power": 240,
+        "hp": 1150,
+        "a1_power": 3275,
+        "a1_type": "poison",
+        "a1_init": 1,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 50,
+            "eradication": 70,
+            "nether": 0,
+            "phantasm": 50
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 85,
+            "poison": 25,
+            "breath": 0,
+            "magic": 75,
+            "melee": 92,
+            "ranged": 55,
+            "lightning": 45,
+            "cold": 0,
+            "paralyse": 25,
+            "psychic": 25,
+            "holy": 75
+        },
+        "abilities": [
+            "racial enemy against elemental 50%"
         ]
     },
     {
@@ -943,46 +1065,6 @@
         ]
     },
     {
-        "name": "Dwarven Gunslinger",
-        "magic": "eradication",
-        "race": [
-            "dwarf"
-        ],
-        "power": 18,
-        "hp": 130,
-        "a1_power": 90,
-        "a1_type": "missile ranged",
-        "a1_init": 4,
-        "counter": 0,
-        "a2_power": 0,
-        "a2_type": "",
-        "a2_init": 0,
-        "spell_resistance": {
-            "ascendant": 0,
-            "verdant": 0,
-            "eradication": 0,
-            "nether": 0,
-            "phantasm": 0
-        },
-        "resistances": {
-            "missile": 0,
-            "fire": 0,
-            "poison": 0,
-            "breath": 0,
-            "magic": 0,
-            "melee": 0,
-            "ranged": 0,
-            "lightning": 0,
-            "cold": 0,
-            "paralyse": 0,
-            "psychic": 0,
-            "holy": 0
-        },
-        "abilities": [
-            "piercing"
-        ]
-    },
-    {
         "name": "Dwarven Shaman",
         "magic": "eradication",
         "race": [
@@ -1020,6 +1102,48 @@
         },
         "abilities": [
             "healing"
+        ]
+    },
+    {
+        "name": "Dwarven Warrior",
+        "magic": "eradication",
+        "race": [
+            "dwarf"
+        ],
+        "power": 20,
+        "hp": 160,
+        "a1_power": 200,
+        "a1_type": "melee",
+        "a1_init": 1,
+        "counter": 50,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 25,
+            "breath": 0,
+            "magic": 15,
+            "melee": 25,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 10
+        },
+        "abilities": [
+            "racial enemy against orc 50%",
+            "endurance",
+            "recruit speed 30%"
         ]
     },
     {
@@ -1234,46 +1358,6 @@
         ]
     },
     {
-        "name": "Elven Scout",
-        "magic": "verdant",
-        "race": [
-            "elf"
-        ],
-        "power": 20,
-        "hp": 120,
-        "a1_power": 80,
-        "a1_type": "melee",
-        "a1_init": 2,
-        "counter": 30,
-        "a2_power": 0,
-        "a2_type": "",
-        "a2_init": 0,
-        "spell_resistance": {
-            "ascendant": 0,
-            "verdant": 0,
-            "eradication": 0,
-            "nether": 0,
-            "phantasm": 0
-        },
-        "resistances": {
-            "missile": 0,
-            "fire": 0,
-            "poison": 0,
-            "breath": 0,
-            "magic": 0,
-            "melee": 0,
-            "ranged": 0,
-            "lightning": 0,
-            "cold": 0,
-            "paralyse": 0,
-            "psychic": 0,
-            "holy": 0
-        },
-        "abilities": [
-            "-"
-        ]
-    },
-    {
         "name": "Empyrean Inquisitor",
         "magic": "ascendant",
         "race": [
@@ -1302,7 +1386,7 @@
             "breath": 35,
             "magic": 75,
             "melee": 80,
-            "ranged": 70,
+            "ranged": 80,
             "lightning": 20,
             "cold": 10,
             "paralyse": 0,
@@ -1311,8 +1395,7 @@
         },
         "abilities": [
             "charm",
-            "fear",
-            "weakness to attacktype poison"
+            "fear"
         ]
     },
     {
@@ -1532,7 +1615,7 @@
         ],
         "power": 12,
         "hp": 500,
-        "a1_power": 300,
+        "a1_power": 500,
         "a1_type": "holy",
         "a1_init": 1,
         "counter": 500,
@@ -1688,6 +1771,46 @@
         ]
     },
     {
+        "name": "Gargoyle",
+        "magic": "nether",
+        "race": [
+            "golem"
+        ],
+        "power": 64,
+        "hp": 300,
+        "a1_power": 400,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 25,
+            "phantasm": 15
+        },
+        "resistances": {
+            "missile": 25,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 25,
+            "melee": 25,
+            "ranged": 25,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 100,
+            "holy": 0
+        },
+        "abilities": [
+            "flying"
+        ]
+    },
+    {
         "name": "Ghoul",
         "magic": "nether",
         "race": [
@@ -1707,7 +1830,7 @@
             "verdant": 0,
             "eradication": 0,
             "nether": 0,
-            "phantasm": 25
+            "phantasm": 0
         },
         "resistances": {
             "missile": 0,
@@ -1735,7 +1858,7 @@
             "orc"
         ],
         "power": 13,
-        "hp": 180,
+        "hp": 150,
         "a1_power": 125,
         "a1_type": "melee",
         "a1_init": 1,
@@ -1975,46 +2098,6 @@
         ]
     },
     {
-        "name": "Holy Spirit",
-        "magic": "ascendant",
-        "race": [
-            "elemental"
-        ],
-        "power": 29,
-        "hp": 200,
-        "a1_power": 140,
-        "a1_type": "holy",
-        "a1_init": 1,
-        "counter": 0,
-        "a2_power": 0,
-        "a2_type": "",
-        "a2_init": 0,
-        "spell_resistance": {
-            "ascendant": 0,
-            "verdant": 0,
-            "eradication": 0,
-            "nether": 0,
-            "phantasm": 0
-        },
-        "resistances": {
-            "missile": 0,
-            "fire": 0,
-            "poison": 0,
-            "breath": 0,
-            "magic": 0,
-            "melee": 0,
-            "ranged": 0,
-            "lightning": 0,
-            "cold": 0,
-            "paralyse": 0,
-            "psychic": 0,
-            "holy": 0
-        },
-        "abilities": [
-            "flying"
-        ]
-    },
-    {
         "name": "Horned Demon",
         "magic": "nether",
         "race": [
@@ -2177,6 +2260,47 @@
         },
         "abilities": [
             "flying"
+        ]
+    },
+    {
+        "name": "Knight",
+        "magic": "ascendant",
+        "race": [
+            "human"
+        ],
+        "power": 23,
+        "hp": 200,
+        "a1_power": 250,
+        "a1_type": "melee",
+        "a1_init": 2,
+        "counter": 50,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "large shield",
+            "recruit speed -15%"
         ]
     },
     {
@@ -2554,6 +2678,46 @@
         ]
     },
     {
+        "name": "Minor Elemental",
+        "magic": "phantasm",
+        "race": [
+            "elemental"
+        ],
+        "power": 113,
+        "hp": 600,
+        "a1_power": 400,
+        "a1_type": "poison ranged",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 1000,
+        "a2_type": "lightning ranged",
+        "a2_init": 2,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 0,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 60,
+            "fire": 25,
+            "poison": 100,
+            "breath": 0,
+            "magic": 65,
+            "melee": 60,
+            "ranged": 70,
+            "lightning": 50,
+            "cold": 40,
+            "paralyse": 50,
+            "psychic": 50,
+            "holy": 70
+        },
+        "abilities": [
+            "racial enemy against mindripper 50%"
+        ]
+    },
+    {
         "name": "Naga Queen",
         "magic": "ascendant",
         "race": [
@@ -2642,8 +2806,8 @@
             "giant"
         ],
         "power": 34,
-        "hp": 700,
-        "a1_power": 300,
+        "hp": 300,
+        "a1_power": 400,
         "a1_type": "melee",
         "a1_init": 2,
         "counter": 100,
@@ -2672,7 +2836,6 @@
             "holy": 0
         },
         "abilities": [
-            "clumsiness",
             "endurance",
             "recruit speed 10%"
         ]
@@ -3253,6 +3416,47 @@
         ]
     },
     {
+        "name": "Shadow Elemental",
+        "magic": "nether",
+        "race": [
+            "elemental"
+        ],
+        "power": 444,
+        "hp": 3000,
+        "a1_power": 4500,
+        "a1_type": "paralyse",
+        "a1_init": 1,
+        "counter": 500,
+        "a2_power": 5000,
+        "a2_type": "paralyse ranged",
+        "a2_init": 3,
+        "spell_resistance": {
+            "ascendant": 20,
+            "verdant": 0,
+            "eradication": 25,
+            "nether": 0,
+            "phantasm": 35
+        },
+        "resistances": {
+            "missile": 50,
+            "fire": 25,
+            "poison": 55,
+            "breath": 0,
+            "magic": 45,
+            "melee": 100,
+            "ranged": 45,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 100,
+            "psychic": 30,
+            "holy": 25
+        },
+        "abilities": [
+            "racial enemy against elemental 50%",
+            "swift"
+        ]
+    },
+    {
         "name": "Shadow Monster",
         "magic": "phantasm",
         "race": [
@@ -3624,7 +3828,7 @@
         "name": "Stone Golem",
         "magic": "plain",
         "race": [
-            "human"
+            "golem"
         ],
         "power": 1984,
         "hp": 15000,
@@ -3682,7 +3886,7 @@
             "verdant": 75,
             "eradication": 40,
             "nether": 0,
-            "phantasm": 75
+            "phantasm": 50
         },
         "resistances": {
             "missile": 0,
@@ -3960,6 +4164,88 @@
         ]
     },
     {
+        "name": "Treemaster",
+        "magic": "verdant",
+        "race": [
+            "elf"
+        ],
+        "power": 150,
+        "hp": 750,
+        "a1_power": 2500,
+        "a1_type": "melee poison",
+        "a1_init": 2,
+        "counter": 0,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 80
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 85,
+            "poison": 0,
+            "breath": 0,
+            "magic": 80,
+            "melee": 90,
+            "ranged": 50,
+            "lightning": 20,
+            "cold": 0,
+            "paralyse": 25,
+            "psychic": 25,
+            "holy": 90
+        },
+        "abilities": [
+            "racial enemy against treefolk 50%",
+            "endurance"
+        ]
+    },
+    {
+        "name": "Troglodyte",
+        "magic": "eradication",
+        "race": [
+            "reptile"
+        ],
+        "power": 22,
+        "hp": 160,
+        "a1_power": 200,
+        "a1_type": "poison",
+        "a1_init": 1,
+        "counter": 35,
+        "a2_power": 0,
+        "a2_type": "",
+        "a2_init": 0,
+        "spell_resistance": {
+            "ascendant": 0,
+            "verdant": 0,
+            "eradication": 0,
+            "nether": 0,
+            "phantasm": 0
+        },
+        "resistances": {
+            "missile": 0,
+            "fire": 0,
+            "poison": 0,
+            "breath": 0,
+            "magic": 0,
+            "melee": 0,
+            "ranged": 0,
+            "lightning": 0,
+            "cold": 0,
+            "paralyse": 0,
+            "psychic": 0,
+            "holy": 0
+        },
+        "abilities": [
+            "recruit speed 35%",
+            "scales"
+        ]
+    },
+    {
         "name": "Unholy Reaver",
         "magic": "nether",
         "race": [
@@ -3997,7 +4283,7 @@
         },
         "abilities": [
             "additional strike",
-            "racial enemy against elemental 50%",
+            "racial enemy against elemental 0%",
             "endurance",
             "fear",
             "marksmanship"
@@ -4050,7 +4336,7 @@
         "race": [
             "undead"
         ],
-        "power": 1858,
+        "power": 2058,
         "hp": 4500,
         "a1_power": 9000,
         "a1_type": "magic paralyse",
@@ -4384,7 +4670,7 @@
         "race": [
             "undead"
         ],
-        "power": 130,
+        "power": 160,
         "hp": 1000,
         "a1_power": 2400,
         "a1_type": "magic paralyse",
@@ -4426,7 +4712,7 @@
         "race": [
             "dragon"
         ],
-        "power": 150,
+        "power": 190,
         "hp": 1000,
         "a1_power": 800,
         "a1_type": "melee poison",

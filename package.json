@@ -2,22 +2,28 @@
   "name": "discord-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "build/src/index.js",
+  "main": "build/index.js",
+  "type": "module",
   "scripts": {
-    "build": "./node_modules/.bin/tsc --build",
-    "start": "node --es-module-specifier-resolution=node build/src/index.js"
+    "build": "tsc --build",
+    "start": "node --es-module-specifier-resolution=node build/index.js",
+    "sync:guildwar-units": "node ./src/sync-units.mjs --dataset=guild",
+    "sync:beta-units": "node ./src/sync-units.mjs --dataset=beta",
+    "sync:blitz-units": "node ./src/sync-units.mjs --dataset=blitz",
+    "sync:arch-units": "node ./src/sync-units.mjs --dataset=arch",
+    "sync:lightning-units": "node ./src/sync-units.mjs --dataset=lightning"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "14.21.0",
+    "discord.js": "^13.7.0",
     "dotenv": "^16.0.1",
-    "lodash": "^4.17.21",
-    "openai": "^5.10.1",
-    "tsx": "^4.19.1"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.188",
-    "typescript": "^4.8.4"
-  }
+    "ts-node": "^10.9.1",
+    "typescript": "^5.5.4"
+  },
+  "packageManager": "yarn@3.2.4+sha512.bb197bb586aabeca42ce9113e2235af3edaeac5797d26c99067e58d401d4eb43fbd51b644431434dd2a5f612ee65ffcd20262016c62f3608eb39fbfa6eeb1de7"
 }

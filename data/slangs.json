@@ -21,6 +21,9 @@
   "sw": "spirit warrior",
   "naga": "naga queen",
   "nq": "naga queen",
+  "uni": "penishorse",
+  "penishorse":"unicorn",
+
 
   "we": "water elemental",
   "ae": "air elemental",
@@ -32,5 +35,7 @@
   "ee": "earth elemental",
   "he": "high elf",
   "nix": "phoenix",
-  "ebd": "elven blade dancer"
+  "ebd": "elven blade dancer",
+
+  "bullfrog":"frog"
 }

@@ -2,3 +2,9 @@ node_modules/
 .env
 build/
 *.tsbuildinfo
+
+# Accidental tsc output next to sources (canonical build is build/)
+src/*.js
+src/*.js.map
+src/*.d.ts
+!src/types.d.ts
